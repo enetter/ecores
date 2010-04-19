@@ -42,7 +42,7 @@
 
 <li><a href="<?php echo get_option('home'); ?>/">Accueil</a></li>
 
-<?php wp_list_categories('sort_column=menu_order&exclude='.get_option('ecs_menucat').'&title_li='); ?>
+<?php wp_list_pages('sort_column=menu_order&exclude='.get_option('ecs_menupages').'&title_li='); ?>
 
 </ul>
 
