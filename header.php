@@ -6,7 +6,8 @@
 
 <title><?php bloginfo('name'); ?> <?php if ( is_single() ) { ?> &raquo; Blog Archive <?php } ?> <?php wp_title(); ?></title>
 
-<meta name="generator" content="WordPress <?php bloginfo('version'); ?>" /> <!-- leave this for stats -->
+<meta name="generator" content="WordPress <?php bloginfo('version'); ?>" /> <!-- leave this for stats -->
+
 <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="<?php bloginfo('rss2_url'); ?>" />
 <link rel="alternate" type="text/xml" title="RSS .92" href="<?php bloginfo('rss_url'); ?>" />
 <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="<?php bloginfo('atom_url'); ?>" />
@@ -26,11 +27,11 @@
 		<ul id="navpage-bar" class="clearfloat">
 		<li>&nbsp;</li>
 		
-		<?php wp_list_pages('sort_column=menu_order&exclude='.get_option('afr_menupages').'&title_li='); ?>
+		<?php wp_list_pages('sort_column=menu_order&exclude='.get_option('ecs_menupages').'&title_li='); ?>
 		</ul>
 	</div>
 </div>
-<?php if(get_option('afr_logo')<>""): ?><div id="head" class="clearfloat" style="background-image:url(<?php echo get_option('afr_logo'); ?>)"><?php else: ?><div id="head" class="clearfloat" style="background-image:url(<?php bloginfo('template_directory'); ?>/images/logo.png)"><?php endif; ?>
+<?php if(get_option('ecs_logo')<>""): ?><div id="head" class="clearfloat" style="background-image:url(<?php echo get_option('ecs_logo'); ?>)"><?php else: ?><div id="head" class="clearfloat" style="background-image:url(<?php bloginfo('template_directory'); ?>/images/logo.png)"><?php endif; ?>
 
 <div class="clearfloat">
 	<div id="logo" class="left">
@@ -49,7 +50,7 @@
 
 <li><a href="<?php echo get_option('home'); ?>/">Accueil</a></li>
 
-<?php wp_list_categories('sort_column=menu_order&exclude='.get_option('afr_menucat').'&title_li='); ?>
+<?php wp_list_categories('sort_column=menu_order&exclude='.get_option('ecs_menucat').'&title_li='); ?>
 
 </ul>
 

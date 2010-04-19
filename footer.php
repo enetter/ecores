@@ -26,6 +26,6 @@
 <!-- <?php echo get_num_queries(); ?> queries. <?php timer_stop(1); ?> seconds. -->
 
 </div>
-<?php if ( get_option('afr_google_analytics') <> "" ) { echo stripslashes(get_option('afr_google_analytics')); } ?>
+<?php if ( get_option('ecs_google_analytics') <> "" ) { echo stripslashes(get_option('ecs_google_analytics')); } ?>
 </body>
 </html>

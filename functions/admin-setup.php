@@ -1,7 +1,7 @@
 <?php
 
 // Options panel stylesheet
-function afr_admin_head() { 
+function ecs_admin_head() { 
 	echo '<link rel="stylesheet" type="text/css" href="'.get_bloginfo('template_directory').'/functions/admin-style.css" media="screen" />';
 }
 

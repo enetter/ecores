@@ -1,5 +1,5 @@
 <?php
-function afr_add_admin() {
+function ecs_add_admin() {
 
 	 global $themename, $options;
 	
@@ -41,7 +41,7 @@ function afr_add_admin() {
 
 	}
 
-add_theme_page("Options ".$themename,"Options ".$themename, 'edit_themes', basename(__FILE__), 'afr_page');
+add_theme_page("Options ".$themename,"Options ".$themename, 'edit_themes', basename(__FILE__), 'ecs_page');
 
 }
 ?>

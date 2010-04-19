@@ -1,6 +1,7 @@
-﻿Arthemia-fr par Michael Huntalung
-Traduction française et adaptation (c) 2009 Emmanuel NETTER pour cplusn.com
-Version 0.6
+EcoRes par Emmanuel Netter
+basé sur Arthemia par Michael Huntalung
+(c) 2010 Emmanuel NETTER pour cplusn.com
+Version 0.5
 Distribué sous licence GPL v3 (voir le fichier gpl-3.0.txt présent dans le 
 répertoire d'installation du programme).
 
@@ -8,15 +9,15 @@ répertoire d'installation du programme).
 Instructions d’installation
 Comme pour tous les thèmes Wordpress, l’installation est relativement simple : 
 téléchargez le fichier zip dont le lien est disponible au bas de cette page, 
-puis décompressez-le. Copiez ensuite le répertoire arthemia-fr dans le 
+puis décompressez-le. Copiez ensuite le répertoire ecores dans le 
 répertoire wp-content/themes sur votre serveur, en utilisant par exemple un 
 client FTP. Connectez-vous à votre interface d’administration Wordpress, et 
-dans la section Apparence, vous devriez voir apparaître le thème Arthemia-fr. 
+dans la section Apparence, vous devriez voir apparaître le thème EcoRes. 
 Il vous suffit alors de le sélectionner pour l’activer sur votre site.
 
 Outils complémentaires
 Si vous souhaitez voir apparaître le nombre d’affichage de vos pages dans 
-Arthemia-fr, il faut que vous l’extension WP-PostViews de Lester Chan. De la 
+EcoRes, il faut que vous l’extension WP-PostViews de Lester Chan. De la 
 même façon, pour avoir un affichage plus sympathique de la pagination de votre 
 blog, il faut installer WP-PageNavi du même auteur.
 
@@ -29,7 +30,7 @@ votre site ; les quatre derniers articles de la catégorie A l’affiche sont
 listés en haut à droite de la page d’accueil. Attention, les articles de ces
 catégories n’apparaissent pas ailleurs sur la page d’accueil.
 
-Cliquez ensuite dans la section Apparence sur l’item « Options Arthemia-fr » 
+Cliquez ensuite dans la section Apparence sur l’item « Options EcoRes » 
 pour accéder aux options de paramétrage du thème. Celle-ci sont regroupées en 
 trois sections, dont une description succinte est donnée ci-dessous :
 
@@ -58,5 +59,5 @@ en partant de la racine de votre site. Par exemple, si vous utilisez une image
 déposée par Wordpress, ce sera wp-content/uploads/2009/05/monimage.jpg.
 
 Support
-Le dépôt de code d’Arthemia-se trouve sur github.com/enetter/Arthemia-fr. Les 
-incidents sont à remonter à github.com/enetter/Arthemia-fr/issues.
+Le dépôt de code d’EcoRes se trouve sur github.com/enetter/ecores. Les 
+incidents sont à remonter à github.com/enetter/ecores/issues.

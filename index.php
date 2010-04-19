@@ -6,7 +6,7 @@
 	
 		<div id="headline"><div id="headers">A la une</div>
 	
-		<?php query_posts("showposts=1&cat='".get_option('afr_cat_a_la_une')."'"); ?>
+		<?php query_posts("showposts=1&cat='".get_option('ecs_cat_a_la_une')."'"); ?>
 		<?php while (have_posts()) : the_post(); ?>	
 	
 	<div class="title"><a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a></div>
@@ -24,7 +24,7 @@ alt="<?php the_title(); ?>" class="left" width="300px" height="275px"  /></a>
 	<div id="featured">
 	<div id="headers">A l'affiche</div>
 
-	<?php query_posts("showposts=4&cat='".get_option('afr_cat_a_l_affiche')."'"); $i = 1; ?>
+	<?php query_posts("showposts=4&cat='".get_option('ecs_cat_a_l_affiche')."'"); $i = 1; ?>
 
 		
       	<?php while (have_posts()) : the_post(); ?>
@@ -61,7 +61,7 @@ alt="<?php the_title(); ?>" class="left" width="100px" height="65px"  /></a>
 	
 	<?php
       $page = (get_query_var('paged')) ? get_query_var('paged') : 1;
-      query_posts("cat=-".get_option('afr_cat_a_la_une').",-".get_option('afr_cat_a_l_affiche')."&paged=$page&posts_per_page=.get_option('posts_per_page')"); ?>
+      query_posts("cat=-".get_option('ecs_cat_a_la_une').",-".get_option('ecs_cat_a_l_affiche')."&paged=$page&posts_per_page=.get_option('posts_per_page')"); ?>
 	
 	<?php while (have_posts()) : the_post(); ?>		
 

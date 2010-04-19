@@ -58,9 +58,9 @@ function custom_time_comments_views() {
 ////////////////////////////////
 
 // VARIABLES
-$themename = "Arthemia-fr";
-$shortname = "afr";
-$manualurl = 'http://www.cplusn.com/support/arthemia-fr/';
+$themename = "EcoRes";
+$shortname = "ecs";
+$manualurl = 'http://www.cplusn.com/support/ecores/';
 $functions_path = TEMPLATEPATH . '/functions/';
 // $includes_path = TEMPLATEPATH . '/includes/';
 
@@ -72,7 +72,7 @@ require_once ($functions_path . '/admin-options.php');
 
 
 // Admin Panel
-function afr_add_admin() {
+function ecs_add_admin() {
 
 	 global $themename, $options;
 	
@@ -114,11 +114,11 @@ function afr_add_admin() {
 
 	}
 
-add_theme_page("Options ".$themename, "Options ".$themename, 'edit_themes', basename(__FILE__), 'afr_page');
+add_theme_page("Options ".$themename, "Options ".$themename, 'edit_themes', basename(__FILE__), 'ecs_page');
 
 }
 
-function afr_page (){
+function ecs_page (){
 
 		global $options, $themename, $manualurl;
 		
@@ -285,12 +285,12 @@ function afr_page (){
 
 };
 
-function afr_wp_head() { 
+function ecs_wp_head() { 
      $style = $_REQUEST[style];
      if ($style != '') {
           ?> <link href="<?php bloginfo('template_directory'); ?>/styles/<?php echo $style; ?>.css" rel="stylesheet" type="text/css" /><?php 
      } else { 
-          $stylesheet = get_option('afr_stylesheet');
+          $stylesheet = get_option('ecs_stylesheet');
           if($stylesheet != ''){
                ?><link href="<?php bloginfo('template_directory'); ?>/styles/<?php echo $stylesheet; ?>" rel="stylesheet" type="text/css" /><?php         
           } else {
@@ -299,9 +299,9 @@ function afr_wp_head() {
      }     
 }
 
-add_action('wp_head', 'afr_wp_head');
-add_action('admin_menu', 'afr_add_admin');
-add_action('admin_head', 'afr_admin_head');	
+add_action('wp_head', 'ecs_wp_head');
+add_action('admin_menu', 'ecs_add_admin');
+add_action('admin_head', 'ecs_admin_head');	
 
 
 ///////////////////////////////
