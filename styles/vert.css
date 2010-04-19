@@ -326,12 +326,12 @@ h3.authors {
 	}
 
 #headline {
-	width:590px;
+	width:580px;
 	float:left;
 	padding:10px;
 	font-size:1.05em;
 	line-height:1.5em;
-	margin:0;
+	margin-left:10px;
 	background: #FFF;
 	}
 	
@@ -448,12 +448,14 @@ h3.authors {
 	}
 
 #front-list {
-	width:590px;
+	width:580px;
 	background:#fff;
 	padding:10px;
 	font-size:1.05em;
 	line-height:1.75em;
 	float:left;
+  margin-top: 10px;
+  margin-left:210px;
 	}
 
 #front-list a:hover{
@@ -530,12 +532,13 @@ h3.authors {
 /* Content Page*/
 
 #content {
-	width:590px;
+	width:580px;
+  margin-left: 210px;
 	background:#fff;
 	padding:10px;
 	font-size:1.05em;
 	line-height:1.75em;
-	float:left;
+	float:none;
 	min-height:400px;
 	}
 
@@ -665,20 +668,11 @@ h3.authors {
 	padding:3px 10px;
 	}
 
-#sidebar-top, #sidebar-bottom {
+#sidebar-top {
 	width:100px;
 	float:right;
 	padding:0px 10px 10px 10px;
 	background:#fff;
-	}
-
-#sidebar-bottom, #sidebar-middle {
-	margin-top:10px;
-	}
-
-#sidebar-middle {
-	width:120px;
-	float:right;
 	}
 
 #sidebar li {
@@ -721,20 +715,11 @@ h3.authors {
 	padding:3px 10px;
 	}
 
-#sidebar-nav-top, #sidebar-nav-bottom {
+#sidebar-nav-top {
 	width:180px;
 	float:left;
 	padding:0px 10px 10px 10px;
 	background:#fff;
-	}
-
-#sidebar-nav-bottom, #sidebar-nav-middle {
-	margin-top:10px;
-	}
-
-#sidebar-nav-middle {
-	width:200px;
-	float:left;
 	}
 
 
@@ -752,14 +737,6 @@ h3.authors {
 	display:block;
 	padding:2px 0px 0px 13px;
 	background:url(images/sub.png) no-repeat 0 0px;
-	}
-
-#sidebar-nav-ads {
-	width:180px;
-	float:left;
-	margin-bottom:10px;
-	padding:0px 10px 10px 10px;
-	background:#fff;
 	}
 
 

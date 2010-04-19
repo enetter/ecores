@@ -1,4 +1,6 @@
 <?php get_header(); ?>
+<?php get_sidebar('left'); ?>
+<?php get_sidebar('right'); ?>
 
 	<div id="content">
 	
@@ -29,6 +31,6 @@
 	<?php endwhile; endif; ?>
 
 	</div>
-<?php get_sidebar('nav'); ?>
-<?php get_sidebar(); ?>
+
+
 <?php get_footer(); ?>

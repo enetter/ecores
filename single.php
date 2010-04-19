@@ -1,4 +1,6 @@
 <?php get_header(); ?>
+<?php get_sidebar('left'); ?>
+<?php get_sidebar('right'); ?>
 
 	<div id="content">
 	
@@ -29,7 +31,8 @@
 		<div class="breadcrumbs"><p><?php the_tags('Tags : ',', '); ?></p></div>
 	</div>
 	<div id="tools">
-		<div style="float:right;display:block;"><?php if(function_exists('the_ratings')) { the_ratings(); } ?></div>	
+		<div style="float:right;display:block;"><?php if(function_exists('the_ratings')) { the_ratings(); } ?></div>
+	
 	</div>
 
 	</div>
@@ -46,5 +49,4 @@
 
 	</div>
 
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>

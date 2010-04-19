@@ -22,15 +22,7 @@
 
 </head>
 <body>
-<div id="headpage" class="clearfloat">
-	<div id="pages" class="right">
-		<ul id="navpage-bar" class="clearfloat">
-		<li>&nbsp;</li>
-		
-		<?php wp_list_pages('sort_column=menu_order&exclude='.get_option('ecs_menupages').'&title_li='); ?>
-		</ul>
-	</div>
-</div>
+
 <?php if(get_option('ecs_logo')<>""): ?><div id="head" class="clearfloat" style="background-image:url(<?php echo get_option('ecs_logo'); ?>)"><?php else: ?><div id="head" class="clearfloat" style="background-image:url(<?php bloginfo('template_directory'); ?>/images/logo.png)"><?php endif; ?>
 
 <div class="clearfloat">

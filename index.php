@@ -1,5 +1,6 @@
 <?php get_header(); ?>
-	
+<?php get_sidebar('left'); ?>
+<?php get_sidebar('right'); ?>
 	<?php if(!is_paged()) { ?>
 
 	<div id="top" class="clearfloat">
@@ -21,32 +22,7 @@ alt="<?php the_title(); ?>" class="left" width="300px" height="275px"  /></a>
 	<?php endwhile; ?>
 		</div>
 		
-	<div id="featured">
-	<div id="headers">A l'affiche</div>
 
-	<?php query_posts("showposts=4&cat='".get_option('ecs_cat_a_l_affiche')."'"); $i = 1; ?>
-
-		
-      	<?php while (have_posts()) : the_post(); ?>
-	<div class="clearfloat">
-	<?php $values = get_post_custom_values("Image");
-	if (isset($values[0])) { ?>
-      <a href="<?php the_permalink() ?>" rel="bookmark" title="Lien permanent vers <?php the_title(); ?>">
-	<img src="<?php echo bloginfo('template_url'); ?>/scripts/timthumb.php?src=<?php
-$values = get_post_custom_values("Image"); echo $values[0]; ?>&w=100&h=65&zc=1&q=100"
-alt="<?php the_title(); ?>" class="left" width="100px" height="65px"  /></a>
-      <?php } ?>
-	<div class="info"><a href="<?php the_permalink() ?>" rel="bookmark" class="title"><?php the_title(); ?></a>
-<div class="meta"><? echo custom_time_comments_views() ?></div>	
-	
-</div>
-    	</div>
-	
-      <?php endwhile; ?>
-
-	</div>
-
-</div>	
 
 	<div >
 
@@ -98,10 +74,8 @@ alt="<?php the_title(); ?>" class="left" width="150px" height="150px"  /></a>
 	</div>
 	
 	</div>
-		
-
-	<?php get_sidebar(); ?>
 
 	</div>	
+</div>
 
 <?php get_footer(); ?>

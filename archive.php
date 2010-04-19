@@ -1,4 +1,6 @@
 <?php get_header(); ?>
+<?php get_sidebar('left'); ?>
+<?php get_sidebar('right'); ?>
 
 	<div id="content">
 	
@@ -71,5 +73,5 @@ alt="<?php the_title(); ?>" class="left" width="150px" height="150px"  /></a>
 	</div>
 
 
-<?php get_sidebar(); ?>
+
 <?php get_footer(); ?>
