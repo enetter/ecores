@@ -24,9 +24,7 @@
 	</div>
 	<div><p><?php the_tags(); ?></p></div>
 		
-	<div id="comments">
-	<?php comments_template(); ?>
-	</div>
+
 
 	<?php endwhile; endif; ?>
 
