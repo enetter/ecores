@@ -44,7 +44,7 @@
 	<?php edit_post_link('Modifier cette page.', '<p>', '</p>'); ?>
 
 	</div>
-	<div><p><?php the_tags(); ?></p></div>
+	
 		
 
 
