@@ -23,7 +23,7 @@ function custom_trim_excerpt($text) { // Fakes an excerpt if needed
 		$text = apply_filters('the_content', $text);
 		$text = str_replace(']]>', ']]&gt;', $text);
 		$text = strip_tags($text);
-		$excerpt_length = apply_filters('excerpt_length', 90);
+		$excerpt_length = apply_filters('excerpt_length', 20);
 		$words = explode(' ', $text, $excerpt_length + 1);
 		if (count($words) > $excerpt_length) {
 			array_pop($words);
@@ -67,7 +67,8 @@ require_once ($functions_path . '/admin-setup.php');
 
 // Options panel settings
 require_once ($functions_path . '/admin-options.php');
-
+//
+add_theme_support( 'post-thumbnails' ); 
 
 // Admin Panel
 function ecs_add_admin() {

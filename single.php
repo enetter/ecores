@@ -1,8 +1,7 @@
 <?php get_header(); ?>
-<?php get_sidebar('left'); ?>
-<?php get_sidebar('right'); ?>
 
-	<div id="content">
+
+	<div id="content" class="span9">
 	
 	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
@@ -48,5 +47,5 @@
 	<?php endif; ?>
 
 	</div>
-
+<?php get_sidebar('right'); ?>
 <?php get_footer(); ?>

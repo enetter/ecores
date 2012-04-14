@@ -1,77 +1,46 @@
 <?php get_header(); ?>
-<?php get_sidebar('left'); ?>
-<?php get_sidebar('right'); ?>
 
-	<div id="content">
+
+	<div id="content" class="span9">
 	
 	<?php if (have_posts()) : ?>
 	
-		<span class="breadcrumbs"><a href="<?php echo get_option('home'); ?>/">Accueil</a> &raquo; Archive</span>
 	
  	<?php $post = $posts[0]; // Hack. Set $post so that the_date() works. ?>
+ 	<div class="page-header">
+	 	<?php /* If this is a category archive */ if (is_category()) { ?><h1><?php single_cat_title(); ?></h1Ò>
 
- 	<?php /* If this is a category archive */ if (is_category()) { ?><h2 class="title">Articles de la cat&eacute;gorie <?php single_cat_title(); ?></h2>
+		<?php /* If this is a tagged archive */ } elseif (is_tag()) { ?>	<h1>Articles marqu&eacute;s comme : <?php single_tag_title(); ?></h2>
 
-	<?php /* If this is a tagged archive */ } elseif (is_tag()) { ?>	<h2 class="title">Articles marqu&eacute;s comme : <?php single_tag_title(); ?></h2>
+	 	<?php /* If this is a daily archive */ } elseif (is_day()) { ?>	<h2 class="title">Articles du jour : <?php the_time('j F Y'); ?></h2>
 
- 	<?php /* If this is a daily archive */ } elseif (is_day()) { ?>	<h2 class="title">Articles du jour : <?php the_time('j F Y'); ?></h2>
+	 	<?php /* If this is a monthly archive */ } elseif (is_month()) { ?><h2 class="title">Articles du mois : <?php the_time('F Y'); ?></h2>
+	 	
+		<?php /* If this is a yearly archive */ } elseif (is_year()) { ?>
+		<h2 class="title">Articles de l'ann&eacute; : <?php the_time('Y'); ?></h2>
 
- 	<?php /* If this is a monthly archive */ } elseif (is_month()) { ?><h2 class="title">Articles du mois : <?php the_time('F Y'); ?></h2>
- 	
-	<?php /* If this is a yearly archive */ } elseif (is_year()) { ?>
-	<h2 class="title">Articles de l'ann&eacute; : <?php the_time('Y'); ?></h2>
-
- 	<?php /* If this is a paged archive */ } elseif (isset($_GET['paged']) && !empty($_GET['paged'])) { ?>
-	<h2 class="title">Archives</h2>
+	 	<?php /* If this is a paged archive */ } elseif (isset($_GET['paged']) && !empty($_GET['paged'])) { ?>
+		<h2 class="title">Archives</h2>
  	 <?php } ?>
-
-	<div id="archive">
+ 	</div>	
 		
-	<?php while (have_posts()) : the_post(); ?>
+ 	<?php while (have_posts()) : the_post(); ?>	
+ 			<?php include (TEMPLATEPATH . '/list_post.php'); ?>
+ 	<?php endwhile; ?>
+
+ 	<?php include (TEMPLATEPATH . '/navigation.php'); ?>
 	
-			<div class="clearfloat">
-	<h3 class=cat_title><?php the_category(', '); ?> &raquo</h3>
-	<div class="title"><a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a></div>
-	<div class="meta">[<?php the_time('j M Y') ?> | <?php comments_popup_link('Pas de commentaires', 'Un commentaire', '% commentaires');?>]</div>	
-	
-	<div class="spoiler">
-	<?php	$values = get_post_custom_values("Image");
-	if (isset($values[0])) { ?>
-      <a href="<?php the_permalink() ?>" rel="bookmark" title="Lien permanent vers <?php the_title(); ?>">
-	<img src="<?php echo bloginfo('template_url'); ?>/scripts/timthumb.php?src=<?php
-$values = get_post_custom_values("Image"); echo $values[0]; ?>&w=150&h=150&zc=1&q=100"
-alt="<?php the_title(); ?>" class="left" width="150px" height="150px"  /></a>
-      <?php } ?>
-
-	<?php the_excerpt(); ?>
-	</div>
-
-	</div>
-
-	<?php endwhile; ?>
-	
-	<div class="navigation">
-
-	<?php if(function_exists('wp_pagenavi')) { wp_pagenavi(); } 
-			else { ?>
-
-			<div class="right"><?php next_posts_link('Page suivante &raquo;') ?></div>
-			<div class="left"><?php previous_posts_link('&laquo; Page pr&eacute;c&eacute;dente') ?></div>
-			<?php } ?>
-
-
-	</div>
 	
 	<?php else : ?>
 	
 	<h2 class="title">Aucun article trouv&eacute;. Essayez une recherche diff&eacute;rente ?</h2>
 	
 	<?php endif; ?>
-
-	</div>
 	
 	</div>
 
+<?php get_sidebar('right'); ?>
 
+</div>
 
 <?php get_footer(); ?>

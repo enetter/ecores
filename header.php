@@ -1,55 +1,95 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes(); ?>>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
 
 <head profile="http://gmpg.org/xfn/11">
-<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
+	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 
-<title><?php bloginfo('name'); ?> <?php if ( is_single() ) { ?> &raquo; Blog Archive <?php } ?> <?php wp_title(); ?></title>
+	<title><?php bloginfo('name'); ?> <?php if ( is_single() ) { ?> &raquo; Blog Archive <?php } ?> <?php wp_title(); ?></title>
 
-<meta name="generator" content="WordPress <?php bloginfo('version'); ?>" /> <!-- leave this for stats -->
+	<meta name="generator" content="WordPress <?php bloginfo('version'); ?>" /> <!-- leave this for stats -->
 
-<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="<?php bloginfo('rss2_url'); ?>" />
-<link rel="alternate" type="text/xml" title="RSS .92" href="<?php bloginfo('rss_url'); ?>" />
-<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="<?php bloginfo('atom_url'); ?>" />
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="<?php bloginfo('rss2_url'); ?>" />
+	<link rel="alternate" type="text/xml" title="RSS .92" href="<?php bloginfo('rss_url'); ?>" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="<?php bloginfo('atom_url'); ?>" />
 
-<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
+	<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 
 
-<link rel="icon" href="<?php bloginfo('template_directory'); ?>/images/favicon.ico" />
-<link rel="shortcut icon" href="<?php bloginfo('template_directory'); ?>/images/favicon.ico" />
-
-<?php wp_head(); ?>
+	<link rel="icon" href="<?php bloginfo('template_directory'); ?>/images/favicon.ico" />
+	<link rel="shortcut icon" href="<?php bloginfo('template_directory'); ?>/images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/bootstrap/css/bootstrap-responsive.min.css">
 
 </head>
 <body>
+	<div id="logo" class="container">
+		<div class="hero-unit">
+			<h1><?php bloginfo('title'); ?></h1>
+			<p ><?php bloginfo('description'); ?></p>
+		</div>
+	</div>
+	<div id="navbar" class="container">
+	<div class="navbar">
+		<div class="navbar-inner">
+			<div class="container">
+				<div class="nav-collapse">
+				<ul class="nav">
+					<li><a href="<?php echo get_option('home'); ?>/">Accueil</a></li>
+					 <?php 
+  					$args ='parent=0&exclude='.get_option('ecs_cat_a_l_affiche').','.get_option('ecs_cat_a_la_une').'&orderby=name';
+					 	$categories = get_categories($args); 
+					  foreach ($categories as $category) { ?>
+						 	<li class="dropdown" id="menu<?php echo $category->term_id ?>">
+						    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu<?php echo $category->term_id ?>">
+						      <?php echo $category->name ?>
+						      <b class="caret"></b>
+						    </a>
+						    <ul class="dropdown-menu">
+						    	<?php 
+						    		$childnb = count(get_term_children( $category->term_id, 'category' ));
+						    		$allcats = get_categories();
+						    		foreach ($allcats as $subcat) { ?>
+						    			<?php if ($subcat->parent == $category->term_id) { ?>
+						    				<li><a href="<?php echo esc_url(get_category_link($subcat->term_id)); ?>"><?php echo $subcat->name ?></a></li>
+						    			<?php }	?>
+						    		<?php } ?>
+						    </ul>
+						  </li>
+					 <?php } ?>
+					 </ul>
+					<?php include (TEMPLATEPATH . '/searchform.php'); ?>
+					
+					<ul class="nav pull-right">
+					 	<li class="dropdown" id="menupages">
+					    <a class="dropdown-toggle" data-toggle="dropdown" href="#menupages">
+					      Infos
+					      <b class="caret"></b>
+					    </a>
+					    <ul class="dropdown-menu">
+					    	<?php 
+					    		$args = 'parent='.$category->term_id.'hierarchical=false';
+					    		$pages = get_pages();
+					    		foreach ($pages as $page) { ?>
+					    		 	<li><a href="#"><?php echo $page->post_title ?></a></li>
+					    		<?php } ?>
+					    </ul>
+					  </li>
+					
+					
+				</ul>
+				</div>
+			</div>
+		</div>
+</div>
+</div>
 
-<?php if(get_option('ecs_logo')<>""): ?><div id="head" class="clearfloat" style="background-image:url(<?php echo get_option('ecs_logo'); ?>)"><?php else: ?><div id="head" class="clearfloat" style="background-image:url(<?php bloginfo('template_directory'); ?>/images/logo.png)"><?php endif; ?>
+			
 
-<div class="clearfloat">
-	<div id="logo" class="left">
-	<div id="blogtitle"><?php bloginfo('title'); ?></div>
-	
-	<div id="tagline"><?php bloginfo('description'); ?></div>
+		</div>
+
 	</div>
 
-	
+	<div id="page" class="container">
+		<div class="row">
 
-</div>
-
-<div id="navbar" class="clearfloat">
-
-<ul id="page-bar" class="left clearfloat">
-
-<li><a href="<?php echo get_option('home'); ?>/">Accueil</a></li>
-
-<?php wp_list_pages('sort_column=menu_order&depth=1&exclude='.get_option('ecs_menupages').'&title_li='); ?>
-
-</ul>
-
-<?php include (TEMPLATEPATH . '/searchform.php'); ?>
-
-</div>
-
-</div>
-
-<div id="page" class="clearfloat">
+		

@@ -1,81 +1,46 @@
 <?php get_header(); ?>
-<?php get_sidebar('left'); ?>
-<?php get_sidebar('right'); ?>
+<div class="span9">
 	<?php if(!is_paged()) { ?>
-
-	<div id="top" class="clearfloat">
-	
-		<div id="headline"><div id="headers">A la une</div>
-	
-		<?php query_posts("showposts=1&cat='".get_option('ecs_cat_a_la_une')."'"); ?>
-		<?php while (have_posts()) : the_post(); ?>	
-	
-	<div class="title"><a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a></div>
-	<div class="meta"><? echo custom_time_comments_views() ?></div>	
-	<?php $values = get_post_custom_values("Headline");?>
- 	<a href="<?php the_permalink() ?>" rel="bookmark" title="Lien permanent vers <?php the_title(); ?>">
-<img src="<?php echo bloginfo('template_url'); ?>/scripts/timthumb.php?src=<?php
-$values = get_post_custom_values("Image"); echo $values[0]; ?>&w=300&h=275&zc=1&q=100"
-alt="<?php the_title(); ?>" class="left" width="300px" height="275px"  /></a>
-	<?php the_excerpt(); ?>
-	<div class="followup"><a href="<?php the_permalink() ?>" rel="bookmark" title="Lien permanent vers <?php the_title(); ?>">Lire la suite &raquo;</a></div>
-	<?php endwhile; ?>
-		</div>
-		
-
-
-	<div >
-
-&nbsp;
-	</div>
-
+		<?php include (TEMPLATEPATH . '/carousel.php'); ?>
 	<?php } ?>
-
-	<div id="bottom" class="clearfloat">
-		
-	<div id="front-list">	
-	
-	<?php
-      $page = (get_query_var('paged')) ? get_query_var('paged') : 1;
-      query_posts("cat=-".get_option('ecs_cat_a_la_une').",-".get_option('ecs_cat_a_l_affiche')."&paged=$page&posts_per_page=.get_option('posts_per_page')"); ?>
-	
-	<?php while (have_posts()) : the_post(); ?>		
-
-	<div class="clearfloat">
-	<h3 class=cat_title><?php the_category(', '); ?> &raquo</h3>
-	<div class="title"><a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a></div>
-	<div class="meta"><? custom_time_comments_views() ?></div>	
-	
-	<div class="spoiler">
-	<?php	$values = get_post_custom_values("Image");
-	if (isset($values[0])) { ?>
-      <a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title(); ?>">
-	<img src="<?php echo bloginfo('template_url'); ?>/scripts/timthumb.php?src=<?php
-$values = get_post_custom_values("Image"); echo $values[0]; ?>&w=150&h=150&zc=1&q=100"
-alt="<?php the_title(); ?>" class="left" width="150px" height="150px"  /></a>
-      <?php } ?>
-
-    <?php the_excerpt(); ?>
-	<div class="followup"><a href="<?php the_permalink() ?>" rel="bookmark" title="Lien permanent vers <?php the_title(); ?>">Lire la suite &raquo;</a></div>
+	<div class="page-header">
+	  <h1>Derniers articles</h1>
 	</div>
+	<div class="span9">
+			<?php
+			$page = (get_query_var('paged')) ? get_query_var('paged') : 1;
+			query_posts("cat=-".get_option('ecs_cat_a_la_une').",-".get_option('ecs_cat_a_l_affiche')."&paged=$page&posts_per_page=.get_option('posts_per_page')"); ?>
+			<?php $nbposts=0 ?>
+			<?php while (have_posts()) : the_post(); ?>
 
-	</div>
-		
-      <?php endwhile; ?>
-
-	<div class="navigation">
-		<?php if(function_exists('wp_pagenavi')) { wp_pagenavi(); } 
-			else { ?>
-
-			<div class="right"><?php next_posts_link('Page suivante &raquo;') ?></div>
-			<div class="left"><?php previous_posts_link('&laquo; Page pr&eacute;c&eacute;dente') ?></div>
+			<?php if ($nbposts % 3 == 0) { ?>
+			<div class="row">
+				<ul class="thumbnails">
+				<?php } ?>
+				<li class="span3">
+					<div class="thumbnail">
+					<a href="">
+						<img src="http://placehold.it/260x180" alt="">
+					</a>
+					<div class="caption" style="height:120px">
+					<h5><?php the_title(); ?></h5>
+					<?php the_excerpt(); ?>
+					</div>
+					</div>
+				</li>
+				<?php if ($nbposts % 3 == 2) { ?>
+				</ul>
+			</div>
 			<?php } ?>
-
-	</div>
+			<?php if ($nbposts == 8) { break; }?>
+			<?php $nbposts=$nbposts+1 ?>
+		<?php endwhile; ?>
 	
 	</div>
-
-	</div>	
+	
+	<?php include (TEMPLATEPATH . '/navigation.php'); ?>
 </div>
+
+	<?php get_sidebar('right'); ?>
 
 <?php get_footer(); ?>
