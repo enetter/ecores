@@ -61,9 +61,13 @@ function get_custom_thumbnail($post) {
 	} else
 	{
 		$image_url = bloginfo('template_directory').'/images/placeholder.png';
-		$image_url = "http://placehold.it/260x180";
+		$image_url = "http://placehold.it/870x4500";
 	}
+	if (is_array($image_url)) {
+		$image_url = $image_url[0];
+	} 
 	return $image_url;
+
 }
 
 

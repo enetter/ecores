@@ -57,7 +57,9 @@
 <script src="<?php bloginfo('template_directory'); ?>/bootstrap/js/bootstrap-carousel.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/bootstrap/js/bootstrap-dropdown.js"></script>
 <script type="text/javascript">
-	$('#top_carousel').carousel();
-	$('.dropdown-toggle').dropdown();
+	$(function(){
+		$('#top_carousel').carousel();
+		$('.dropdown-toggle').dropdown();
+	});
 </script>
 </html>
