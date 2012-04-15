@@ -65,8 +65,8 @@ if(strlen($src) && file_exists( $src ) ) {
 	$height = imagesy( $image );
 
 	// don't allow new width or height to be greater than the original
-	if( $new_width > $width ) { $new_width = $width; }
-	if( $new_height > $height ) { $new_height = $height; }
+	// if( $new_width > $width ) { $new_width = $width; }
+	// if( $new_height > $height ) { $new_height = $height; }
 
 	// generate new w/h if not provided
 	if( $new_width && !$new_height ) {

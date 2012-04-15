@@ -42,7 +42,9 @@
 <script src="<?php bloginfo('template_directory'); ?>/bootstrap/js/bootstrap-carousel.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/bootstrap/js/bootstrap-dropdown.js"></script>
 <script type="text/javascript">
-	$('.carousel').carousel();
+	$('#top_carousel').carousel({
+  	interval: 4000
+	});
 	$('.dropdown-toggle').dropdown();
 </script>
 </html>

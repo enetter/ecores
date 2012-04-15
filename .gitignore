@@ -1,1 +1,3 @@
 .geanyprj
+scripts/cache/*
+scripts/timthumb_cache/*
