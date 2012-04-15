@@ -10,4 +10,49 @@ The CSS, XHTML and design is released under GPL:
 http://www.opensource.org/licenses/gpl-license.php
 */
 
+@import url('bootstrap/css/bootstrap.css');
+@import url('bootstrap/css/bootstrap-responsive.css');
 
+.navbar-inner {
+	-webkit-border-radius: 0; 
+	-moz-border-radius: 0; 
+	border-radius: 0;
+}
+
+.header, .footer {
+	margin-bottom: 0px;
+	padding:30px;
+	color: #fff;
+	-webkit-border-radius: 0; 
+	-moz-border-radius: 0; 
+	border-radius: 0;
+}
+
+.header {
+	background-image: url('images/logo.jpg');
+}
+
+.footer {
+	background-color: #555;
+	/*color: #bbb;*/
+}
+
+.footer ul {
+	list-style: none;
+	margin-left: 0;
+}
+.footer p, ul {
+	font-size: 14px;
+	font-weight: 300;
+	line-height: 20px;
+}
+/*.footer p, h3 {
+	color: white;
+}*/
+.footer a {
+	color: #ddd;
+}
+
+.poweredby {
+	text-align: center;
+}

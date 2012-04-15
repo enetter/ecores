@@ -17,105 +17,70 @@
 
 <!-- You can start editing here. -->
 
-
-<?php if ($comments) : ?>
-	<h3 id="comments"><?php comments_number('Pas de commentaires', 'Un commentaire', '% commentaires');?> <a href="#respond" title="<?php _e("Laisser un commentaire"); ?>">&raquo;</a></h3>
-<ul class="commentlist">
-
-	<?php foreach ($comments as $comment) : ?>
+<div class="row">
+	<div class="span9">
+		<?php if ($comments) : /* If there are comments */?>
+			<h2 id="comments"><?php comments_number('Pas de commentaires', 'Un commentaire', '% commentaires');?> </h2>
+			<p>
+				<?php foreach ($comments as $comment) : /* Loop through comments */ ?>
+					<?php 
+						$isByAuthor = false;
+						if($comment->comment_author_email == get_the_author_email()) {
+						$isByAuthor = true;
+					}?>
+					<div class="row">
+						<div class="span1">
+							<?php echo get_avatar( $comment, $size = '55' ); ?>
+						</div>
+						<div class="span8">
+							<blockquote>
+								<?php if ($comment->comment_approved == '0') : ?>
+									<span class="label label-warning pull-right">Votre commentaire est en attente de mod&eacute;ration</span>
+								<?php endif; ?>
+							  <p><?php comment_text() ?></p>
+							  <small><a href="<?php comment_author_url(); ?>" target="_blank"><?php comment_author(); ?></a>, le 
+							  	<?php comment_date('j F Y') ?> &agrave; <?php comment_time('H:m') ?></small>
+							  </blockquote>
+						</div>	
+					</div>
+				<?php endforeach; /* end for each comment */ ?>
+			</p>
+			<hr>
+		<?php else : // this is displayed if there are no comments so far ?>
+		<?php endif; /* end if comments */ ?>
+		<?php if ('open' != $post->comment_status) : // comments are closed ?>
+			<span class="label label-important pull-right">Les commentaires sont ferm&eacute;s</span>
+	 	<?php else : // comments are opened ?>
+			<div class="row">
+				<div class="span9">
+					<form class="well" action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="commentform">
+						<h3>Laissez un commentaire</h3>
+						<?php if ( $user_ID ) : ?>
+							<p>Connect&eacute; en tant que <a href="<?php echo get_option('siteurl'); ?>/wp-admin/profile.php"><?php echo $user_identity; ?></a>. <a href="<?php echo get_option('siteurl'); ?>/wp-login.php?action=logout" title="Se d&eacute;connecter">Se d&eacute;connecter &raquo;</a></p>
+						<?php else : ?>
+							<p>Ajoutez votre commentaire ci-dessous, ou cr&eacute;ez un <a href="<?php trackback_url(true); ?>" rel="trackback">r&eacute;trolien</a> depuis votre site. Vous pouvez &eacute;galement <?php comments_rss_link('souscrire &agrave; ces commentaires'); ?> par RSS. Merci de vous conformer &agrave la netetiquette.</p>
+							<label>Nom <?php if ($req) echo "(requis)"; ?></label>
+							<input type="text" name="author" id="author" value="<?php echo $comment_author; ?>" class="span4" tabindex="1"/>
+							<label >Courriel (ne sera pas visible) <?php if ($req) echo "(requis)"; ?></label>
+							<input type="text" name="email" id="email" value="<?php echo $comment_author_email; ?>" class="span4" tabindex="2" />
+							<label>Site web (optionnel)</label>
+							<input type="text" name="url" id="url" value="<?php echo $comment_author_url; ?>" class="span4" tabindex="3" />
+						<?php endif; ?>
+						<label>Votre commentaire</label>
+						<textarea name="comment" id="comment" class="span8" rows="15" tabindex="4"></textarea>
+						<p>Vous pouvez utiliser ces balises :<br/><code><?php echo allowed_tags(); ?></code></p>
+					  <button type="submit" id="submit" class="btn btn-primary" tabindex="5"><i class="icon-ok icon-white"></i> Envoyer</button>
+						<input type="hidden" name="comment_post_ID" value="<?php echo $id; ?>" />
+						<?php do_action('comment_form', $post->ID); ?>
+					</form>
+				</div>
+			</div>
+			
+		<?php endif; /* end if comments opened */ ?>
+	</div>
+</div>
 	
-<?php
-$isByAuthor = false;
-if($comment->comment_author_email == get_the_author_email()) {
-$isByAuthor = true;
-}?>
-		<div class="commentlist">
-
-		<li id="comment-<?php comment_ID() ?>" <?php if($isByAuthor ) { echo 'class="my_comment"';} ?>>
-
-		<div class="clearfloat">
-
-		<?php echo get_avatar( $comment, $size = '55' ); ?>
-	
-
-			<div class="commenttext">
-			<cite><strong><a href="<?php comment_author_url(); ?>" target="_blank"> <?php comment_author(); ?></a></strong> a dit: </cite>
-
-			<?php if ($comment->comment_approved == '0') : ?>
-			<em>Votre commentaire est en attente de mod&eacute;ration.</em>
-			<?php endif; ?>
-			<?php comment_text() ?>
-			</div>	
 
 	
-		</div>
-		
-		<div class="commentmetadata">Post&eacute; le <?php comment_date('j F Y') ?> &agrave; <?php comment_time('H:m') ?> </div>
-		</li>
-
-
-	<?php endforeach; /* end for each comment */ ?>
-</ul>
-	
-
- <?php else : // this is displayed if there are no comments so far ?>
-
-	<?php if ('open' == $post->comment_status) : ?>
-		<!-- If comments are open, but there are no comments. -->
-
-	 <?php else : // comments are closed ?>
-		<!-- If comments are closed. -->
-		<p class="nocomments">Les commentaires sont ferm&eacute;.</p>
-
-	<?php endif; ?>
-<?php endif; ?>
-
-
-<?php if ('open' == $post->comment_status) : ?>
-
-
-<h3 id="respond">Laissez un commentaire</h3>
-
-<?php if ( get_option('comment_registration') && !$user_ID ) : ?>
-<p>Vous devez etre <a href="<?php echo get_option('siteurl'); ?>/wp-login.php?redirect_to=<?php echo urlencode(get_permalink()); ?>">connect&eacute;</a> pour laisser un commentaire.</p>
-<?php else : ?>
-
-<form action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="commentform">
-
-<?php if ( $user_ID ) : ?>
-
-<p>Connect&eacute; en tant que <a href="<?php echo get_option('siteurl'); ?>/wp-admin/profile.php"><?php echo $user_identity; ?></a>. <a href="<?php echo get_option('siteurl'); ?>/wp-login.php?action=logout" title="Se d&eacute;connecter">Se d&eacute;connecter &raquo;</a></p>
-
-<?php else : ?>
-
-<p>Ajoutez votre commentaire ci-dessous, ou cr&eacute;ez un <a href="<?php trackback_url(true); ?>" rel="trackback">r&eacute;trolien</a> depuis votre site. Vous pouvez &eacute;galement <?php comments_rss_link('souscrire &agrave; ces commentaires'); ?> par RSS.</p>
-
-<p>Merci de vous conformer &agrave la netetiquette.</p>
-
-<p><input type="text" name="author" id="author" value="<?php echo $comment_author; ?>" size="22" tabindex="1" class="field" />
-<label for="author"><small>Nom <?php if ($req) echo "(requis)"; ?></small></label></p>
-
-<p><input type="text" name="email" id="email" value="<?php echo $comment_author_email; ?>" size="22" tabindex="2" class="field" />
-<label for="email"><small>Courriel (ne sera pas visible) <?php if ($req) echo "(requis)"; ?></small></label></p>
-
-<p><input type="text" name="url" id="url" value="<?php echo $comment_author_url; ?>" size="22" tabindex="3" class="field" />
-<label for="url"><small>Site web (optionnel)</small></label></p>
-
-<?php endif; ?>
-
-<p><textarea name="comment" id="comment" cols="100%" rows="15" tabindex="4"></textarea></p>
-<p>Vous pouvez utiliser ces balises :<br/><code><?php echo allowed_tags(); ?></code></p>
-
-
-<p><input name="submit" class="searchbutton" type="submit" id="submit" tabindex="5" value="Envoyer" />
-<input type="hidden" name="comment_post_ID" value="<?php echo $id; ?>" />
-</p>
-<?php do_action('comment_form', $post->ID); ?>
-
-</form>
-
-<?php endif; // If registration required and not logged in ?>
-
-<?php endif; ?>
 
 

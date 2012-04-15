@@ -4,7 +4,7 @@
 		<?php include (TEMPLATEPATH . '/carousel.php'); ?>
 	<?php } ?>
 	<div class="page-header">
-	  <h1>Derniers articles</h1>
+	  <h1>A l'affiche</h1>
 	</div>
 	<div class="span9">
 			<?php
@@ -19,12 +19,15 @@
 						<?php } ?>
 						<li class="span3">
 							<div class="thumbnail">
-								<a href="">
-									<img src="http://placehold.it/260x180" alt="">
+								<a href="<?php the_permalink() ?>">
+									<img src="<?php bloginfo('template_directory'); ?>/scripts/timthumb.php?src=<?php echo get_custom_thumbnail($post) ?>&w=260&h=180&zc=1&q=100">
 								</a>
-								<div class="caption" style="height:120px">
-									<h5><?php the_title(); ?></h5>
-									<?php the_excerpt(); ?>
+								<div class="caption" style="height:50px">
+									<h4><?php the_title(); ?></h4>
+									<p>
+										<span class="label"><?php the_time('j/m/Y') ?></span> 
+										<span class="label"><?php comments_number('Pas de commentaires', 'Un commentaire', '% commentaires');?></span>
+									</p>
 								</div>
 							</div>
 						</li>

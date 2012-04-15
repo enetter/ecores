@@ -23,7 +23,7 @@ function custom_trim_excerpt($text) { // Fakes an excerpt if needed
 		$text = apply_filters('the_content', $text);
 		$text = str_replace(']]>', ']]&gt;', $text);
 		$text = strip_tags($text);
-		$excerpt_length = apply_filters('excerpt_length', 20);
+		$excerpt_length = apply_filters('excerpt_length', 80);
 		$words = explode(' ', $text, $excerpt_length + 1);
 		if (count($words) > $excerpt_length) {
 			array_pop($words);
@@ -50,6 +50,20 @@ function custom_time_comments_views() {
 
 ?>[<?php the_time('j M Y'); ?> | <?php comments_popup_link('Pas de commentaires', 'Un commentaire', '% commentaires'); ?><?php custom_views(); ?>]
 <?php 
+}
+
+function get_custom_thumbnail($post) {
+	$values = get_post_custom_values("Image");
+	if ( has_post_thumbnail() ) { 
+		$image_url = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full'); 
+	} elseif (isset($values[0])) {
+		$image_url = home_url('/').$values[0];
+	} else
+	{
+		$image_url = bloginfo('template_directory').'/images/placeholder.png';
+		$image_url = "http://placehold.it/260x180";
+	}
+	return $image_url;
 }
 
 

@@ -1,51 +1,48 @@
 <?php get_header(); ?>
 
 
-	<div id="content" class="span9">
-	
+<div id="content" class="span9">
+
 	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-	<div class="post" id="post-<?php the_ID(); ?>">
-	
-	<span class="breadcrumbs"><a href="<?php echo get_option('home'); ?>/">Accueil</a> &raquo; <?php the_category(', ') ?></span>
-	
-	<h2 class="title"><?php the_title(); ?></h2>
-	
-	<div id="stats">
-<span><?php the_time('j F Y') ?></span>
-
-<span><?php comments_number('Pas de commentaires', 'Un commentaire', '% commentaires');?></span>
-<?php edit_post_link('Modifier cet article.', '<span>', '</span>'); ?>
-</div>
-
-
-	<div class="entry clearfloat">
-	
-	<?php the_content('Lire la suite &raquo;'); ?>
-
-	<?php wp_link_pages(array('before' => '<p><strong>Pages:</strong> ', 'after' => '</p>', 'next_or_number' => 'number')); ?>
-	
+	<div class="row" id="post-<?php the_ID(); ?>">
+		<div class="span9">
+			<span class="label">Publié le <?php the_time('j F Y') ?></span>
+			<?php $post_categories = wp_get_post_categories( get_the_ID() );
+			foreach($post_categories as $c){
+				$cat = get_category( $c );?>
+				<a class="label label-info" href="<?php echo get_category_link( $c ) ?>"><?php echo $cat->name ?></a>
+			<?php } ?>
+			<?php edit_post_link('Modifier cet article.', '<span class="btn pull-right">', '</span>'); ?>
+			<div class="page-header">
+				<h1 class="title"><?php the_title(); ?></h1>
+			</div>
+			<p>
+				<?php the_content('Lire la suite &raquo;'); ?>
+			</p>
+			<p>
+				<br/>
+			<span class="label">Tags</span>
+				<?php $post_tags = wp_get_post_tags( get_the_ID() );
+				foreach($post_tags as $t){
+					$tag = get_tag( $t );?>
+					<a class="label label-success" href="<?php echo get_tag_link( $t ) ?>"><?php echo $tag->name ?></a>
+				<?php } ?>
+				<span class="label pull-right"><?php comments_number('Pas de commentaires', 'Un commentaire', '% commentaires');?></span>
+			</p>
+			<p>
+				<?php wp_link_pages(array('before' => '<p><strong>Pages:</strong> ', 'after' => '</p>', 'next_or_number' => 'number')); ?>
+			</p>
+		</div>
 	</div>
-	<div class="entry clearfloat">
-		<div class="breadcrumbs"><p><?php the_tags('Tags : ',', '); ?></p></div>
-	</div>
-	<div id="tools">
-		<div style="float:right;display:block;"><?php if(function_exists('the_ratings')) { the_ratings(); } ?></div>
+	<hr>
 	
-	</div>
-
-	</div>
-	
-	<div id="comments">
 	<?php comments_template(); ?>
-	</div>
+
 
 	<?php endwhile; else: ?>
-
-	<p>D&eacute;sol&eacute;, aucun article ne correspond &agrave; votre recherche.</p>
-
+		<p>D&eacute;sol&eacute;, aucun article ne correspond &agrave; votre recherche.</p>
 	<?php endif; ?>
-
-	</div>
+</div>
 <?php get_sidebar('right'); ?>
 <?php get_footer(); ?>

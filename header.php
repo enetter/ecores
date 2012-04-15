@@ -17,24 +17,28 @@
 
 	<link rel="icon" href="<?php bloginfo('template_directory'); ?>/images/favicon.ico" />
 	<link rel="shortcut icon" href="<?php bloginfo('template_directory'); ?>/images/favicon.ico" />
-	<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/bootstrap/css/bootstrap-responsive.min.css">
-
+	<link rel="stylesheet" type="text/css" href="<?php bloginfo('stylesheet_url'); ?>">
+	
 </head>
 <body>
-	<div id="logo" class="container">
-		<div class="hero-unit">
+	<!-- <div class="container fluid">
+		<img src="<?php bloginfo('template_directory'); ?>/images/logo.png">
+	</div> -->
+	<!-- <div id="logo" class="container"> -->
+		<div class="hero-unit header">
+			<div class="container">
 			<h1><?php bloginfo('title'); ?></h1>
 			<p ><?php bloginfo('description'); ?></p>
+			</div>
 		</div>
-	</div>
-	<div id="navbar" class="container">
+	<!-- </div> -->
+	<!-- <div id="navbar" class="container"> -->
 	<div class="navbar">
 		<div class="navbar-inner">
-			<div class="container">
+				<div class="container">
 				<div class="nav-collapse">
 				<ul class="nav">
-					<li><a href="<?php echo get_option('home'); ?>/">Accueil</a></li>
+					<li <?php if (is_home()) echo 'class="active"'; ?>><a href="<?php echo get_option('home'); ?>/"><i class="icon-home icon-white"></i> Accueil</a></li>
 					 <?php 
   					$args ='parent=0&exclude='.get_option('ecs_cat_a_l_affiche').','.get_option('ecs_cat_a_la_une').'&orderby=name';
 					 	$categories = get_categories($args); 
@@ -57,7 +61,7 @@
 						  </li>
 					 <?php } ?>
 					 </ul>
-					<?php include (TEMPLATEPATH . '/searchform.php'); ?>
+					
 					
 					<ul class="nav pull-right">
 					 	<li class="dropdown" id="menupages">
@@ -74,14 +78,14 @@
 					    		<?php } ?>
 					    </ul>
 					  </li>
-					
+					<?php include (TEMPLATEPATH . '/searchform.php'); ?>
 					
 				</ul>
-				</div>
 			</div>
 		</div>
-</div>
-</div>
+		</div>
+	</div>
+<!-- </div> -->
 
 			
 
