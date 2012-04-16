@@ -1,5 +1,6 @@
 <?php get_header(); ?>
-
+<div id="page" class="container">
+	<div class="row">
 
 	<div id="content" class="span9">
 	
@@ -42,5 +43,5 @@
 <?php get_sidebar('right'); ?>
 
 </div>
-
+</div>
 <?php get_footer(); ?>

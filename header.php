@@ -21,18 +21,12 @@
 	
 </head>
 <body>
-	<!-- <div class="container fluid">
-		<img src="<?php bloginfo('template_directory'); ?>/images/logo.png">
-	</div> -->
-	<!-- <div id="logo" class="container"> -->
-		<div class="hero-unit header">
-			<div class="container">
-			<h1><?php bloginfo('title'); ?></h1>
-			<p ><?php bloginfo('description'); ?></p>
-			</div>
+	<div class="hero-unit header">
+		<div class="container">
+		<h1><?php bloginfo('title'); ?></h1>
+		<p ><?php bloginfo('description'); ?></p>
 		</div>
-	<!-- </div> -->
-	<!-- <div id="navbar" class="container"> -->
+	</div>
 	<div class="navbar">
 		<div class="navbar-inner">
 				<div class="container">
@@ -85,15 +79,5 @@
 		</div>
 		</div>
 	</div>
-<!-- </div> -->
-
-			
-
-		</div>
-
-	</div>
-
-	<div id="page" class="container">
-		<div class="row">
 
 		
