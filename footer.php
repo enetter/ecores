@@ -21,12 +21,11 @@
 		</div>
 		<div id="recent_comments" class="span3">
 			<h3>A propos de ce blog</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+			<p>			<p>L’habitat éco-responsable a pour objectif de questionner l’habitat sous toutes ses formes : Construire, Habiter, Consommer… Il reflète mon engagement personnel en tant qu’architecte et citoyenne, sensibilisée à l’espace et aux enjeux environnementaux. Il souhaite témoigner des initiatives individuelles ou institutionnelles qui tendent à respecter notre planète pour la léguer en moins mauvais état que nous en avons hérité.<br/>
+
+			Apprenons maintenant à être éco-responsables !<br/>
+
+			<strong>Christèle Caumont</strong></p>
 			<h3>Fils d'information</h3>
 			<p>
 				<a href="<?php bloginfo('rss2_url'); ?>">Fil des articles</a><br/>

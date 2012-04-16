@@ -74,7 +74,7 @@
 					    		$args = 'parent='.$category->term_id.'hierarchical=false';
 					    		$pages = get_pages();
 					    		foreach ($pages as $page) { ?>
-					    		 	<li><a href="#"><?php echo $page->post_title ?></a></li>
+					    		 	<li><a href="<?php echo esc_url(get_permalink($page->ID)); ?>"><?php echo $page->post_title ?></a></li>
 					    		<?php } ?>
 					    </ul>
 					  </li>

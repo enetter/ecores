@@ -1,57 +1,33 @@
 <?php get_header(); ?>
-
-
-	<div id="content" class="span9">
 	
-	<?php if (have_posts()) : while (have_posts()) : the_post(); 
-	
-  ?>
-	<div class="post" id="post_<?php the_ID(); ?>">
+<div id="content" class="span9">
 
-	<span class="breadcrumbs"><a href="<?php echo get_option('home'); ?>/">Accueil</a> &raquo; <?php the_title(); ?></span>
-		
-	<h2 class="title"><?php the_title(); ?></h2>
-		
-		<div class="entry clearfloat">
-		<?php the_content('<p class="serif">Lire la suite &raquo;</p>'); ?>
+	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-		<?php wp_link_pages(array('before' => '<p><strong>Pages:</strong> ', 'after' => '</p>', 'next_or_number' => 'number')); ?>
-
+	<div class="row" id="post-<?php the_ID(); ?>">
+		<div class="span9">
+			<div class="page-header">
+				<?php edit_post_link('Modifier cet article.', '<span class="btn pull-right">', '</span>'); ?>
+				<h1 class="title"><?php the_title(); ?></h1>
+			</div>
+			<p>
+				<?php the_content('Lire la suite &raquo;'); ?>
+			</p>
+			<p>
+				<br/>
+			<p>
+				<?php wp_link_pages(array('before' => '<p><strong>Pages:</strong> ', 'after' => '</p>', 'next_or_number' => 'number')); ?>
+			</p>
 		</div>
-    
-     <div>
-   <ul>
- <?php
-  $cat = get_post_meta(get_the_ID(), 'category',true);  
-  if ($cat!="") 
-  {
-  ?>
-    <h3><?php echo 'Actualit&eacute;s li&eacute;es' ?></h3>
- <?php
-
- global $post;
- $myposts = get_posts('numberposts=5&category_name='.$cat);
- foreach($myposts as $post) :
-   setup_postdata($post);
- ?>
-    <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
- <?php endforeach; 
- }?>
- </ul> 
- </div>
-		
-	<?php edit_post_link('Modifier cette page.', '<p>', '</p>'); ?>
-
 	</div>
 	
-		
+	<?php /* comments_template(); // Uncomment to get templates */ ?> 
 
 
-	<?php endwhile; endif; ?>
-
- 
-  
-	</div>
+	<?php endwhile; else: ?>
+		<p>D&eacute;sol&eacute;, aucun article ne correspond &agrave; votre recherche.</p>
+	<?php endif; ?>
+</div>
   
 <?php get_sidebar('right'); ?>
 
