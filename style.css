@@ -13,6 +13,9 @@ http://www.opensource.org/licenses/gpl-license.php
 @import url('bootstrap/css/bootstrap.css');
 @import url('bootstrap/css/bootstrap-responsive.css');
 
+body {
+
+}
 .navbar-inner {
 	-webkit-border-radius: 0; 
 	-moz-border-radius: 0; 
@@ -59,7 +62,7 @@ http://www.opensource.org/licenses/gpl-license.php
 	list-style: none;
 	margin-left: 0;
 }
-.footer p, ul {
+.footer p, .footer ul, /* body, p */ {
 	font-size: 14px;
 	font-weight: 300;
 	line-height: 20px;
