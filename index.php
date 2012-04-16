@@ -38,7 +38,7 @@
 			<?php if ($nbposts == 5) { break; }?>
 			<?php $nbposts=$nbposts+1 ?>
 		<?php endwhile; ?>
-	
+		<?php  if ($nbposts-1 % 3 != 2) {echo "</ul></div>"; } ?>	
 	</div>
 	<?php include (TEMPLATEPATH . '/navigation.php'); ?>
 </div>
