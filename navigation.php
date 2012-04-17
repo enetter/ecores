@@ -1,9 +1,9 @@
-<hr class="soften">
 <ul class="pager">
+	
   <li class="next">
-  	<?php previous_posts_link('Plus r&eacute;cents &rarr;'); ?>
+  	<?php next_posts_link('Plus anciens &rarr;'); ?>
   </li>
   <li class="previous">
-    <?php next_posts_link('&larr; Plus anciens'); ?>
+    <?php previous_posts_link('&larr; Plus r&eacute;cents'); ?>
   </li>
 </ul>

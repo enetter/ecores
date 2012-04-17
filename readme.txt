@@ -1,6 +1,6 @@
 EcoRes par Emmanuel Netter
-basé sur Arthemia par Michael Huntalung
-(c) 2010 Emmanuel NETTER pour cplusn.com
+basé sur Twitter Bootstrap
+(c) 2012 Emmanuel NETTER pour cplusn.com
 Version 0.5
 Distribué sous licence GPL v3 (voir le fichier gpl-3.0.txt présent dans le 
 répertoire d'installation du programme).
@@ -17,46 +17,34 @@ Il vous suffit alors de le sélectionner pour l’activer sur votre site.
 
 Outils complémentaires
 Si vous souhaitez voir apparaître le nombre d’affichage de vos pages dans 
-EcoRes, il faut que vous l’extension WP-PostViews de Lester Chan. De la 
-même façon, pour avoir un affichage plus sympathique de la pagination de votre 
-blog, il faut installer WP-PageNavi du même auteur.
+EcoRes, il faut que vous l’extension WP-PostViews de Lester Chan.
 
 Configuration
-Une fois le thème choisi, vous devez créer deux nouvelles catégories, A la une 
-et A l’affiche (le nom importe peu) et en noter les identifiants (celui-ci 
-apparait dans la barre d’URL à la suite du mot-clé CAT_ID). Le dernier article
-de la catégorie A la une est affiché en haut à gauche de la page d’accueil de 
-votre site ; les quatre derniers articles de la catégorie A l’affiche sont 
-listés en haut à droite de la page d’accueil. Attention, les articles de ces
-catégories n’apparaissent pas ailleurs sur la page d’accueil.
-
-Cliquez ensuite dans la section Apparence sur l’item « Options EcoRes » 
+Cliquez dans la section Apparence sur l’item « Options EcoRes » 
 pour accéder aux options de paramétrage du thème. Celle-ci sont regroupées en 
-trois sections, dont une description succinte est donnée ci-dessous :
+deux sections, dont une description succinte est donnée ci-dessous :
 
-    * Préférences générales
-          o Feuille de style : choix de la couleur globale du thème
+    * Options d’affichage et de navigation
           o Image d’en-tête : saisissez l’URL de l’image que vous souhaitez 
           avoir en fond de votre en-tête.
-          o Google analytics : si vous avez un compte Goggle Analytics, vous 
-          pouvez saisir le code d’appel ici
-    * Options d’affichage et de navigation
-          o Catégorie à la une : tapez l’identifiant de la catégorie créée plus
-          haut
-          o Catégorie à l’affiche : tapez l’identifiant de la catégorie créée 
-          plus haut
-          o Catégories à exclure : identifiant des catégories à exclure de la 
+          o Carousel : cLes articles de cette catégorie seront affichés 
+          sur la page d'accueil dans le carousel.
+          o A l’affiche : Les articles de cette catégorie seront affichés 
+          dans la page d'accueil dans la section 'A l'affiche'.
+          o Nombre d'éléments à afficher : identifiant des catégories à exclure de la 
           barre d’affichage des catégories (par exemple à la une et à l’affiche)
           o Pages à exclure : idem mais pour la navigations des pages
-    * Liens commerciaux.
-          o Le code Google Adsense si vous avez un compte Adsense.
+    * Liens commerciaux et d'analyse.
+          o Liens commerciaux : Si vous souhaitez afficher un bloc d'annonces, 
+          collez ici le code Google Adsense ou de votre service de liens 
+          commerciaux.
+          o Analyse du trafic : Collez ici le code pour Google Analytics ou 
+          pour votre autre service d'analyse.
 
 Ecrire un article
 Pour voir apparaître sur vos pages une image en regard de chaque article de la 
-liste (ou à la une et à l’affiche), il faut ajouter dans chaque article un 
-champ personnalisé appelé « Image », et qui contiendra l’emplacement de l’image
-en partant de la racine de votre site. Par exemple, si vous utilisez une image
-déposée par Wordpress, ce sera wp-content/uploads/2009/05/monimage.jpg.
+liste (ou dans le carousel et dans la section à l’affiche), il faut utiliser la fonction "Mettre une 
+image à la une" dans l'interface de saisie d'un article.
 
 Support
 Le dépôt de code d’EcoRes se trouve sur github.com/enetter/ecores. Les 

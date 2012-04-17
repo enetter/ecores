@@ -23,4 +23,9 @@ if ( is_dir($alt_stylesheet_path) ) {
 	}
 }	
 
+$alt_categories = array();
+foreach (get_categories() as $cat) {
+	$alt_categories[] = array($cat->term_id , $cat->cat_name);
+}
+
 ?>

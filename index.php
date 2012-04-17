@@ -8,10 +8,10 @@
 			<div class="page-header">
 			  <h1>A l'affiche</h1>
 			</div>
-			<div class="span9">
+			<div class="span9" >
 					<?php	$page = (get_query_var('paged')) ? get_query_var('paged') : 1;
 								query_posts("cat=".get_option('ecs_cat_a_l_affiche')."&paged=$page&posts_per_page=.get_option('posts_per_page')"); 
-							  $nbposts=0; $maxposts=6; ?>
+							  $nbposts=0; $maxposts=get_option('ecs_nb_a_l_affiche'); ?>
 					<?php while (have_posts()) : the_post(); ?>
 						<?php if ($nbposts % 3 == 0) { ?>
 							<div class="row">
@@ -22,12 +22,10 @@
 											<a href="<?php the_permalink() ?>">
 												<img src="<?php bloginfo('template_directory'); ?>/scripts/timthumb.php?src=<?php echo get_custom_thumbnail($post) ?>&w=260&h=180&zc=1&q=100">
 											</a>
-											<div class="caption" style="height:50px">
-												<h4><?php the_title(); ?></h4>
-												<p>
-													<span class="label"><?php the_time('j/m/Y') ?></span> 
-													<span class="label"><?php comments_number('Pas de commentaires', 'Un commentaire', '% commentaires');?></span>
-												</p>
+											<div class="caption frontpage" rel="popover" data-content="<?php the_excerpt()?><span class='label'><?php the_time('j/m/Y') ?></span> 
+													<span class='label'><?php comments_number('Pas de commentaires', 'Un commentaire', '% commentaires');?></span>" 
+													data-original-title="<?php the_title(); ?>">
+													<h4><?php the_title(); ?></h4>
 											</div>
 										</div>
 										<!-- Span3 li -->

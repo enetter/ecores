@@ -13,12 +13,12 @@
 
 		<?php /* If this is a tagged archive */ } elseif (is_tag()) { ?>	<h1>Articles marqu&eacute;s comme : <?php single_tag_title(); ?></h2>
 
-	 	<?php /* If this is a daily archive */ } elseif (is_day()) { ?>	<h2 class="title">Articles du jour : <?php the_time('j F Y'); ?></h2>
+	 	<?php /* If this is a daily archive */ } elseif (is_day()) { ?>	<h1>Articles du jour : <?php the_time('j F Y'); ?></h1>
 
-	 	<?php /* If this is a monthly archive */ } elseif (is_month()) { ?><h2 class="title">Articles du mois : <?php the_time('F Y'); ?></h2>
+	 	<?php /* If this is a monthly archive */ } elseif (is_month()) { ?><h1>Articles du mois : <?php the_time('F Y'); ?></h1>
 	 	
 		<?php /* If this is a yearly archive */ } elseif (is_year()) { ?>
-		<h2 class="title">Articles de l'ann&eacute; : <?php the_time('Y'); ?></h2>
+		<h1>Articles de l'ann&eacute; : <?php the_time('Y'); ?></h1>
 
 	 	<?php /* If this is a paged archive */ } elseif (isset($_GET['paged']) && !empty($_GET['paged'])) { ?>
 		<h2 class="title">Archives</h2>

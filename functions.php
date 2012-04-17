@@ -1,17 +1,37 @@
 <?php if ( function_exists('register_sidebar') ) 
 	{    
-register_sidebar(array('name' => 'Col Gauche','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>')); 
-register_sidebar(array('name' => 'Col Droite','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>')); 
-register_sidebar(array('name' => 'Pied Gauche','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>'));     
-	register_sidebar(array('name' => 'Pied Centre','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>'));     
-	register_sidebar(array('name' => 'Pied Droit','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>')); 
+register_sidebar(array('name' => 'Col Gauche','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>'));     
+
+register_sidebar(array(	'name' => 'Col Droite',
+												'before_widget' => '<div id="sidebar" class="well sidebar-nav"><ul class="nav nav-list">',
+												'after_widget' => '</ul></div>',
+												'before_title' => '<li class="nav-header">',
+												'after_title' => '</li>')); 
+register_sidebar(array('name' => 'Pied n°1','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>'));     
+register_sidebar(array('name' => 'Pied n°2','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>'));     
+register_sidebar(array('name' => 'Pied n°3','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>')); 
+register_sidebar(array('name' => 'Pied n°4','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>'));     
+
 	} 
 
-	remove_filter('get_the_excerpt', 'wp_trim_excerpt');
-	add_filter('get_the_excerpt', 'custom_trim_excerpt');
+register_sidebar_widget('Flux RSS',
+    'widget_ecs_rss_widget');
 
 	remove_filter('get_the_excerpt', 'wp_trim_excerpt');
 	add_filter('get_the_excerpt', 'custom_trim_excerpt');
+	add_filter('widget_tag_cloud_args', 'tag_cloud_filter', 90);
+
+	// remove_filter('get_the_excerpt', 'wp_trim_excerpt');
+	// add_filter('get_the_excerpt', 'custom_trim_excerpt');
+
+function tag_cloud_filter($args = array()) {
+   $args['smallest'] = 8;
+   $args['largest'] = 12;
+   $args['unit'] = 'pt';
+   return $args;
+}
+
+
 
 function custom_trim_excerpt($text) { // Fakes an excerpt if needed
 	global $post;
@@ -70,6 +90,18 @@ function get_custom_thumbnail($post) {
 
 }
 
+function widget_ecs_rss_widget($args) {
+    extract($args);
+?>
+        <?php echo $before_widget; ?>
+            <?php echo $before_title
+                . "Fils d'information"
+                . $after_title; ?>
+            <a href="<?php bloginfo('rss2_url'); ?>">Fil d'information des articles</a><br/>
+            <a href="<?php bloginfo('comments_rss2_url'); ?>">Fil d'information des commentaires</a>
+        <?php echo $after_widget; ?>
+<?php
+}
 
 ////////////////////////////////
 
@@ -147,8 +179,8 @@ function ecs_page (){
 
 						<h2>Options <?php echo $themename; ?></h2>
 
-						<?php if ( $_REQUEST['saved'] ) { ?><div style="clear:both;height:20px;"></div><div class="warning">Les options d'<?php echo $themename; ?> ont &eacute;t&eacute; mises &agrave; jour !</div><?php } ?>
-						<?php if ( $_REQUEST['reset'] ) { ?><div style="clear:both;height:20px;"></div><div class="warning">Les options d'<?php echo $themename; ?> ont &eacute;t&eacute; r&eacute;initialis&eacute;es !</div><?php } ?>						
+						<?php if ( $_REQUEST['saved'] ) { ?><div class="updated settings-errors"><p>Les options d'<?php echo $themename; ?> ont &eacute;t&eacute; mises &agrave; jour !</p></div><?php } ?>
+						<?php if ( $_REQUEST['reset'] ) { ?><div class="warning settings-errors"><p>Les options d'<?php echo $themename; ?> ont &eacute;t&eacute; r&eacute;initialis&eacute;es !</p></div><?php } ?>						
 						
 					
 						
@@ -156,15 +188,16 @@ function ecs_page (){
 						
 						<!--START: GENERAL SETTINGS-->
      						
-     						<table class="maintable">
+     						<!-- <table class="maintable"> -->
      							
-							<?php foreach ($options as $value) { ?>
-	
+							<?php 
+									$first = true;
+									foreach ($options as $value) { ?>
 									<?php if ( $value['type'] <> "heading" ) { ?>
 	
-										<tr class="mainrow">
-										<td class="titledesc"><?php echo $value['name']; ?></td>
-										<td class="forminp">
+										<tr >
+										<th scope="row"><label><?php echo $value['name']; ?></label></td>
+										<td>
 		
 									<?php } ?>		 
 	
@@ -175,7 +208,7 @@ function ecs_page (){
 		
 									?>
 									
-		        							<input name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" type="<?php echo $value['type']; ?>" value="<?php if ( get_settings( $value['id'] ) != "") { echo get_settings($value['id']); } else { echo $value['std']; } ?>" />
+		        							<input class="regular-text" name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" type="<?php echo $value['type']; ?>" value="<?php if ( get_settings( $value['id'] ) != "") { echo get_settings($value['id']); } else { echo $value['std']; } ?>" />
 		
 									<?php
 										
@@ -183,10 +216,11 @@ function ecs_page (){
 										case 'select':
 		
 									?>
-		
 	            						<select name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>">
 	                					<?php foreach ($value['options'] as $option) { ?>
-	                						<option<?php if ( get_settings( $value['id'] ) == $option) { echo ' selected="selected"'; } elseif ($option == $value['std']) { echo ' selected="selected"'; } ?>><?php echo $option; ?></option>
+	                						<option value="<?php echo $option[0]; ?>"  
+	                						<?php if ( get_settings( $value['id'] ) == $option[0]) { echo ' selected="selected"'; } elseif ($option == $value['std']) { echo ' selected="selected"'; } ?>>
+	                						<?php if (is_array($option)) { echo $option[1];	} else { echo $option; }?></option>
 	                					<?php } ?>
 	            						</select>
 		
@@ -198,7 +232,7 @@ function ecs_page (){
 		
 									?>
 									
-										<textarea name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" cols="<?php echo $ta_options['cols']; ?>" rows="8"><?php  if( get_settings($value['id']) != "") { echo stripslashes(get_settings($value['id'])); } else { echo $value['std']; } ?></textarea>
+										<textarea class="large-text code" name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" cols="<?php echo $ta_options['cols']; ?>" rows="8"><?php  if( get_settings($value['id']) != "") { echo stripslashes(get_settings($value['id'])); } else { echo $value['std']; } ?></textarea>
 		
 									<?php
 										
@@ -258,11 +292,17 @@ function ecs_page (){
 
 									?>
 									
-										</table> 
+									<?php if ($first) {
+										$first = false;
+									} else {
+										echo "</table>";
+									} ?>
+									
+					
 		    							
-		    									<h3 class="title"><?php echo $value['name']; ?></h3>
+		    									<h3 ><?php echo $value['name']; ?></h3>
 										
-										<table class="maintable">
+										<table class="form-table">
 		
 									<?php
 										
@@ -274,7 +314,7 @@ function ecs_page (){
 	
 									<?php if ( $value['type'] <> "heading" ) { ?>
 	
-										<?php if ( $value['type'] <> "checkbox" ) { ?><br/><?php } ?><span><?php echo $value['desc']; ?></span>
+										<?php if ( $value['type'] <> "checkbox" ) { ?><?php } ?><span class="description"><?php echo $value['desc']; ?></span>
 										</td></tr>
 	
 									<?php } ?>		
@@ -284,7 +324,7 @@ function ecs_page (){
 							</table>	
 
 							<p class="submit">
-								<input name="save" type="submit" value="Save changes" />    
+								<input name="save" type="submit" class="button-primary" value="Enregistrer les changements" />    
 								<input type="hidden" name="action" value="save" />
 							</p>							
 							

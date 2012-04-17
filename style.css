@@ -1,10 +1,10 @@
 /*  
 Theme Name: EcoRes
 Theme URI: http://github.com/enetter/ecores/
-Description: <a href="http://github.com/enetter/ecores/">EcoRes</a> combine les styles magazine et blog en un seul thème. Conçu pour Wordpress, il intègre le support des gravatars et la génération automatique des imagettes. Il est basé sur le <a href="http://michaelhutagalung.com/2008/05/arthemia-magazine-blog-wordpress-theme-released/">thème Arthemia</a> par <a href="http://michaelhutagalung.com/">Michael Hutagalung</a> et lui ajoute des fonctions d'administration pour paramétrer le thème. 
-Version: 0.1.0
+Description: <a href="http://github.com/enetter/ecores/">EcoRes</a> est un thème Wordpress basé sur Twitter Bootstrap. 
+Version: 0.5.0
 Author: Emmanuel Netter
-Author URI: http://www.cplusn.com/
+Author URI: http://cplusn.com/
 
 The CSS, XHTML and design is released under GPL:
 http://www.opensource.org/licenses/gpl-license.php
@@ -13,8 +13,13 @@ http://www.opensource.org/licenses/gpl-license.php
 @import url('bootstrap/css/bootstrap.css');
 @import url('bootstrap/css/bootstrap-responsive.css');
 
-body {
+body, p {
+	font-size: 14px;
+	font-weight: 300;
+}
 
+blockquote p {
+	font-size: 14px;
 }
 .navbar-inner {
 	-webkit-border-radius: 0; 
@@ -53,27 +58,41 @@ body {
 	font-size: 12px;
 }
 
+.nav .nav-header {
+	font-size: 15px;
+	margin-bottom: 6px;
+}
+
+.nav-list select {
+	width: 200px;
+}
+
+.frontpage {
+	background-color: rgba(0,0,0,0.75);
+	position: relative;
+	height: 36px;
+	margin-top: -54px;
+	color: white;
+}
 .footer {
-	background-color: #555;
-	/*color: #bbb;*/
+	background-color: whiteSmoke;
+	border-top:	1px lightgrey solid;
+	color: #555;
 }
 
 .footer ul {
 	list-style: none;
 	margin-left: 0;
 }
-.footer p, .footer ul, /* body, p */ {
+.footer p, .footer ul /* body, p */ {
 	font-size: 14px;
 	font-weight: 300;
 	line-height: 20px;
 }
-/*.footer p, h3 {
-	color: white;
-}*/
+.footer h3, .footer p {
+	margin: 5px 0 3px;
+}
 .footer a {
-	color: #ddd;
+	color: #111;
 }
 
-.poweredby {
-	text-align: center;
-}

@@ -21,7 +21,13 @@
 	
 </head>
 <body>
-	<div class="hero-unit header">
+	<div class="hero-unit header" style="background-image:url('<?php
+		if (get_option('ecs_logo')=='') {
+			echo bloginfo('template_directory').'/images/logo.png';
+		} else {
+			echo bloginfo('wpurl').get_option('ecs_logo');
+		}
+	?>')">
 		<div class="container">
 		<h1><?php bloginfo('title'); ?></h1>
 		<p ><?php bloginfo('description'); ?></p>
