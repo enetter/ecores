@@ -50,7 +50,9 @@
 			<?php include (TEMPLATEPATH . '/navigation.php'); ?>
 		<!-- Outer span9 -->
 		</div> 
-		<?php get_sidebar('right'); ?>
+		<div class="span3">
+			<?php get_sidebar('right'); ?>
+		</div>
 	<!-- Outer row -->
 	</div>
 	<!-- Page container -->

@@ -2,19 +2,19 @@
 
 <div id="page" class="container">
 	<div class="row">
-		<div id="content" class="span9">
+		<div id="content" class="span6">
 
 			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
 			<div class="row" id="post-<?php the_ID(); ?>">
-				<div class="span9">
+				<div class="span6">
 					<span class="label">Publié le <?php the_time('j F Y') ?></span>
 					<?php $post_categories = wp_get_post_categories( get_the_ID() );
 					foreach($post_categories as $c){
 						$cat = get_category( $c );?>
 						<a class="label label-info" href="<?php echo get_category_link( $c ) ?>"><?php echo $cat->name ?></a>
 					<?php } ?>
-					<?php edit_post_link('Modifier cet article.', '<span class="btn pull-right">', '</span>'); ?>
+					<?php edit_post_link('Modifier', '<span class="btn pull-right">', '</span>'); ?>
 					<div class="page-header">
 						<h1 class="title"><?php the_title(); ?></h1>
 					</div>
@@ -45,7 +45,12 @@
 				<p>D&eacute;sol&eacute;, aucun article ne correspond &agrave; votre recherche.</p>
 			<?php endif; ?>
 		</div>
-		<?php get_sidebar('right'); ?>
+		<div class="span3">
+			<?php get_sidebar('middle'); ?>
+		</div>
+		<div class="span3">
+			<?php get_sidebar('right'); ?>
+		</div>
 	</div>
 </div>
 <?php get_footer(); ?>

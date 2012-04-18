@@ -39,8 +39,9 @@
 	<?php endif; ?>
 	
 	</div>
-
-<?php get_sidebar('right'); ?>
+	<div class="span3">
+		<?php get_sidebar('right'); ?>
+	</div>
 
 </div>
 </div>

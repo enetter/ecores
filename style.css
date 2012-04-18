@@ -17,6 +17,13 @@ body, p {
 	font-size: 14px;
 	font-weight: 300;
 }
+a {
+	color: #59311c;
+}
+
+a:hover {
+	color: #281811;
+}
 
 blockquote p {
 	font-size: 14px;
@@ -67,6 +74,40 @@ blockquote p {
 	width: 200px;
 }
 
+.sidebar ul {
+	min-height: 20px;
+	// padding:19px;
+	background-color: whiteSmoke;
+	margin-bottom: 20px;
+	list-style: none;
+	margin-left: 0px;
+
+}
+
+.sidebar li {
+	margin-bottom: 5px;
+}
+
+.sidebar h3 {
+	/* margin-top: -19px; */
+	color: white;
+	background-color: grey;
+	font-size: 15px;
+	line-height: 28px;
+	padding: 5px 20px 5px 20px;
+	text-transform: uppercase;
+}
+
+.sidebar > ul > div > ul, .sidebar > ul > div > div {
+	margin-top: 10px; 
+	margin-bottom: 20px;
+	padding: 5px 20px 15px 20px;
+}
+
+.sidebar select {
+	margin: 20px;
+}
+
 .frontpage {
 	background-color: rgba(0,0,0,0.75);
 	position: relative;
@@ -92,7 +133,5 @@ blockquote p {
 .footer h3, .footer p {
 	margin: 5px 0 3px;
 }
-.footer a {
-	color: #111;
-}
+
 

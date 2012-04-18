@@ -1,12 +1,16 @@
 <?php if ( function_exists('register_sidebar') ) 
 	{    
-register_sidebar(array('name' => 'Col Gauche','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>'));     
+register_sidebar(array('name' => 'Col Milieu',
+												'before_widget' => '<ul id="sidebar-block"><div>',
+												'after_widget' => '</div></ul>',
+												'before_title' => '<h3>',
+												'after_title' => '</h3>'));     
 
 register_sidebar(array(	'name' => 'Col Droite',
-												'before_widget' => '<div id="sidebar" class="well sidebar-nav"><ul class="nav nav-list">',
-												'after_widget' => '</ul></div>',
-												'before_title' => '<li class="nav-header">',
-												'after_title' => '</li>')); 
+												'before_widget' => '<ul id="sidebar-block"><div>',
+												'after_widget' => '</div></ul>',
+												'before_title' => '<h3>',
+												'after_title' => '</h3>')); 
 register_sidebar(array('name' => 'Pied n°1','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>'));     
 register_sidebar(array('name' => 'Pied n°2','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>'));     
 register_sidebar(array('name' => 'Pied n°3','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>')); 

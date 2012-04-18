@@ -8,7 +8,7 @@
 			<div class="row" id="post-<?php the_ID(); ?>">
 				<div class="span9">
 					<div class="page-header">
-						<?php edit_post_link('Modifier cet article.', '<span class="btn pull-right">', '</span>'); ?>
+						<?php edit_post_link('Modifier', '<span class="btn pull-right">', '</span>'); ?>
 						<h1 class="title"><?php the_title(); ?></h1>
 					</div>
 					<p>
@@ -29,7 +29,9 @@
 				<p>D&eacute;sol&eacute;, aucun article ne correspond &agrave; votre recherche.</p>
 			<?php endif; ?>
 		</div>
-		<?php get_sidebar('right'); ?>
+		<div class="span3">
+			<?php get_sidebar('right'); ?>
+		</div>
 	</div>
 </div>
 <?php get_footer(); ?>
