@@ -18,7 +18,7 @@
 	<link rel="icon" href="<?php bloginfo('template_directory'); ?>/images/favicon.ico" />
 	<link rel="shortcut icon" href="<?php bloginfo('template_directory'); ?>/images/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="<?php bloginfo('stylesheet_url'); ?>">
-	
+	<?php wp_head(); ?>
 </head>
 <body>
 	<div class="hero-unit header" style="background-image:url('<?php

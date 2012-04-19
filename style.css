@@ -74,6 +74,41 @@ blockquote p {
 	width: 200px;
 }
 
+.sidebar h3 {
+	padding:8px 2px 0px 2px;
+	border-top: 10px solid grey;	
+	font-size: 15px;
+	line-height:19px;
+	margin: 0px 0px 6px 0px;
+	text-transform: uppercase;
+}
+
+.sidebar ul {
+	list-style: none;
+	margin-left: 0px;
+}
+
+.sidebar > ul > div > ul, .sidebar > ul > div > div {
+	margin-bottom: 20px;
+	padding: 0px 0px 5px 2px;
+	font-size: 14px;
+}
+
+.sidebar li {
+	border-bottom: 1px solid whiteSmoke;
+	padding-bottom: 3px;
+	margin-bottom: 3px;
+}
+
+.sidebar select {
+	width:100%;
+}
+
+.gutterborder h3, .gutterborder > ul > div > ul, .gutterborder > ul > div > div{
+	border-top: 0px solid grey;
+	border-left: 10px solid grey;
+}
+/*
 .sidebar ul {
 	min-height: 20px;
 	// padding:19px;
@@ -89,7 +124,6 @@ blockquote p {
 }
 
 .sidebar h3 {
-	/* margin-top: -19px; */
 	color: white;
 	background-color: grey;
 	font-size: 15px;
@@ -106,8 +140,9 @@ blockquote p {
 
 .sidebar select {
 	margin: 20px;
+	width: 80%;
 }
-
+*/
 .frontpage {
 	background-color: rgba(0,0,0,0.75);
 	position: relative;

@@ -2,12 +2,12 @@
 
 <div id="page" class="container">
 	<div class="row">
-		<div id="content" class="span6">
+		<div id="content" class="span7">
 
 			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
 			<div class="row" id="post-<?php the_ID(); ?>">
-				<div class="span6">
+				<div class="span7">
 					<span class="label">Publié le <?php the_time('j F Y') ?></span>
 					<?php $post_categories = wp_get_post_categories( get_the_ID() );
 					foreach($post_categories as $c){
@@ -48,7 +48,7 @@
 		<div class="span3">
 			<?php get_sidebar('middle'); ?>
 		</div>
-		<div class="span3">
+		<div class="span2	">
 			<?php get_sidebar('right'); ?>
 		</div>
 	</div>

@@ -19,7 +19,9 @@ register_sidebar(array('name' => 'Pied n°4','before_widget' => '','after_widget
 	} 
 
 register_sidebar_widget('Flux RSS',
-    'widget_ecs_rss_widget');
+    'widget_ecs_rss');
+register_sidebar_widget('Articles similaires pour EcoRes',
+    'widget_ecs_related_posts');
 
 	remove_filter('get_the_excerpt', 'wp_trim_excerpt');
 	add_filter('get_the_excerpt', 'custom_trim_excerpt');
@@ -94,7 +96,9 @@ function get_custom_thumbnail($post) {
 
 }
 
-function widget_ecs_rss_widget($args) {
+// Widgets
+
+function widget_ecs_rss($args) {
     extract($args);
 ?>
         <?php echo $before_widget; ?>
@@ -106,6 +110,17 @@ function widget_ecs_rss_widget($args) {
         <?php echo $after_widget; ?>
 <?php
 }
+
+function widget_ecs_related_posts($args) {
+    extract($args);
+?>
+        <?php echo $before_widget; ?>
+						<?php related_posts() ?>
+        <?php echo $after_widget; ?>
+<?php
+}
+
+
 
 ////////////////////////////////
 
