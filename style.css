@@ -19,6 +19,7 @@ body, p {
 }
 a {
 	color: #59311c;
+	font-weight: 400;
 }
 
 a:hover {
@@ -95,54 +96,19 @@ blockquote p {
 }
 
 .sidebar li {
-	border-bottom: 1px solid whiteSmoke;
+/*	border-bottom: 1px solid whiteSmoke; */
 	padding-bottom: 3px;
 	margin-bottom: 3px;
+}
+
+.sidebar p {
+	margin-bottom:0px;
 }
 
 .sidebar select {
 	width:100%;
 }
 
-.gutterborder h3, .gutterborder > ul > div > ul, .gutterborder > ul > div > div{
-	border-top: 0px solid grey;
-	border-left: 10px solid grey;
-}
-/*
-.sidebar ul {
-	min-height: 20px;
-	// padding:19px;
-	background-color: whiteSmoke;
-	margin-bottom: 20px;
-	list-style: none;
-	margin-left: 0px;
-
-}
-
-.sidebar li {
-	margin-bottom: 5px;
-}
-
-.sidebar h3 {
-	color: white;
-	background-color: grey;
-	font-size: 15px;
-	line-height: 28px;
-	padding: 5px 20px 5px 20px;
-	text-transform: uppercase;
-}
-
-.sidebar > ul > div > ul, .sidebar > ul > div > div {
-	margin-top: 10px; 
-	margin-bottom: 20px;
-	padding: 5px 20px 15px 20px;
-}
-
-.sidebar select {
-	margin: 20px;
-	width: 80%;
-}
-*/
 .frontpage {
 	background-color: rgba(0,0,0,0.75);
 	position: relative;

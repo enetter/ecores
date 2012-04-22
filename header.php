@@ -36,54 +36,13 @@
 	<div class="navbar">
 		<div class="navbar-inner">
 				<div class="container">
-				<div class="nav-collapse">
-				<ul class="nav">
-					<li <?php if (is_home()) echo 'class="active"'; ?>><a href="<?php echo get_option('home'); ?>/"><i class="icon-home icon-white"></i> Accueil</a></li>
-					 <?php 
-  					$args ='parent=0&exclude='.get_option('ecs_cat_a_l_affiche').','.get_option('ecs_cat_a_la_une').'&orderby=name';
-					 	$categories = get_categories($args); 
-					  foreach ($categories as $category) { ?>
-						 	<li class="dropdown" id="menu<?php echo $category->term_id ?>">
-						    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu<?php echo $category->term_id ?>">
-						      <?php echo $category->name ?>
-						      <b class="caret"></b>
-						    </a>
-						    <ul class="dropdown-menu">
-						    	<?php 
-						    		$childnb = count(get_term_children( $category->term_id, 'category' ));
-						    		$allcats = get_categories();
-						    		foreach ($allcats as $subcat) { ?>
-						    			<?php if ($subcat->parent == $category->term_id) { ?>
-						    				<li><a href="<?php echo esc_url(get_category_link($subcat->term_id)); ?>"><?php echo $subcat->name ?></a></li>
-						    			<?php }	?>
-						    		<?php } ?>
-						    </ul>
-						  </li>
-					 <?php } ?>
-					 </ul>
-					
-					
+					<?php wp_nav_menu(array('theme_location' => 'main' ,'container' => 'div', 'container_class' => 'nav-collapse','menu_class' =>'nav', 'walker' => new ecs_menu_walker() )); ?>
 					<ul class="nav pull-right">
-					 	<li class="dropdown" id="menupages">
-					    <a class="dropdown-toggle" data-toggle="dropdown" href="#menupages">
-					      Infos
-					      <b class="caret"></b>
-					    </a>
-					    <ul class="dropdown-menu">
-					    	<?php 
-					    		$args = 'parent='.$category->term_id.'hierarchical=false';
-					    		$pages = get_pages();
-					    		foreach ($pages as $page) { ?>
-					    		 	<li><a href="<?php echo esc_url(get_permalink($page->ID)); ?>"><?php echo $page->post_title ?></a></li>
-					    		<?php } ?>
-					    </ul>
-					  </li>
-					<?php include (TEMPLATEPATH . '/searchform.php'); ?>
-					
-				</ul>
+						<?php include (TEMPLATEPATH . '/searchform.php'); ?>
+					</ul>
+				</div>
 			</div>
-		</div>
-		</div>
 	</div>
+	
 
 		

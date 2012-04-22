@@ -1,6 +1,6 @@
 <?php if ( function_exists('register_sidebar') ) 
 	{    
-register_sidebar(array('name' => 'Col Milieu',
+register_sidebar(array('name' => 'Col Milieu Article',
 												'before_widget' => '<ul id="sidebar-block"><div>',
 												'after_widget' => '</div></ul>',
 												'before_title' => '<h3>',
@@ -15,13 +15,28 @@ register_sidebar(array('name' => 'Pied n°1','before_widget' => '','after_widget
 register_sidebar(array('name' => 'Pied n°2','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>'));     
 register_sidebar(array('name' => 'Pied n°3','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>')); 
 register_sidebar(array('name' => 'Pied n°4','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>'));     
+register_sidebar(array(	'name' => 'Col Milieu Page',
+												'before_widget' => '<ul id="sidebar-block"><div>',
+												'after_widget' => '</div></ul>',
+												'before_title' => '<h3>',
+												'after_title' => '</h3>')); 
+register_sidebar(array(	'name' => 'Col Archive',
+												'before_widget' => '<ul id="sidebar-block"><div>',
+												'after_widget' => '</div></ul>',
+												'before_title' => '<h3>',
+												'after_title' => '</h3>')); 
 
 	} 
 
-register_sidebar_widget('Flux RSS',
-    'widget_ecs_rss');
-register_sidebar_widget('Articles similaires pour EcoRes',
-    'widget_ecs_related_posts');
+add_action( 'init', 'register_ecs_menus' );
+function register_ecs_menus() {
+	register_nav_menus(
+ 	array( 'main' => __( 'Principal' ))
+ 	);
+}
+
+include (TEMPLATEPATH . '/ecs_widgets.php');
+
 
 	remove_filter('get_the_excerpt', 'wp_trim_excerpt');
 	add_filter('get_the_excerpt', 'custom_trim_excerpt');
@@ -96,31 +111,78 @@ function get_custom_thumbnail($post) {
 
 }
 
-// Widgets
-
-function widget_ecs_rss($args) {
-    extract($args);
-?>
-        <?php echo $before_widget; ?>
-            <?php echo $before_title
-                . "Fils d'information"
-                . $after_title; ?>
-            <a href="<?php bloginfo('rss2_url'); ?>">Fil d'information des articles</a><br/>
-            <a href="<?php bloginfo('comments_rss2_url'); ?>">Fil d'information des commentaires</a>
-        <?php echo $after_widget; ?>
-<?php
-}
-
-function widget_ecs_related_posts($args) {
-    extract($args);
-?>
-        <?php echo $before_widget; ?>
-						<?php related_posts() ?>
-        <?php echo $after_widget; ?>
-<?php
+function ecs_short_excerpt($length) {
+	$excerpt = strip_tags( (string) get_the_excerpt() );
+	preg_replace( '/([,;.-]+)\s*/','\1 ', $excerpt );
+	$excerpt = implode( ' ', array_slice( preg_split('/\s+/',$excerpt), 0, $length ) ).'...';
+	return $excerpt;
 }
 
 
+/////////////////////////////////
+
+
+class ecs_menu_walker extends Walker_Nav_Menu
+{
+	/**
+	 * @see Walker::start_lvl()
+	 * @since 3.0.0
+	 *
+	 * @param string $output Passed by reference. Used to append additional content.
+	 * @param int $depth Depth of page. Used for padding.
+	 */
+	function start_lvl(&$output, $depth) {
+		$indent = str_repeat("\t", $depth);
+		$output .= "\n$indent<ul class=\"dropdown-menu\">\n";
+	}
+
+	function start_el(&$output, $item, $depth, $args) {
+		global $wp_query;
+		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
+		
+		$menu_children = new WP_Query(array('post_type'=>'nav_menu_item','child_of' => $item->ID));
+		$has_children = count($menu_children) ; 
+		// echo $item->post_type;
+		// if ($depth==0) {
+		//	echo $item->title . ' id:' .$item->ID . ' nb parent:' . $has_children . 'pn:'. $menu_children->posts[0]->post_title . '<br/>';
+			//print_r($menu_children->posts); echo '<br/><br/>';
+		// } 
+		
+		// echo 'c:'.$has_children . ' d:' .$depth;
+		wp_reset_query();
+		
+		$class_names = $value = '';
+
+		$classes = empty( $item->classes ) ? array() : (array) $item->classes;
+		$classes[] = 'menu-item-' . $item->ID;
+		// $class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
+		//$dropdown = ($depth) ? '' :'dropdown ';
+		$class_names = ($depth) ? '' : 'class="dropdown"' ;
+
+		$id = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args );
+		$id = strlen( $id ) ? ' id="' . esc_attr( $id ) . '"' : '';
+
+		$output .= $indent . '<li' . $id . $value . $class_names .'>';
+
+		$attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
+		$attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target     ) .'"' : '';
+		$attributes .= ! empty( $item->xfn )        ? ' rel="'    . esc_attr( $item->xfn        ) .'"' : '';
+		$attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url        ) .'"' : '';
+
+		$is_home = ($item->url == site_url().'/') ? true : false;
+		$item_output = $args->before;
+		$item_output .= '<a ';
+		$item_output .= ($depth) ? '' : 'class="dropdown-toggle" data-toggle="dropdown"' ;
+		$item_output .= $attributes .'>';
+		$item_output .= ($is_home) ? '<i class="icon-home icon-white"></i> ' : '';
+		$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
+		$item_output .= ( $depth==0 && $has_children) ? ' <b class="caret"></b></a>' : '</a>' ;
+		$item_output .= $args->after;
+
+		$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+	}
+
+}
 
 ////////////////////////////////
 

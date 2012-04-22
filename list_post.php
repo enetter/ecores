@@ -1,16 +1,16 @@
 <div class="row">
-	<div class="span3">
+	<div class="span2">
 		<ul class="thumbnails">
-			<li class="span3">
+			<li class="span2">
 				<a href="<?php the_permalink() ?>" class="thumbnail">
-					<img src="<?php bloginfo('template_directory'); ?>/scripts/timthumb.php?src=<?php echo get_custom_thumbnail($post) ?>&w=260&h=180&zc=1&q=100">
+					<img src="<?php bloginfo('template_directory'); ?>/scripts/timthumb.php?src=<?php echo get_custom_thumbnail($post) ?>&w=160&h=120&zc=1&q=100">
 				</a>
 			</li>
 		</ul>
 	</div>
-	<div class="span6">
+	<div class="span5">
 		Publié le <?php the_time('j F Y') ?>  par <?php the_author(); ?><br/> 
-		<h2><?php the_title(); ?></h2>
+		<a href="<?php the_permalink() ?>"><h2><?php the_title(); ?></h2></a>
 		<?php the_excerpt(); ?>
 		<p>
 		<?php $post_categories = wp_get_post_categories( get_the_ID() );
