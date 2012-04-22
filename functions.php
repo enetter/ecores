@@ -140,24 +140,16 @@ class ecs_menu_walker extends Walker_Nav_Menu
 		global $wp_query;
 		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 		
-		$menu_children = new WP_Query(array('post_type'=>'nav_menu_item','child_of' => $item->ID));
-		$has_children = count($menu_children) ; 
-		// echo $item->post_type;
-		// if ($depth==0) {
-		//	echo $item->title . ' id:' .$item->ID . ' nb parent:' . $has_children . 'pn:'. $menu_children->posts[0]->post_title . '<br/>';
-			//print_r($menu_children->posts); echo '<br/><br/>';
-		// } 
-		
-		// echo 'c:'.$has_children . ' d:' .$depth;
-		wp_reset_query();
-		
 		$class_names = $value = '';
-
 		$classes = empty( $item->classes ) ? array() : (array) $item->classes;
-		$classes[] = 'menu-item-' . $item->ID;
-		// $class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
-		//$dropdown = ($depth) ? '' :'dropdown ';
-		$class_names = ($depth) ? '' : 'class="dropdown"' ;
+
+		$is_top_menu = ($depth == 0) ? true : false;
+		$has_children = ($classes[0] == 'parent') ? true : false;
+		
+		$dropdown = ($is_top_menu && $has_children ) ? 'dropdown ' :'';
+		$class_names = 'class="' . $dropdown . join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) ) . '"' ;
+		
+
 
 		$id = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args );
 		$id = strlen( $id ) ? ' id="' . esc_attr( $id ) . '"' : '';
@@ -172,17 +164,88 @@ class ecs_menu_walker extends Walker_Nav_Menu
 		$is_home = ($item->url == site_url().'/') ? true : false;
 		$item_output = $args->before;
 		$item_output .= '<a ';
-		$item_output .= ($depth) ? '' : 'class="dropdown-toggle" data-toggle="dropdown"' ;
+		$item_output .= (($is_top_menu && !$has_children) || !$is_top_menu) ? '' : 'class="dropdown-toggle" data-toggle="dropdown"' ;
 		$item_output .= $attributes .'>';
 		$item_output .= ($is_home) ? '<i class="icon-home icon-white"></i> ' : '';
 		$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
-		$item_output .= ( $depth==0 && $has_children) ? ' <b class="caret"></b></a>' : '</a>' ;
+		$item_output .= ( $is_top_menu && $has_children) ? ' <b class="caret"></b></a>' : '</a>' ;
 		$item_output .= $args->after;
 
 		$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
 	}
 
+		/**
+	 * Traverse elements to create list from elements.
+	 *
+	 * Display one element if the element doesn't have any children otherwise,
+	 * display the element and its children. Will only traverse up to the max
+	 * depth and no ignore elements under that depth. It is possible to set the
+	 * max depth to include all depths, see walk() method.
+	 *
+	 * This method shouldn't be called directly, use the walk() method instead.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param object $element Data object
+	 * @param array $children_elements List of elements to continue traversing.
+	 * @param int $max_depth Max depth to traverse.
+	 * @param int $depth Depth of current element.
+	 * @param array $args
+	 * @param string $output Passed by reference. Used to append additional content.
+	 * @return null Null on failure with no changes to parameters.
+	 */
+	function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ) {
+
+		if ( !$element )
+			return;
+
+		$id_field = $this->db_fields['id'];
+		// ECS Modifies the class list
+		$element->classes = array();
+
+		//display this element
+		if ( is_array( $args[0] ) )
+			$args[0]['has_children'] = ! empty( $children_elements[$element->$id_field] );
+		
+		//Adds the 'parent' class to the current item if it has children		
+		if( ! empty( $children_elements[$element->$id_field] ) )
+			array_push($element->classes,'parent');
+		
+		$cb_args = array_merge( array(&$output, $element, $depth), $args);
+		
+		call_user_func_array(array(&$this, 'start_el'), $cb_args);
+
+		$id = $element->$id_field;
+
+		// descend only when the depth is right and there are childrens for this element
+		if ( ($max_depth == 0 || $max_depth > $depth+1 ) && isset( $children_elements[$id]) ) {
+
+			foreach( $children_elements[ $id ] as $child ){
+
+				if ( !isset($newlevel) ) {
+					$newlevel = true;
+					//start the child delimiter
+					$cb_args = array_merge( array(&$output, $depth), $args);
+					call_user_func_array(array(&$this, 'start_lvl'), $cb_args);
+				}
+				$this->display_element( $child, $children_elements, $max_depth, $depth + 1, $args, $output );
+			}
+			unset( $children_elements[ $id ] );
+		}
+
+		if ( isset($newlevel) && $newlevel ){
+			//end the child delimiter
+			$cb_args = array_merge( array(&$output, $depth), $args);
+			call_user_func_array(array(&$this, 'end_lvl'), $cb_args);
+		}
+
+		//end this element
+		$cb_args = array_merge( array(&$output, $element, $depth), $args);
+		call_user_func_array(array(&$this, 'end_el'), $cb_args);
+	}
 }
+
+
 
 ////////////////////////////////
 
