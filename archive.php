@@ -9,7 +9,7 @@
 	
  	<?php $post = $posts[0]; // Hack. Set $post so that the_date() works. ?>
  	<div class="page-header">
-	 	<?php /* If this is a category archive */ if (is_category()) { ?><h1><?php single_cat_title(); ?></h1Ò>
+	 	<?php /* If this is a category archive */ if (is_category()) { ?><h1><?php single_cat_title();?></h1Ò>
 
 		<?php /* If this is a tagged archive */ } elseif (is_tag()) { ?>	<h1>Articles marqu&eacute;s comme : <?php single_tag_title(); ?></h2>
 

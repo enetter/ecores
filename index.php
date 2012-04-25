@@ -1,56 +1,40 @@
 <?php get_header(); ?>
 <div id="page" class="container">
 	<div class="row">
-		<div class="span9">
+		<div class="span8">
 			<?php if(!is_paged()) { ?>
 				<?php include (TEMPLATEPATH . '/carousel.php'); ?>
 			<?php } ?>
-			<div class="page-header">
-			  <h1>A l'affiche</h1>
+		</div>
+		<div class="span4">
+			<div class="row">
+				<div class="span4">
+					<div class="subheader-top"><h3>L'habitat éco-responsable sur votre mobile !</h3></div>
+				</div>
 			</div>
-			<div class="span9" >
-					<?php	$page = (get_query_var('paged')) ? get_query_var('paged') : 1;
-								query_posts("cat=".get_option('ecs_cat_a_l_affiche')."&paged=$page&posts_per_page=.get_option('posts_per_page')"); 
-							  $nbposts=0; $maxposts=get_option('ecs_nb_a_l_affiche'); ?>
-					<?php while (have_posts()) : the_post(); ?>
-						<?php if ($nbposts % 3 == 0) { ?>
-							<div class="row">
-								<ul class="thumbnails">
-									<?php } ?>
-									<li class="span3">
-										<div class="thumbnail">
-											<a href="<?php the_permalink() ?>">
-												<img src="<?php bloginfo('template_directory'); ?>/scripts/timthumb.php?src=<?php echo get_custom_thumbnail($post) ?>&w=260&h=180&zc=1&q=100">
-											</a>
-											<div class="caption frontpage" rel="popover" data-content="<?php the_excerpt()?><span class='label'><?php the_time('j/m/Y') ?></span> 
-													<span class='label'><?php comments_number('Pas de commentaires', 'Un commentaire', '% commentaires');?></span>" 
-													data-original-title="<?php the_title(); ?>">
-													<h4><?php the_title(); ?></h4>
-											</div>
-										</div>
-										<!-- Span3 li -->
-									</li>
-									<?php if ($nbposts % 3 == 2) { ?>
-									<!-- Thumbnails ul -->
-								</ul>
-								<!-- Thumbnails Row div -->
-							</div>
-						<?php } ?>
-					<?php if ($nbposts == $maxposts-1) { break; }?>
-					<?php $nbposts=$nbposts+1 ?>
-				<?php endwhile; ?>
-				<?php if ($nbposts % 3 != 2 && $nbposts < $maxposts-1) { ?>
-									<!-- Thumbnails ul if -->
-								</ul>
-								<!-- Thumbnails Row div if -->
-							</div>
-				<?php } ?>
-			<!-- Inner span9 -->
+			<div class="row">
+				<div class="span2">
+					<div class="subheader-top"><h3>Les dossiers</h3></div>
+				</div>
+				<div class="span2">
+					<div class="subheader-bottom"><h3>Les forums</h3></div>
+				</div>
 			</div>
-			<?php include (TEMPLATEPATH . '/navigation.php'); ?>
-		<!-- Outer span9 -->
-		</div> 
-		<div class="span3">
+		</div>
+	</div>
+	<div class="row">
+
+		<?php 
+			if (get_option('ecs_cats_or_posts_a_l_affiche')==0) {
+				include (TEMPLATEPATH . '/frontpage_posts.php'); 
+			} else {
+				include (TEMPLATEPATH . '/frontpage_cats.php');
+			}
+		?>	
+		<div class="span2">
+			<?php get_sidebar('middle-index'); ?>
+		</div>
+		<div class="span2">
 			<?php get_sidebar('right'); ?>
 		</div>
 	<!-- Outer row -->

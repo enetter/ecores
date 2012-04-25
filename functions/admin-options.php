@@ -17,26 +17,39 @@ $options[] = array(	"name" => "Carousel",
 					"options" => $alt_categories);
 
 $options[] = array(	"name" => "A l'affiche",
+					"type" => "heading");
+
+$options[] = array(	"name" => "Articles ou Catégories",
+					"desc" => "Souahitez-vous afficher les articles ou les catégories à l'affiche ?",
+					"id" => $shortname."_cats_or_posts_a_l_affiche",
+					"std" => "0",
+					"type" => "radio",
+					"options" => array('Articles', 'Catégories'));
+
+$options[] = array(	"name" => "Articles à l'affiche",
 					"desc" => "Les articles de cette catégorie seront affichés dans la page d'accueil dans la section 'A l'affiche'.",
 					"id" => $shortname."_cat_a_l_affiche",
 					"std" => "",
 					"type" => "select",
 					"options" => $alt_categories);
 
-$options[] = array(	"name" => "Nombre d'éléments à l'affiche",
+$options[] = array(	"name" => "Nombre d'articles à l'affiche",
 					"desc" => "Choisissez le nombre d'éléments qui seront listés sur la page d'accueil dans la section à l'affiche.",
 					"id" => $shortname."_nb_a_l_affiche",
 					"std" => "",
 					"type" => "select",
-					"options" => array('3','6','9','12'));
+					"options" => array('2','4','6','8','10','12'));
 
-$options[] = array(	"name" => "Liens commerciaux et analyse du trafic",
+$options[] = array(	"name" => "Catégories à l'affiche",
+					"desc" => "Les 3 derniers articles de ces catégories seront affichés dans la page d'accueil.",
+					"id" => $shortname."_cats_a_l_affiche",
+					"std" => "-1",
+					"type" => "multicheck",
+					"options" => $alt_categories);
+
+$options[] = array(	"name" => "Analyse du trafic",
 					"type" => "heading");
 
-$options[] = array(	"name" => "Liens commerciaux",
-					"desc" => "Si vous souhaitez afficher un bloc d'annonces, collez ici le code Google Adsense ou de votre service de liens commerciaux.",
-					"id" => $shortname."_google_adsense",
-					"type" => "textarea");
 $options[] = array(	"name" => "Analyse du trafic",
 					"desc" => "Collez ici le code pour Google Analytics ou pour votre autre service d'analyse.",
 					"id" => $shortname."_google_analytics",

@@ -75,6 +75,29 @@ blockquote p {
 	width: 200px;
 }
 
+/* SubHeader */
+
+.subheader-top, .subheader-bottom {
+	height: 130px;
+	background-color: whiteSmoke;
+	padding:20px;
+}
+
+.subheader-top {
+	margin-bottom: 30px;
+}
+
+
+.subheader-bottom {
+
+}
+
+/*  Page header */
+
+.page-header {
+
+}
+
 .sidebar h3 {
 	padding:8px 2px 0px 2px;
 	border-top: 10px solid grey;	

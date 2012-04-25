@@ -46,7 +46,7 @@ class Ecs_Related_Posts_Widget extends WP_Widget {
 		echo $before_widget;
 		$title = empty($instance['title']) ? '&nbsp;' : apply_filters('widget_title', $instance['title']);
 		if ( !empty( $title ) ) { echo $before_title . $title . $after_title; };
-	  related_posts();  
+	  if (!function_exists('related_posts') || !related_posts()) {} ;  
 		echo $after_widget;
 	}
 

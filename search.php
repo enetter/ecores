@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 <div id="page" class="container">
 	<div class="row">
-	<div id="content" class="span9">
+	<div id="content" class="span7">
 
 	<?php if (have_posts()) : ?>
 	<div class="page-header">
@@ -31,9 +31,13 @@
 	</div>
 
 
+<div class="span3">
+	<?php get_sidebar('middle-archive'); ?>
+</div>
+<div class="span2">
+  <?php get_sidebar('right'); ?>
+</div>
 
-
-<?php get_sidebar('right'); ?>
 </div>
 </div>
 <?php get_footer(); ?>

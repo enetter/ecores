@@ -1,31 +1,45 @@
 <?php if ( function_exists('register_sidebar') ) 
 	{    
-register_sidebar(array('name' => 'Col Milieu Article',
-												'before_widget' => '<ul id="sidebar-block"><div>',
-												'after_widget' => '</div></ul>',
-												'before_title' => '<h3>',
-												'after_title' => '</h3>'));     
-
 register_sidebar(array(	'name' => 'Col Droite',
 												'before_widget' => '<ul id="sidebar-block"><div>',
 												'after_widget' => '</div></ul>',
 												'before_title' => '<h3>',
 												'after_title' => '</h3>')); 
-register_sidebar(array('name' => 'Pied n°1','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>'));     
-register_sidebar(array('name' => 'Pied n°2','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>'));     
-register_sidebar(array('name' => 'Pied n°3','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>')); 
-register_sidebar(array('name' => 'Pied n°4','before_widget' => '','after_widget' => '','before_title' => '<h3>','after_title' => '</h3>'));     
+register_sidebar(array(	'name' => 'Col Milieu Accueil',
+												'before_widget' => '<ul id="sidebar-block"><div>',
+												'after_widget' => '</div></ul>',
+												'before_title' => '<h3>',
+												'after_title' => '</h3>')); 
+register_sidebar(array(	'name' => 'Col Milieu Archive',
+												'before_widget' => '<ul id="sidebar-block"><div>',
+												'after_widget' => '</div></ul>',
+												'before_title' => '<h3>',
+												'after_title' => '</h3>')); 
+register_sidebar(array('name' => 'Col Milieu Article',
+												'before_widget' => '<ul id="sidebar-block"><div>',
+												'after_widget' => '</div></ul>',
+												'before_title' => '<h3>',
+												'after_title' => '</h3>'));     
 register_sidebar(array(	'name' => 'Col Milieu Page',
 												'before_widget' => '<ul id="sidebar-block"><div>',
 												'after_widget' => '</div></ul>',
 												'before_title' => '<h3>',
 												'after_title' => '</h3>')); 
-register_sidebar(array(	'name' => 'Col Archive',
+register_sidebar(array(	'name' => 'Pied de page gauche',
+												'before_widget' => '<ul id="sidebar-block"><div>',
+												'after_widget' => '</div></ul>',
+												'before_title' => '<h3>',
+												'after_title' => '</h3>'));     
+register_sidebar(array(	'name' => 'Pied de page milieu',
 												'before_widget' => '<ul id="sidebar-block"><div>',
 												'after_widget' => '</div></ul>',
 												'before_title' => '<h3>',
 												'after_title' => '</h3>')); 
-
+register_sidebar(array(	'name' => 'Pied de page droit',
+												'before_widget' => '<ul id="sidebar-block"><div>',
+												'after_widget' => '</div></ul>',
+												'before_title' => '<h3>',
+												'after_title' => '</h3>')); 
 	} 
 
 add_action( 'init', 'register_ecs_menus' );
@@ -396,7 +410,7 @@ function ecs_page (){
 														if($key == $value['std']) { $checked = "checked=\"checked\""; } else { $checked = ""; }
 									} ?>
 									
-	            					<input type="radio" name="<?php echo $value['id']; ?>" value="<?php echo $key; ?>" <?php echo $checked; ?> /><?php echo $option; ?><br />
+	            					<input type="radio" name="<?php echo $value['id']; ?>" value="<?php echo $key; ?>" <?php echo $checked; ?> /> <?php echo $option; ?><br />
 		
 									<?php }
 		 
@@ -416,18 +430,18 @@ function ecs_page (){
 		
  										foreach ($value['options'] as $key=>$option) {
  										
-	 											$woo_key = $value['id'] . '_' . $key;
-												$checkbox_setting = get_settings($woo_key);
+	 											$ecs_key = $value['id'] . '_' . $key;
+												$checkbox_setting = get_settings($ecs_key);
 				
  												if($checkbox_setting != '') {
 		    		
-		    											if (get_settings($woo_key) ) { $checked = "checked=\"checked\""; } else { $checked = ""; }
+		    											if (get_settings($ecs_key) ) { $checked = "checked=\"checked\""; } else { $checked = ""; }
 				
 												} else { if($key == $value['std']) { $checked = "checked=\"checked\""; } else { $checked = ""; }
 				
 									} ?>
-									
-	            					<input type="checkbox" class="checkbox" name="<?php echo $woo_key; ?>" id="<?php echo $woo_key; ?>" value="true" <?php echo $checked; ?> /><label for="<?php echo $woo_key; ?>"><?php echo $option; ?></label><br />
+		
+	            					<input type="checkbox" class="checkbox" name="<?php echo $ecs_key; ?>" id="<?php echo $ecs_key; ?>" value="<?php echo $option[0]; ?>" <?php echo $checked; ?> /><label for="<?php echo $ecs_key; ?>"> <?php if (is_array($option)) { echo $option[1];	} else { echo $option; }?></label><br />
 									
 									<?php }
 		 

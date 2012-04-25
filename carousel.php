@@ -5,7 +5,7 @@
   	<?php $first=true; while (have_posts()) : the_post(); ?>
 	    <div class="item <?php if ($first) { echo 'active'; $first=false; } ?>">
 				 	<a href="<?php the_permalink() ?>" rel="bookmark" title="Lien permanent vers <?php the_title(); ?>">
-          	<img src="<?php echo bloginfo('template_url'); ?>/scripts/timthumb.php?src=<?php echo get_custom_thumbnail($post) ?>&w=870&h=450&zc=1&q=100">
+          	<img src="<?php echo bloginfo('template_url'); ?>/scripts/timthumb.php?src=<?php echo get_custom_thumbnail($post) ?>&w=770&h=370&zc=1&q=100">
           </a>
 	    	<div class="carousel-caption">
 	    		<h4><?php the_title(); ?></h4>
