@@ -317,7 +317,7 @@ function get_cache_file () {
 
 	static $cache_file;
 	if(!$cache_file) {
-		$frags = split( "\.", $_REQUEST['src'] );
+		$frags = explode( ".", $_REQUEST['src'] );
 		$ext = strtolower( $frags[ count( $frags ) - 1 ] );
 		if(!valid_extension($ext)) { $ext = 'jpg'; }
 		$cachename = get_request( 'src', 'timthumb' ) . get_request( 'w', 100 ) . get_request( 'h', 100 ) . get_request( 'zc', 1 ) . get_request( 'q', 80 );

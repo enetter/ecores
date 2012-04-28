@@ -176,9 +176,11 @@ class ecs_menu_walker extends Walker_Nav_Menu
 		$attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url        ) .'"' : '';
 
 		$is_home = ($item->url == site_url().'/') ? true : false;
+		$is_current_home = (curPageURL() == site_url().'/') && $is_home ? true : false;
 		$item_output = $args->before;
-		$item_output .= '<a ';
-		$item_output .= (($is_top_menu && !$has_children) || !$is_top_menu) ? '' : 'class="dropdown-toggle" data-toggle="dropdown"' ;
+		$item_output .= '<a class="';
+		$item_output .= (is_category($item->object_id) || $is_current_home) ? 'selected ' : '';
+		$item_output .= (($is_top_menu && !$has_children) || !$is_top_menu) ? '"' : 'dropdown-toggle" data-toggle="dropdown"' ;
 		$item_output .= $attributes .'>';
 		$item_output .= ($is_home) ? '<i class="icon-home icon-white"></i> ' : '';
 		$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
@@ -257,6 +259,18 @@ class ecs_menu_walker extends Walker_Nav_Menu
 		$cb_args = array_merge( array(&$output, $element, $depth), $args);
 		call_user_func_array(array(&$this, 'end_el'), $cb_args);
 	}
+}
+
+function curPageURL() {
+ $pageURL = 'http';
+ if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+ $pageURL .= "://";
+ if ($_SERVER["SERVER_PORT"] != "80") {
+  $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+ } else {
+  $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+ }
+ return $pageURL;
 }
 
 

@@ -12,6 +12,7 @@ http://www.opensource.org/licenses/gpl-license.php
 
 @import url('bootstrap/css/bootstrap.css');
 @import url('bootstrap/css/bootstrap-responsive.css');
+@import url('bootstrap/css/bootstrap-subnav.css');
 
 body, p {
 	font-size: 14px;
@@ -29,10 +30,18 @@ a:hover {
 blockquote p {
 	font-size: 14px;
 }
+
+.navbar {
+	margin-bottom: 0px;
+}
 .navbar-inner {
 	-webkit-border-radius: 0; 
 	-moz-border-radius: 0; 
 	border-radius: 0;
+}
+
+.navbar .nav > li.current-cat > a {
+	color: white;
 }
 
 .header, .footer {
@@ -75,6 +84,15 @@ blockquote p {
 	width: 200px;
 }
 
+.subnav {
+	font-size: 90%;
+}
+
+.subnav-fixed .nav {
+	margin: 0 auto auto 0;
+}
+
+
 /* SubHeader */
 
 .subheader-top, .subheader-bottom {
@@ -98,7 +116,7 @@ blockquote p {
 
 }
 
-.sidebar h3 {
+.sidebar h3, .frontpage-cat h3 {
 	padding:8px 2px 0px 2px;
 	border-top: 10px solid grey;	
 	font-size: 15px;
@@ -139,6 +157,27 @@ blockquote p {
 	margin-top: -54px;
 	color: white;
 }
+
+
+.frontpage-cat-first {
+	margin: 5px 0 20px 0 ;
+}
+
+.frontpage-cat ul {
+	list-style: none;
+	margin-left: 0px;
+}
+
+.frontpage-cat li {
+	margin-bottom: 12px;
+}
+
+.post-info {
+	color: grey;
+	font-style: italic;
+	font-size: 90%;
+}
+
 .footer {
 	background-color: whiteSmoke;
 	border-top:	1px lightgrey solid;
@@ -157,5 +196,7 @@ blockquote p {
 .footer h3, .footer p {
 	margin: 5px 0 3px;
 }
+
+
 
 

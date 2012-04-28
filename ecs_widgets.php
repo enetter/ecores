@@ -155,7 +155,7 @@ class Ecs_Commented_Posts_Widget extends WP_Widget {
 		<?php if ($recent_posts->have_posts()):?>
 			<ul>
 				<?php while ($recent_posts->have_posts()) : $recent_posts->the_post(); ?>
-				<li><a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a>&nbsp;<span class="badge"><?php echo get_comments_number(); ?></span>
+				<li><a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a>&nbsp;<span class="badge" title="Nb de commentaires"><?php echo get_comments_number(); ?></span>
 					<p>
 					<?php 
 						echo ecs_short_excerpt(20);
