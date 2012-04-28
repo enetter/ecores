@@ -2,16 +2,16 @@
 	<div id="footer" class="container">
 		<div class="row">
 			<div class="span4">
-				<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar(6) ) : ?> 		
+				<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar(7) ) : ?> 		
 				<?php endif; ?>	
 			</div>	
 			<div class="span4">
-				<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar(7) ) : ?> 	
+				<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar(8) ) : ?> 	
 			
 				<?php endif; ?>	
 			</div>	
 			<div class="span4">
-				<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar(8) ) : ?> 		
+				<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar(9) ) : ?> 		
 				<?php endif; ?>	
 			</div>	
 	</div>
@@ -22,6 +22,7 @@
 <!-- </div> -->
 <?php if ( get_option('ecs_google_analytics') <> "" ) { echo stripslashes(get_option('ecs_google_analytics')); } ?>
 </div>
+<?php wp_footer(); ?>
 </body>
 <script src="<?php bloginfo('template_directory'); ?>/bootstrap/js/jquery.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/bootstrap/js/bootstrap.min.js"></script>

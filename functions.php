@@ -1,5 +1,10 @@
 <?php if ( function_exists('register_sidebar') ) 
 	{    
+register_sidebar(array(	'name' => 'Encart Accueil',
+												'before_widget' => '',
+												'after_widget' => '',
+												'before_title' => '',
+												'after_title' => '')); 
 register_sidebar(array(	'name' => 'Col Droite',
 												'before_widget' => '<ul id="sidebar-block"><div>',
 												'after_widget' => '</div></ul>',
@@ -274,6 +279,21 @@ function curPageURL() {
 }
 
 
+function get_category_children_id($id) {
+if ( 0 == $id )
+return '';
+$cat_ids = get_all_category_ids();
+foreach ( $cat_ids as $cat_id ) {
+if ( $cat_id == $id)
+continue;
+$category = get_category($cat_id);
+if ( $category->category_parent == $id ) {
+$objects .= $category->cat_ID.',';
+$objects .= get_category_children_id($category->cat_ID);
+}
+}
+return $objects;
+}
 
 ////////////////////////////////
 

@@ -7,19 +7,8 @@
 			<?php } ?>
 		</div>
 		<div class="span4">
-			<div class="row">
-				<div class="span4">
-					<div class="subheader-top"><h3>L'habitat éco-responsable sur votre mobile !</h3></div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="span2">
-					<div class="subheader-top"><h3>Les dossiers</h3></div>
-				</div>
-				<div class="span2">
-					<div class="subheader-bottom"><h3>Les forums</h3></div>
-				</div>
-			</div>
+			<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar(1) ) : /* Widgetized sidebar, if you have the plugin installed. */ 	?>
+			<?php endif; ?>
 		</div>
 	</div>
 	<div class="row">
