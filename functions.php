@@ -339,7 +339,7 @@ global $current_top_menu_item;
 					<div class="container">
 						<ul class="nav nav-pills">
 				    <?php
-				    	$post_categories_id = get_the_category();
+				    	$post_categories = get_the_category();
 				    	//print_r($post_categories_id);
 							foreach ($nav_submenu_items as $key => $item) { 
 
