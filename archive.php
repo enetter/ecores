@@ -20,7 +20,7 @@
 	 				}
 
 
-	 		?><h1><?php echo $output ;?></h1Ò>
+	 		?><h1 ><?php echo $output ;?></h1>
 
 		<?php /* If this is a tagged archive */ } elseif (is_tag()) { ?>	<h1>Articles marqu&eacute;s comme : <?php single_tag_title(); ?></h2>
 
@@ -34,6 +34,7 @@
 	 	<?php /* If this is a paged archive */ } elseif (isset($_GET['paged']) && !empty($_GET['paged'])) { ?>
 		<h2 class="title">Archives</h2>
  	 <?php } ?>
+ 	
  	</div>	
 		
  	<?php while (have_posts()) : the_post(); ?>	

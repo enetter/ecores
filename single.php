@@ -8,16 +8,13 @@
 
 			<div class="row" id="post-<?php the_ID(); ?>">
 				<div class="span7">
-					<span class="label">Publié le <?php the_time('j F Y') ?></span>
-					<?php $post_categories = wp_get_post_categories( get_the_ID() );
-					foreach($post_categories as $c){
-						$cat = get_category( $c );?>
-						<a class="label label-info" href="<?php echo get_category_link( $c ) ?>"><?php echo $cat->name ?></a>
-					<?php } ?>
-					<?php edit_post_link('Modifier', '<span class="btn pull-right">', '</span>'); ?>
 					<div class="page-header">
+						<?php edit_post_link('Modifier', '<span class="btn pull-right">', '</span>'); ?>
 						<h1 class="title"><?php the_title(); ?></h1>
+						<p>Publié le <?php the_time('j F Y') ?></p>
 					</div>
+						
+					
 					<p>
 						<?php the_content('Lire la suite &raquo;'); ?>
 					</p>

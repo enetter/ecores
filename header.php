@@ -105,30 +105,28 @@
 					</div>
 				</div>
 		</div>
-		<?php if (!is_home() && $is_navigable) : ?>
-			<div class="subnav subnav-fixed">
+		<?php if (!is_home() && $is_navigable) : 
+			if (is_single()) {
+    		$cat_id = $single_root_cat->term_id;
+    	}
+    	else
+    	{	
+    		$cat_id = get_query_var('cat');
+    	}
+    	$children = get_category_children($cat_id);
+    	if ($children =='') {
+    		$cat = get_category($cat_id);
+    		$cat_id = $cat->parent;
+    	}
+			$args = array( 'parent' => $cat_id );
+			$parent = get_category($cat_id);
+			global $cat_color;
+			$cat_color = $parent->description;
+			?>
+			<div class="subnav subnav-fixed" >
 				<div class="container">
 					<ul class="nav nav-pills">
 			    <?php
-			    	if (is_single()) {
-			    		$cat_id = $single_root_cat->term_id;
-			    	}
-			    	else
-			    	{	
-			    		$cat_id = get_query_var('cat');
-			    	}
-			    	$children = get_category_children($cat_id);
-			    	if ($children =='') {
-			    		$cat = get_category($cat_id);
-			    		$cat_id = $cat->parent;
-			    	}
-						// $args = array(
-						// 			'exclude' => get_option('ecs_cat_a_la_une').','.get_option('ecs_cat_a_l_affiche'), 
-						// 			'title_li' => '', 
-						// 			'child_of' => $cat_id,
-						// 	    'echo' => 1,
-						// 	    'depth' => 1, ); 
-						$args = array( 'parent' => $cat_id );
 						$categories = get_categories($args);
 						foreach ($categories as $key => $cat) { 
 							$category_url = get_category_link( $cat->term_id );
