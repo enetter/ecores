@@ -20,7 +20,7 @@
 	 				}
 
 
-	 		?><h1 ><?php echo $output ;?></h1>
+	 		?><h1 style="color:<?php echo $current_cat_color; ?>"><?php echo $output ;?></h1>
 
 		<?php /* If this is a tagged archive */ } elseif (is_tag()) { ?>	<h1>Articles marqu&eacute;s comme : <?php single_tag_title(); ?></h2>
 

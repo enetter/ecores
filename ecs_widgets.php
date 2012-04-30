@@ -92,8 +92,10 @@ class Ecs_Recent_Posts_Widget extends WP_Widget {
 	  $recent_posts = new WP_Query(array('post_type'=>'post','posts_per_page'=>$nbposts)); ?>
 		<?php if ($recent_posts->have_posts()):?>
 			<ul>
-				<?php while ($recent_posts->have_posts()) : $recent_posts->the_post(); ?>
-				<li><a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a>
+				<?php while ($recent_posts->have_posts()) : $recent_posts->the_post(); $cat =  get_single_top_category(get_the_ID()); ?>
+				<li>
+					<span style="color:<?php echo $cat->description ?>"><span style="background-color:<?php echo $cat->description ?>"><i class="icon-chevron-right icon-white"></i></span><?php echo $cat->name ?></span><br/>
+					<a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a>
 					<p>
 					<?php 
 						echo ecs_short_excerpt(20);
@@ -154,8 +156,10 @@ class Ecs_Commented_Posts_Widget extends WP_Widget {
 	  $recent_posts = new WP_Query(array('post_type'=>'post','posts_per_page'=>5, 'orderby' => 'comment_count')); ?>
 		<?php if ($recent_posts->have_posts()):?>
 			<ul>
-				<?php while ($recent_posts->have_posts()) : $recent_posts->the_post(); ?>
-				<li><a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a>&nbsp;<span class="badge" title="Nb de commentaires"><?php echo get_comments_number(); ?></span>
+				<?php while ($recent_posts->have_posts()) : $recent_posts->the_post(); $cat =  get_single_top_category(get_the_ID());?>
+				<li>
+					<span style="color:<?php echo $cat->description ?>"><span style="background-color:<?php echo $cat->description ?>"><i class="icon-chevron-right icon-white"></i></span><?php echo $cat->name ?></span><br/>
+					<a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a>&nbsp;<span class="badge" title="Nb de commentaires"><?php echo get_comments_number(); ?></span>
 					<p>
 					<?php 
 						echo ecs_short_excerpt(20);

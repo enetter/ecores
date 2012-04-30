@@ -137,134 +137,256 @@ function ecs_short_excerpt($length) {
 	return $excerpt;
 }
 
+function category_color_css() {
+
+	$args = array('parent'                   => 0,
+								'exclude'                  => get_option('ecs_cat_a_la_une').','.get_option('ecs_cat_a_l_affiche')
+								);
+	$categories = get_categories($args);
+	foreach ($categories as $key => $cat) {
+		$cat_class = 'cat'.$cat->term_id;
+		if ($cat->description) {
+			$output .= '.navbar .nav > li.'.$cat_class.'.current-cat > a, .navbar .nav > li.'.$cat_class.' > a:hover, .subnav .nav > li.'.$cat_class.'.current-cat > a, .subnav .nav > li.'.$cat_class.' > a:hover { background-color:'.$cat->description.'; }  ';
+
+		}		
+	}
+	return $output;
+}
+
+function menu_color_css($menu_name) {
+	if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) ) {
+		$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
+	  $menu_items = ecs_get_nav_menu_items($menu->term_id, 0);
+		foreach ($menu_items as $key => $item) {
+			$menu_class = 'menu'.$item->ID;
+			if ($item->attr_title) {
+				$output .= '.navbar .nav > li.'.$menu_class.'.active > a, .navbar .nav > li.'.$menu_class.' > a:hover, .subnav .nav > li.'.$menu_class.'.active > a, .subnav .nav > li.'.$menu_class.' > a:hover { background-color:'.$item->attr_title.'; }  ';
+
+			}		
+		}
+		return $output;
+	}
+}
+
+function get_wp_object_type($obj) {
+	if(!empty($obj)) {
+		if (property_exists($obj, 'post_type')) {
+			return $obj->post_type;
+		}
+		if (property_exists($obj, 'term_id')) {
+			return $obj->taxonomy;
+		}
+	}
+}
+
+function get_current_object_type() {
+	return get_wp_object_type(get_queried_object());
+}
+
+function get_single_top_category($the_post_id){
+	$args = array(
+								'parent'                   => 0,
+								'exclude'                  => get_option('ecs_cat_a_la_une').','.get_option('ecs_cat_a_l_affiche'),
+								);
+	$categories = get_categories($args);
+	$post_categories = get_the_category($the_post_id);
+	foreach ($categories as $key => $cat) {
+		// if (in_array($cat, $post_categories)) return $cat;
+		// Search for first top level cat of post, and store it
+		foreach ($post_categories as $key => $post_cat) {
+			if ($cat->term_id == $post_cat->term_id) {
+					return $cat ;		
+			}
+		}
+	}
+}
+
+function ecs_get_menu_item_from_object($menu_id, $obj) {
+	
+	$menu_items = wp_get_nav_menu_items($menu_id);
+	$object_type = get_wp_object_type($obj);
+	if ($object_type=='category') {
+		error_log('category');
+		foreach ( (array)$menu_items as $key => $menu_item ) {
+			if ($menu_item->object=='category' && $menu_item->object_id==$obj->term_id)
+				return $menu_item;
+		}
+	}
+	elseif ($object_type=='post') {
+		foreach ( (array)$menu_items as $key => $menu_item ) {
+			if ($menu_item->object=='post' && $menu_item->object_id==$obj->ID)
+				return $menu_item;
+			}
+		// try to get the categories
+		$post_categories = get_the_category($obj->ID);
+		foreach ( (array)$menu_items as $key => $menu_item ) {
+			if ($menu_item->object=='category')
+				{
+					$cat = get_category($menu_item->object_id);
+					foreach ($post_categories as $key => $post_cat) {
+						if ($post_cat->term_id == $cat->term_id && $menu_item->menu_item_parent>0) {
+								$temp_item = $menu_item;
+								if($menu_item->menu_item_parent>0)
+									return $menu_item;
+							}
+
+					}
+				} 
+			}
+			return $temp_item;
+	}
+	elseif ($object_type=='page') {
+		foreach ( (array)$menu_items as $key => $menu_item ) {
+			if ($menu_item->object=='page' && $menu_item->object_id==$obj->ID)
+				return $menu_item;
+		}
+	}
+	elseif ($object_type=='forum') {
+		foreach ( (array)$menu_items as $key => $menu_item ) {
+			if ($menu_item->object=='forum' && $menu_item->object_id==$obj->ID)
+				return $menu_item;
+		}
+	}
+	else {
+		error_log('Unknown object type: '.$object_type);
+	}
+}
+
+
+function ecs_get_nav_menu_items($menu_id, $parent_id) {
+
+	$menu_items = wp_get_nav_menu_items($menu_id);
+	$menu_items_final = array();
+	foreach ( (array)$menu_items as $key => $menu_item ) {
+		if ($menu_item->menu_item_parent==$parent_id)
+			$menu_items_final[] = $menu_item;
+		}
+	return $menu_items_final;
+}
+
+function ecs_get_top_menu_item_id($menu_item) {
+
+	error_log($menu_item->term_id);
+	if ($menu_item->menu_item_parent == 0)
+		{
+			return $menu_item->ID;
+		}
+		else
+		{
+			return $menu_item->menu_item_parent;
+		}
+}
+
+function ecs_nav_menu($menu_name){
+
+global $current_cat_color;
+global $current_object;
+global $current_top_menu_item;
+
+	if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) ) {
+		$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
+		$menu_items = ecs_get_nav_menu_items($menu->term_id, 0);
+		$current_object = get_queried_object();
+		$current_object_id = get_queried_object_id();
+		$current_object_type = get_wp_object_type($current_object);
+		$current_menu_item = ecs_get_menu_item_from_object($menu->term_id, $current_object);
+		$top_menu_item_id = ecs_get_top_menu_item_id($current_menu_item);
+		if ($current_object_type == 'category') {
+			$current_cat_color = $current_object->description;
+		} 
+		else
+		{
+			$post_categories = get_the_category();
+		}
+?>
+	<div class="navbar">
+		<div class="navbar-inner">
+				<div class="container">
+					<ul class="nav">
+						<li class="<?php if (is_home()) { echo 'current-cat'; } ?>">
+							<a href="<?php bloginfo('url');?>"><i class="icon-home icon-white"></i></a>
+						</li>
+						<?php 
+						foreach($menu_items as $key => $item) {
+							$selected = ($item->object_id==$current_object_id 
+												|| in_array($current_menu_item, ecs_get_nav_menu_items($menu->term_id, $item->ID)) 
+												|| $current_menu_item == $item
+												);
+							if ($selected)
+								$current_top_menu_item = $item;
+							$menu_class = 'class="menu'.$item->ID;
+							$menu_class .= ($selected) ? ' active"' : '"';
+						?>
+					  	<li <?php echo $menu_class; ?>>
+
+					  		<a href="<?php echo $item->url; ?>"><?php echo $item->title; ?></a>
+					  	</li>
+				  	<?php } ?>
+					</ul>
+					<ul class="nav pull-right">
+						<?php include (TEMPLATEPATH . '/searchform.php'); ?>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<?php // if (!empty($current_cat) || is_single()) : 
+
+			if ($top_menu_item_id)
+				$nav_submenu_items = ecs_get_nav_menu_items($menu->term_id, $top_menu_item_id);
+			if ($nav_submenu_items) :
+			?>
+				<div class="subnav subnav-fixed" >
+					<div class="container">
+						<ul class="nav nav-pills">
+				    <?php
+				    	$post_categories_id = get_the_category();
+				    	//print_r($post_categories_id);
+							foreach ($nav_submenu_items as $key => $item) { 
+
+									foreach ($post_categories as $key => $post_cat) {
+										if ($item->object == 'category' && $item->object_id == $post_cat->term_id) {
+											$selected = true;
+											break;
+										}
+									}
+								$selected = ($item->object_id==$current_object_id || $current_menu_item->ID == $item->ID);
+								$menu_class = 'class="menu'.$current_top_menu_item->ID;
+								$menu_class .= ($selected) ? ' active"' : '"';
+								?>
+								<li <?php echo $menu_class; ?>>
+							  		<a href="<?php echo $item->url; ?>"><?php echo $item->title; ?></a>
+							  </li>
+							<?php } ?>
+						</ul>
+					</div>
+			  </div>
+		<?php endif; ?>
+
+
+<?php
+	}
+	else
+	{
+		?>
+		<div class="navbar">
+			<div class="navbar-inner">
+				<div class="container">
+						<ul class="nav">
+							<li><a href="#">Pas de menu trouvé</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		<?php
+	}
+}
+
+
 
 /////////////////////////////////
 
 
-class ecs_menu_walker extends Walker_Nav_Menu
-{
-	/**
-	 * @see Walker::start_lvl()
-	 * @since 3.0.0
-	 *
-	 * @param string $output Passed by reference. Used to append additional content.
-	 * @param int $depth Depth of page. Used for padding.
-	 */
-	function start_lvl(&$output, $depth) {
-		$indent = str_repeat("\t", $depth);
-		$output .= "\n$indent<ul class=\"dropdown-menu\">\n";
-	}
 
-	function start_el(&$output, $item, $depth, $args) {
-		global $wp_query;
-		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
-		
-		$class_names = $value = '';
-		$classes = empty( $item->classes ) ? array() : (array) $item->classes;
-
-		$is_top_menu = ($depth == 0) ? true : false;
-		$has_children = ($classes[0] == 'parent') ? true : false;
-		
-		$dropdown = ($is_top_menu && $has_children ) ? 'dropdown ' :'';
-		$class_names = 'class="' . $dropdown . join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) ) . '"' ;
-		
-
-
-		$id = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args );
-		$id = strlen( $id ) ? ' id="' . esc_attr( $id ) . '"' : '';
-
-		$output .= $indent . '<li' . $id . $value . $class_names .'>';
-
-		$attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
-		$attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target     ) .'"' : '';
-		$attributes .= ! empty( $item->xfn )        ? ' rel="'    . esc_attr( $item->xfn        ) .'"' : '';
-		$attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url        ) .'"' : '';
-
-		$is_home = ($item->url == site_url().'/') ? true : false;
-		$is_current_home = (curPageURL() == site_url().'/') && $is_home ? true : false;
-		$item_output = $args->before;
-		$item_output .= '<a class="';
-		$item_output .= (is_category($item->object_id) || $is_current_home) ? 'selected ' : '';
-		$item_output .= (($is_top_menu && !$has_children) || !$is_top_menu) ? '"' : 'dropdown-toggle" data-toggle="dropdown"' ;
-		$item_output .= $attributes .'>';
-		$item_output .= ($is_home) ? '<i class="icon-home icon-white"></i> ' : '';
-		$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
-		$item_output .= ( $is_top_menu && $has_children) ? ' <b class="caret"></b></a>' : '</a>' ;
-		$item_output .= $args->after;
-
-		$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
-	}
-
-		/**
-	 * Traverse elements to create list from elements.
-	 *
-	 * Display one element if the element doesn't have any children otherwise,
-	 * display the element and its children. Will only traverse up to the max
-	 * depth and no ignore elements under that depth. It is possible to set the
-	 * max depth to include all depths, see walk() method.
-	 *
-	 * This method shouldn't be called directly, use the walk() method instead.
-	 *
-	 * @since 2.5.0
-	 *
-	 * @param object $element Data object
-	 * @param array $children_elements List of elements to continue traversing.
-	 * @param int $max_depth Max depth to traverse.
-	 * @param int $depth Depth of current element.
-	 * @param array $args
-	 * @param string $output Passed by reference. Used to append additional content.
-	 * @return null Null on failure with no changes to parameters.
-	 */
-	function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ) {
-
-		if ( !$element )
-			return;
-
-		$id_field = $this->db_fields['id'];
-		// ECS Modifies the class list
-		$element->classes = array();
-
-		//display this element
-		if ( is_array( $args[0] ) )
-			$args[0]['has_children'] = ! empty( $children_elements[$element->$id_field] );
-		
-		//Adds the 'parent' class to the current item if it has children		
-		if( ! empty( $children_elements[$element->$id_field] ) )
-			array_push($element->classes,'parent');
-		
-		$cb_args = array_merge( array(&$output, $element, $depth), $args);
-		
-		call_user_func_array(array(&$this, 'start_el'), $cb_args);
-
-		$id = $element->$id_field;
-
-		// descend only when the depth is right and there are childrens for this element
-		if ( ($max_depth == 0 || $max_depth > $depth+1 ) && isset( $children_elements[$id]) ) {
-
-			foreach( $children_elements[ $id ] as $child ){
-
-				if ( !isset($newlevel) ) {
-					$newlevel = true;
-					//start the child delimiter
-					$cb_args = array_merge( array(&$output, $depth), $args);
-					call_user_func_array(array(&$this, 'start_lvl'), $cb_args);
-				}
-				$this->display_element( $child, $children_elements, $max_depth, $depth + 1, $args, $output );
-			}
-			unset( $children_elements[ $id ] );
-		}
-
-		if ( isset($newlevel) && $newlevel ){
-			//end the child delimiter
-			$cb_args = array_merge( array(&$output, $depth), $args);
-			call_user_func_array(array(&$this, 'end_lvl'), $cb_args);
-		}
-
-		//end this element
-		$cb_args = array_merge( array(&$output, $element, $depth), $args);
-		call_user_func_array(array(&$this, 'end_el'), $cb_args);
-	}
-}
 
 function curPageURL() {
  $pageURL = 'http';
