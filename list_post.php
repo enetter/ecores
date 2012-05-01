@@ -10,12 +10,13 @@
 	</div>
 	<div class="span6">
 		
-		Publié le <?php the_time('j F Y') ?>  par <?php the_author(); ?>&nbsp;
+		<span style="color:<?php echo $cat->description ?>"><span style="background-color:<?php echo $cat->description ?>"><i class="icon-chevron-right icon-white"></i></span><?php echo $cat->name ?></span>
+		 / Publié le <?php the_time('j F Y') ?>  par <?php the_author(); ?>&nbsp;
 		<?php if (get_comments_number()>0) : ?>
 			<span class="badge" title="Nb de commentaires"><?php echo get_comments_number(); ?></span>
 		<?php endif; ?>
 		<br/>
 		<a href="<?php the_permalink() ?>"><h2><?php the_title(); ?></h2></a>
-		<?php the_excerpt(); ?>
+		<?php echo ecs_short_excerpt(50); ?>
 	</div>
 </div><br/>
