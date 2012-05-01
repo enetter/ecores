@@ -84,7 +84,13 @@ blockquote p {
 }
 
 .header {
+	height: 70px;
+	padding: 15px;
 	background-image: url('images/logo.jpg');
+}
+
+.header h1 {
+	font-size: 40px;
 }
 
 .nav h3 {
@@ -245,6 +251,8 @@ blockquote p {
 	margin-bottom: 12px;
 }
 
+/* CAROUSEL */
+
 .carousel a span {
 	font-weight:bold;
 	color: white;
@@ -260,6 +268,15 @@ blockquote p {
 
 .carousel a img {
 	margin-top: -13px;
+}
+
+.carousel-caption {
+	color: black;
+	background: rgba(255,255,255, 0.85);
+}
+
+.carousel-caption h4, .carousel-caption p {
+	color: black;
 }
 
 #frontpage.thumbnail span {

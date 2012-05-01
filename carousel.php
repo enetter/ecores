@@ -16,6 +16,9 @@
     <?php endwhile; ?>
   </div>
 	  <!-- Carousel nav -->
-	  <a class="carousel-control left" href="#top_carousel" data-slide="prev">&lsaquo;</a>
-	  <a class="carousel-control right" href="#top_carousel" data-slide="next">&rsaquo;</a>
+	  <?php if ($wp_query->post_count>1) : ?>
+		  <a class="carousel-control left" href="#top_carousel" data-slide="prev">&lsaquo;</a>
+		  <a class="carousel-control right" href="#top_carousel" data-slide="next">&rsaquo;</a>
+		<?php endif; ?>
+
 	</div>
