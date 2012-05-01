@@ -146,7 +146,7 @@ function category_color_css() {
 	foreach ($categories as $key => $cat) {
 		$cat_class = 'cat'.$cat->term_id;
 		if ($cat->description) {
-			$output .= '.navbar .nav > li.'.$cat_class.'.current-cat > a, .navbar .nav > li.'.$cat_class.' > a:hover, .subnav .nav > li.'.$cat_class.'.current-cat > a, .subnav .nav > li.'.$cat_class.' > a:hover { background-color:'.$cat->description.'; }  ';
+			$output .= '.navbar .nav > li.'.$cat_class.'.active > a, .navbar .nav > li.'.$cat_class.' > a:hover, .subnav .nav > li.'.$cat_class.'.active > a, .subnav .nav > li.'.$cat_class.' > a:hover { background-color:'.$cat->description.'; }  ';
 
 		}		
 	}

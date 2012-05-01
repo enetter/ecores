@@ -52,7 +52,7 @@
 									$current_cat_color = $cat->description;
 								}
 								$cat_class  = 'class="'.'cat'.$cat->term_id;
-								$cat_class .= ($selected) ? ' current-cat"' : '"';
+								$cat_class .= ($selected) ? ' active"' : '"';
 								?>					
 						  	<li <?php echo $cat_class; ?>>
 						  		<a href="<?php echo esc_url($category_url); ?>"><?php echo $category_name; ?></a>
@@ -106,7 +106,7 @@
 
 							?>
 							<li <?php $output = 'class="'.$sel_nav_cat_class; 
-										$output .= ($selected) ? ' current-cat"' : '"';
+										$output .= ($selected) ? ' active"' : '"';
 										echo $output; ?>>
 						  		<a href="<?php echo esc_url($category_url); ?>"><?php echo $category_name; ?></a>
 						  </li>

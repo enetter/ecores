@@ -2,9 +2,10 @@
 	<?php query_posts("cat='".get_option('ecs_cat_a_la_une')."'"); ?>
   <!-- Carousel items -->
   <div class="carousel-inner">
-  	<?php $first=true; while (have_posts()) : the_post(); ?>
+  	<?php $first=true; while (have_posts()) : the_post(); $cat =  get_single_top_category(get_the_ID()); ?>
 	    <div class="item <?php if ($first) { echo 'active'; $first=false; } ?>">
 				 	<a href="<?php the_permalink() ?>" rel="bookmark" title="Lien permanent vers <?php the_title(); ?>">
+				 		<span style="background-color:<?php echo $cat->description?>"><?php echo $cat->name ?></span>
           	<img src="<?php echo bloginfo('template_url'); ?>/scripts/timthumb.php?src=<?php echo get_custom_thumbnail($post) ?>&w=770&h=370&zc=1&q=100">
           </a>
 	    	<div class="carousel-caption">
