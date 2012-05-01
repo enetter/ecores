@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 <div id="page" class="container">
 	<div class="row">
-		<div class="span9">
+		<div class="span8">
 			<div class="page-header">
 			  <h1>Vous cherchez une 404 ?</h1>
 			</div>
@@ -11,17 +11,20 @@
 				les <strong>tags dans la barre latérale</strong> ou <strong>la recherche.</strong>
 			</div>
 			<ul class="thumbnails">
-			  <li class="span9">
+			  <li class="span8">
 			    <div class="thumbnail">
 			      <img src="<?php bloginfo('template_directory'); ?>/images/404.jpg">
-			      
 			    </div>
 			  </li>
 			</ul>
 			<p >Photo par <a href="http://www.flickr.com/photos/saabir/">aostefan</a></p>
 		</div>
-
-<?php get_sidebar('right'); ?>
+		<div class="span2">
+			<?php get_sidebar('middle-archive'); ?>
+		</div>
+		<div class="span2">
+			<?php get_sidebar('right'); ?>
+		</div>
 	</div>
 </div>
 <?php get_footer(); ?>

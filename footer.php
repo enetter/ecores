@@ -13,6 +13,11 @@
 			<div class="span4">
 				<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar(9) ) : ?> 		
 				<?php endif; ?>	
+				<h3>Crédits</h3>
+				Propulsé par <a href="http://wordpress.org/">WordPress</a><br/>
+				<a href="http://github.com/enetter/ecores" target="_blank">Thème EcoRes</a>
+				par
+				<a href="http://www.cplusn.com" target="_blank">Emmanuel Netter</a>
 			</div>	
 	</div>
 </div>
