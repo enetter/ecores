@@ -1,10 +1,11 @@
 <?php get_header(); ?>
 <div id="page" class="container">
 	<div class="row">
-		<div class="span8">
-			<?php if(!is_paged()) { ?>
+		<div class="span6">
 				<?php include (TEMPLATEPATH . '/carousel.php'); ?>
-			<?php } ?>
+		</div>
+		<div class="span2">
+			&nbsp;
 		</div>
 		<div class="span4">
 			<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar(1) ) : /* Widgetized sidebar, if you have the plugin installed. */ 	?>
