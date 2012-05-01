@@ -13,7 +13,7 @@
 								<ul class="thumbnails">
 									<?php } ?>
 									<li class="span4">
-										<div class="thumbnail">
+										<div id ="frontpage" class="thumbnail">
 											<span style="background-color:<?php echo $cat->description?>"><?php echo $cat->name ?></span>
 											<a href="<?php the_permalink() ?>">
 
