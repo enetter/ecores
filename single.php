@@ -2,12 +2,12 @@
 
 <div id="page" class="container">
 	<div class="row">
-		<div id="content" class="span7">
+		<div id="content" class="span8">
 
 			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
 			<div class="row" id="post-<?php the_ID(); ?>">
-				<div class="span7">
+				<div class="span8">
 					<div class="page-header">
 						<?php edit_post_link('Modifier', '<span class="btn pull-right">', '</span>'); ?>
 						<h1 class="title" style="color:<?php echo $current_cat_color; ?>"><?php the_title(); ?></h1>
@@ -42,7 +42,7 @@
 				<p>D&eacute;sol&eacute;, aucun article ne correspond &agrave; votre recherche.</p>
 			<?php endif; ?>
 		</div>
-		<div class="span3">
+		<div class="span2">
 			<?php get_sidebar('middle'); ?>
 		</div>
 		<div class="span2	">

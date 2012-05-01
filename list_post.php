@@ -8,7 +8,7 @@
 			</li>
 		</ul>
 	</div>
-	<div class="span5">
+	<div class="span6">
 		
 		Publié le <?php the_time('j F Y') ?>  par <?php the_author(); ?>&nbsp;
 		<?php if (get_comments_number()>0) : ?>

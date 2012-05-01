@@ -4,13 +4,8 @@
 		<div class="span6">
 				<?php include (TEMPLATEPATH . '/carousel.php'); ?>
 		</div>
-		<div class="span2">
-			&nbsp;
-		</div>
-		<div class="span4">
 			<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar(1) ) : /* Widgetized sidebar, if you have the plugin installed. */ 	?>
 			<?php endif; ?>
-		</div>
 	</div>
 	<div class="row">
 

@@ -18,7 +18,7 @@
 <!-- You can start editing here. -->
 
 <div class="row">
-	<div class="span7">
+	<div class="span8">
 		<?php if ($comments) : /* If there are comments */?>
 			<h2 id="comments"><?php comments_number('Pas de commentaires', 'Un commentaire', '% commentaires');?> </h2>
 			<p>
@@ -32,7 +32,7 @@
 						<div class="span1">
 							<?php echo get_avatar( $comment, $size = '55' ); ?>
 						</div>
-						<div class="span6">
+						<div class="span7">
 							<blockquote>
 								<?php if ($comment->comment_approved == '0') : ?>
 									<span class="label label-warning pull-right">Votre commentaire est en attente de mod&eacute;ration</span>
@@ -52,7 +52,7 @@
 			<span class="label label-important pull-right">Les commentaires sont ferm&eacute;s</span>
 	 	<?php else : // comments are opened ?>
 			<div class="row">
-				<div class="span7">
+				<div class="span8">
 					<form class="well" action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="commentform">
 						<h3>Laissez un commentaire</h3>
 						<?php if ( $user_ID ) : ?>
@@ -67,7 +67,7 @@
 							<input type="text" name="url" id="url" value="<?php echo $comment_author_url; ?>" class="span4" tabindex="3" />
 						<?php endif; ?>
 						<label>Votre commentaire</label>
-						<textarea name="comment" id="comment" class="span6" rows="10" tabindex="4"></textarea>
+						<textarea name="comment" id="comment" class="span7" rows="10" tabindex="4"></textarea>
 						<p>Vous pouvez utiliser ces balises :<br/><code><?php echo allowed_tags(); ?></code></p>
 					  <button type="submit" id="submit" class="btn btn-primary" tabindex="5"><i class="icon-ok icon-white"></i> Envoyer</button>
 						<input type="hidden" name="comment_post_ID" value="<?php echo $id; ?>" />

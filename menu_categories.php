@@ -80,38 +80,40 @@
     	}
 			$args = array( 'parent' => $cat_id );
 			$parent = get_category($cat_id);
+			if ($cat_id !=0) :
 			?>
-			<div class="subnav subnav-fixed" >
-				<div class="container">
-					<ul class="nav nav-pills">
-			    <?php
-						$categories = get_categories($args);
-						foreach ($categories as $key => $cat) { 
-							$category_url = get_category_link( $cat->term_id );
-							$category_name = $cat->name; 
-							$selected = false;
-							if (is_single()) {
-									$post_categories = get_the_category();
-									foreach ($post_categories as $key => $post_cat) {
-										if ($cat->term_id == $post_cat->term_id) {
-											$selected = true;
-											break;
+				<div class="subnav subnav-fixed" >
+					<div class="container">
+						<ul class="nav nav-pills">
+				    <?php
+							$categories = get_categories($args);
+							foreach ($categories as $key => $cat) { 
+								$category_url = get_category_link( $cat->term_id );
+								$category_name = $cat->name; 
+								$selected = false;
+								if (is_single()) {
+										$post_categories = get_the_category();
+										foreach ($post_categories as $key => $post_cat) {
+											if ($cat->term_id == $post_cat->term_id) {
+												$selected = true;
+												break;
+											}
 										}
 									}
-								}
-								else
-								{
-									$selected = (get_query_var('cat')==$cat->term_id);
-								}
+									else
+									{
+										$selected = (get_query_var('cat')==$cat->term_id);
+									}
 
-							?>
-							<li <?php $output = 'class="'.$sel_nav_cat_class; 
-										$output .= ($selected) ? ' active"' : '"';
-										echo $output; ?>>
-						  		<a href="<?php echo esc_url($category_url); ?>"><?php echo $category_name; ?></a>
-						  </li>
-						<?php } ?>
-					</ul>
-				</div>
-		  </div>
+								?>
+								<li <?php $output = 'class="'.$sel_nav_cat_class; 
+											$output .= ($selected) ? ' active"' : '"';
+											echo $output; ?>>
+							  		<a href="<?php echo esc_url($category_url); ?>"><?php echo $category_name; ?></a>
+							  </li>
+							<?php } ?>
+						</ul>
+					</div>
+			  </div>
+		  <?php endif; ?>
 		<?php endif; ?>

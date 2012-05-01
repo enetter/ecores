@@ -1,10 +1,10 @@
 <?php if ( function_exists('register_sidebar') ) 
 	{    
 register_sidebar(array(	'name' => 'Encart Accueil',
-												'before_widget' => '',
-												'after_widget' => '',
-												'before_title' => '',
-												'after_title' => '')); 
+												'before_widget' => '<div class="span2"><div class="sidebar"><ul "><div>',
+												'after_widget' => '</div></div></ul></div>',
+												'before_title' => '<h3>',
+												'after_title' => '</h3>')); 
 register_sidebar(array(	'name' => 'Col Droite',
 												'before_widget' => '<ul id="sidebar-block"><div>',
 												'after_widget' => '</div></ul>',
