@@ -31,7 +31,7 @@ $options[] = array(	"name" => "Articles ou Catégories",
 					"id" => $shortname."_cats_or_posts_a_l_affiche",
 					"std" => "0",
 					"type" => "radio",
-					"options" => array('Articles', 'Catégories'));
+					"options" => array('Articles en liste', 'Articles en images', 'Catégories 2 colonnes', 'Catégories 4 colonnes'));
 
 $options[] = array(	"name" => "Articles à l'affiche",
 					"desc" => "Si vous avez choisi d'afficher les Articles, ce sont ceux de cette catégorie seront affichés dans la page d'accueil dans la section 'A l'affiche'.",

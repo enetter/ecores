@@ -2,7 +2,7 @@
 Theme Name: EcoRes
 Theme URI: http://github.com/enetter/ecores/
 Description: <a href="http://github.com/enetter/ecores/">EcoRes</a> est un thème Wordpress basé sur Twitter Bootstrap. 
-Version: 0.6.3 Beta
+Version: 0.7.0 Beta
 Author: Emmanuel Netter
 Author URI: http://cplusn.com/
 
@@ -84,12 +84,13 @@ blockquote p {
 }
 
 .header {
-	height: 70px;
+	height: 90px;
 	padding: 15px;
 	background-image: url('images/logo.jpg');
 }
 
 .header h1 {
+	margin-top:10px;
 	font-size: 40px;
 }
 
@@ -237,8 +238,10 @@ blockquote p {
 	color: white;
 }
 
-div#alaffiche {
-	margin-top:0px;
+
+
+.row.alaffiche {
+	margin-bottom:30px;
 }
 
 #alaffiche h1 {
@@ -246,9 +249,18 @@ div#alaffiche {
 	padding-top: 15px;
 }
 
+#alaffiche.page-header {
+	margin-top: 0px;
+}
+
 .frontpage-cat-first {
 	margin: 5px 0 20px 0 ;
 }
+
+.frontpage-cat > div {
+	margin-bottom:3px;
+}
+
 
 .frontpage-cat ul {
 	list-style: none;
@@ -261,31 +273,32 @@ div#alaffiche {
 
 /* CAROUSEL */
 
-.carousel a span {
-	font-weight:bold;
-	color: white;
-	padding:7px;
-	position:relative;
-	top: 8px;
-	left: 0px;
+.carousel-inner {
+	background-color: whiteSmoke;
+}
+
+.carousel h2 {
+	margin-top:15px;
+	padding-right:14px;
+	line-height:28px;
+}
+
+.carousel p {
+	margin-top:5px;
+	padding-right:14px;
+	font-size: 14px;
+	line-height:20px;
 }
 
 .carousel a:hover {
 	text-decoration: none;
 }
 
-.carousel a img {
-	margin-top: -13px;
-}
 
-.carousel-caption {
-	color: black;
-	background: rgba(255,255,255, 0.85);
-}
 
-.carousel-caption h4, .carousel-caption p {
-	color: black;
-}
+
+
+/* FRONTPAGE */ 
 
 #frontpage.thumbnail span {
 	font-weight:bold;

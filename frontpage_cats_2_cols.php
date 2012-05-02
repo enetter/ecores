@@ -1,0 +1,51 @@
+<div class="span8">
+	<?php	 
+	$nbcats = 0;
+	$maxposts=get_option('ecs_nb_a_l_affiche');
+	for ($i=0; $i <1000 ; $i++) { 
+		$cat_id = get_option('ecs_cats_a_l_affiche_'.$i);
+		if ($cat_id) {
+			$nbcats += 1;
+			$cat = get_category($cat_id); ?>
+			<?php if ($nbcats % 2 == 1) : ?>
+				<div class="row alaffiche">
+			<?php endif; ?>
+				<div class="span4 frontpage-cat" >
+					<h3 <?php if ($cat->description) : ?>style="border-top: 10px solid <?php echo $cat->description ?>; color:<?php echo $cat->description ?>;" <?php endif; ?>><?php echo $cat->name ?></h3>
+					<?php 
+						query_posts("cat=".$cat_id.",-".get_option('ecs_cat_a_la_une')."&posts_per_page=<?php echo get_option('ecs_nb_a_l_affiche'); ?>"); 
+						$nbposts = 0;
+						while (have_posts()) : the_post(); $nbposts += 1;?>
+							<?php if ($nbposts == 1) { ?>
+								<div class="row">
+								<!-- <div class="span2"> -->
+									<ul class="thumbnails">
+										<li class="span2">
+											<a href="<?php the_permalink() ?>" class="thumbnail">
+												<img src="<?php bloginfo('template_directory'); ?>/scripts/timthumb.php?src=<?php echo get_custom_thumbnail($post) ?>&w=160&h=120&zc=1&q=100">
+											</a>
+										</li>
+										<div class="span2">
+											<a href="<?php the_permalink() ?>"><?php the_title(); ?></a><br/>
+							
+											<?php echo ecs_short_excerpt(20); ?>
+										</div>
+									</ul>
+								</div>
+							<?php } else { ?>
+								<div class="post">
+									<a href="<?php the_permalink() ?>"><?php the_title(); ?></a> | <?php the_time('j/m/Y') ?> : <?php echo ecs_short_excerpt(15); ?><br/>
+									
+								</div>
+						<?php if ($nbposts == $maxposts) { break; }?>
+							<?php } ?>
+						<?php endwhile; ?>
+				</div>
+			<?php if ($nbcats % 2 == 0) : ?>
+			</div>
+		<?php endif; ?>
+		<?php }
+			// if ($nbcats == 4) { break; }
+	}  ?>
+</div>
+			

@@ -1,5 +1,5 @@
 		<div class="span8">
-			<div class="page-header">
+			<div id="alaffiche" class="page-header">
 			  <h1>A l'affiche</h1>
 			</div>
 			<div class="span8" >

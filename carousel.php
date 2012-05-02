@@ -4,15 +4,25 @@
   <div class="carousel-inner">
   	<?php $first=true; while (have_posts()) : the_post(); $cat =  get_single_top_category(get_the_ID()); ?>
 	    <div class="item <?php if ($first) { echo 'active'; $first=false; } ?>">
-				 	<a href="<?php the_permalink() ?>" rel="bookmark" title="Lien permanent vers <?php the_title(); ?>">
-				 		<span style="background-color:<?php echo $cat->description?>"><?php echo $cat->name ?></span>
-          	<img src="<?php echo bloginfo('template_url'); ?>/scripts/timthumb.php?src=<?php echo get_custom_thumbnail($post) ?>&w=570&h=320&zc=1&q=100">
-          </a>
-	    	<div class="carousel-caption">
-	    		<h4><?php the_title(); ?></h4>
-	    		<p><?php echo ecs_short_excerpt(40); ?></p>
+	    	<div class="row">
+	    		<a href="<?php the_permalink() ?>" rel="bookmark" title="Lien permanent vers <?php the_title(); ?>">
+	    	<div class="span4">
+
+				 	
+				 		
+          	<img src="<?php echo bloginfo('template_url'); ?>/scripts/timthumb.php?src=<?php echo get_custom_thumbnail($post) ?>&w=370&h=240&zc=1&q=100">
+          	
+          
+          
+         </div>
+	    	<div class="span4">
+
+	    		<h2><?php the_title(); ?></h2>
+	    		<p><?php echo ecs_short_excerpt(55); ?></p>
 	    	</div>
+	    	</a>
 	    </div>
+	  </div>
     <?php endwhile; ?>
   </div>
 	  <!-- Carousel nav -->

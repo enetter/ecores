@@ -1,8 +1,8 @@
 <?php if ( function_exists('register_sidebar') ) 
 	{    
 register_sidebar(array(	'name' => 'Encart Accueil',
-												'before_widget' => '<div class="span2"><div class="sidebar"><ul "><div>',
-												'after_widget' => '</div></div></ul></div>',
+												'before_widget' => '<ul><div>',
+												'after_widget' => '</div></ul>',
 												'before_title' => '<h3>',
 												'after_title' => '</h3>')); 
 register_sidebar(array(	'name' => 'Col Droite',
