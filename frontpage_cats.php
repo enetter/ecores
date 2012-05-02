@@ -1,5 +1,6 @@
 <?php	 
 $nbcats = 0;
+$maxposts=get_option('ecs_nb_a_l_affiche');
 for ($i=0; $i <1000 ; $i++) { 
 	$cat_id = get_option('ecs_cats_a_l_affiche_'.$i);
 	if ($cat_id) {
@@ -16,7 +17,7 @@ for ($i=0; $i <1000 ; $i++) {
 							<li class="frontpage-cat-first">
 								<div class="thumbnail">
 									<a href="<?php the_permalink() ?>">
-										<img src="<?php bloginfo('template_directory'); ?>/scripts/timthumb.php?src=<?php echo get_custom_thumbnail($post) ?>&w=160&h=120&zc=1&q=100">
+										<img src="<?php bloginfo('template_directory'); ?>/scripts/timthumb.php?src=<?php echo get_custom_thumbnail($post) ?>&w=170&h=120&zc=1&q=100">
 									</a>
 									<div class="caption frontpage" rel="popover" data-content="<?php echo ecs_short_excerpt(20).'<br/>'?><span class='label'><?php the_time('j/m/Y') ?></span> 
 											<span class='label'><?php comments_number('Pas de commentaires', 'Un commentaire', '% commentaires');?></span>" 
@@ -41,6 +42,7 @@ for ($i=0; $i <1000 ; $i++) {
 								<!-- <hr> -->
 							</li>
 						<?php } ?>
+						<?php if ($nbposts == $maxposts) { break; }?>
 					<?php endwhile; ?>
 				</ul>
 			</div>

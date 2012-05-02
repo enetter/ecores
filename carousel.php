@@ -18,7 +18,7 @@
 	    	<div class="span4">
 
 	    		<h2><?php the_title(); ?></h2>
-	    		<p><?php echo ecs_short_excerpt(55); ?></p>
+	    		<p><?php echo ecs_short_excerpt(50); ?></p>
 	    	</div>
 	    	</a>
 	    </div>

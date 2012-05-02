@@ -17,10 +17,10 @@
 											<span style="background-color:<?php echo $cat->description?>"><?php echo $cat->name ?></span>
 											<a href="<?php the_permalink() ?>">
 
-												<img src="<?php bloginfo('template_directory'); ?>/scripts/timthumb.php?src=<?php echo get_custom_thumbnail($post) ?>&w=360&h=268&zc=1&q=100">
+												<img src="<?php bloginfo('template_directory'); ?>/scripts/timthumb.php?src=<?php echo get_custom_thumbnail($post) ?>&w=370&h=268&zc=1&q=100">
 														
 											</a>
-											<div class="caption frontpage" rel="popover" data-content="<?php the_excerpt()?><span class='label'><?php the_time('j/m/Y') ?></span> 
+											<div class="caption frontpage" rel="popover" data-content="<?php echo ecs_short_excerpt(50)?><br/><span class='label'><?php the_time('j/m/Y') ?></span> 
 													<span class='label'><?php comments_number('Pas de commentaires', 'Un commentaire', '% commentaires');?></span>" 
 													data-original-title="<?php the_title(); ?>">
 													<h4><?php the_title(); ?></h4>
