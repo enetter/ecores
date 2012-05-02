@@ -292,7 +292,15 @@ global $current_top_menu_item;
 		$current_menu_item = ecs_get_menu_item_from_object($menu->term_id, $current_object);
 		$top_menu_item_id = ecs_get_top_menu_item_id($current_menu_item);
 		if ($current_object_type == 'category') {
-			$current_cat_color = $current_object->description;
+			if ($current_object->parent == 0 ) {
+				$current_cat_color = $current_object->description;
+			}
+			else
+			{
+				$parent_cat = get_category($current_object->parent);
+				$current_cat_color = $parent_cat->description;
+			}
+			
 		} 
 		else
 		{
@@ -312,7 +320,7 @@ global $current_top_menu_item;
 												|| in_array($current_menu_item, ecs_get_nav_menu_items($menu->term_id, $item->ID)) 
 												|| $current_menu_item == $item
 												);
-							if ($selected)
+							if ($selected) {}
 								$current_top_menu_item = $item;
 							$menu_class = 'class="menu'.$item->ID;
 							$menu_class .= ($selected) ? ' active"' : '"';
@@ -350,7 +358,7 @@ global $current_top_menu_item;
 										}
 									}
 								$selected = ($item->object_id==$current_object_id || $current_menu_item->ID == $item->ID);
-								$menu_class = 'class="menu'.$current_top_menu_item->ID;
+								$menu_class = 'class="menu'.$top_menu_item_id;
 								$menu_class .= ($selected) ? ' active"' : '"';
 								?>
 								<li <?php echo $menu_class; ?>>
