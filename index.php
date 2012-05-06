@@ -6,8 +6,7 @@
 		</div>
 			<div class="span4">
 				<div class="sidebar">
-			<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar(1) ) : /* Widgetized sidebar, if you have the plugin installed. */ 	?>
-			<?php endif; ?>
+			<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar(1) ) {} ?>
 		</div>
 		</div>
 	</div>
@@ -27,10 +26,10 @@
 			
 		?>	
 		<div class="span2">
-			<?php get_sidebar('middle-index'); ?>
+			<?php  get_sidebar('middle-index'); ?>
 		</div>
 		<div class="span2">
-			<?php get_sidebar('right'); ?>
+			<?php  get_sidebar('right'); ?>
 		</div>
 	<!-- Outer row -->
 	</div>

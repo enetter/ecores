@@ -48,9 +48,10 @@ register_sidebar(array(	'name' => 'Pied de page droit',
 	} 
 
 add_action( 'init', 'register_ecs_menus' );
+
 function register_ecs_menus() {
 	register_nav_menus(
- 	array( 'main' => __( 'Principal' ))
+ 	array( 'main' => __( 'Navigation' ))
  	);
 }
 
@@ -206,7 +207,6 @@ function ecs_get_menu_item_from_object($menu_id, $obj) {
 	$menu_items = wp_get_nav_menu_items($menu_id);
 	$object_type = get_wp_object_type($obj);
 	if ($object_type=='category') {
-		error_log('category');
 		foreach ( (array)$menu_items as $key => $menu_item ) {
 			if ($menu_item->object=='category' && $menu_item->object_id==$obj->term_id)
 				return $menu_item;
@@ -248,7 +248,7 @@ function ecs_get_menu_item_from_object($menu_id, $obj) {
 		}
 	}
 	else {
-		error_log('Unknown object type: '.$object_type);
+		error_log('ECS unknown object type: '.$object_type);
 	}
 }
 
@@ -287,24 +287,26 @@ global $current_top_menu_item;
 		$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
 		$menu_items = ecs_get_nav_menu_items($menu->term_id, 0);
 		$current_object = get_queried_object();
-		$current_object_id = get_queried_object_id();
-		$current_object_type = get_wp_object_type($current_object);
-		$current_menu_item = ecs_get_menu_item_from_object($menu->term_id, $current_object);
-		$top_menu_item_id = ecs_get_top_menu_item_id($current_menu_item);
-		if ($current_object_type == 'category') {
-			if ($current_object->parent == 0 ) {
-				$current_cat_color = $current_object->description;
-			}
+		if(!empty($current_object)) { // Not Home page
+			$current_object_id = get_queried_object_id();
+			$current_object_type = get_wp_object_type($current_object);
+			$current_menu_item = ecs_get_menu_item_from_object($menu->term_id, $current_object);
+			$top_menu_item_id = ecs_get_top_menu_item_id($current_menu_item);
+			if ($current_object_type == 'category') {
+				if ($current_object->parent == 0 ) {
+					$current_cat_color = $current_object->description;
+				}
+				else
+				{
+					$parent_cat = get_category($current_object->parent);
+					$current_cat_color = $parent_cat->description;
+				}
+				
+			} 
 			else
 			{
-				$parent_cat = get_category($current_object->parent);
-				$current_cat_color = $parent_cat->description;
+				$post_categories = get_the_category();
 			}
-			
-		} 
-		else
-		{
-			$post_categories = get_the_category();
 		}
 ?>
 	<div class="navbar">

@@ -41,7 +41,7 @@ $options[] = array(	"name" => "Articles à l'affiche",
 					"options" => $alt_categories);
 
 $options[] = array(	"name" => "Catégories à l'affiche",
-					"desc" => "Si vous avez choisi d'afficher les Catégories, ce sont les 4 premières sélectionnées ci-dessous qui seront affichées dans la page d'accueil.",
+					"desc" => "Si vous avez choisi d'afficher les Catégories par 4, ce sont les 4 premières sélectionnées ci-dessous qui seront affichées dans la page d'accueil.",
 					"id" => $shortname."_cats_a_l_affiche",
 					"std" => "-1",
 					"type" => "multicheck",
