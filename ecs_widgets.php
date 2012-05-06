@@ -232,7 +232,7 @@ class Ecs_Commented_Posts_Widget extends WP_Widget {
 		$title = empty($instance['title']) ? '&nbsp;' : apply_filters('widget_title', $instance['title']);
 		$nbposts = empty($instance['nbposts']) ? -1 : $instance['nbposts'];
 		if ( !empty( $title ) ) { echo $before_title . $title . $after_title; };
-	  $recent_posts = new WP_Query(array('post_type'=>'post','posts_per_page'=>5, 'orderby' => 'comment_count')); ?>
+	  $recent_posts = new WP_Query(array('post_type'=>'post','posts_per_page'=>$nbposts, 'orderby' => 'comment_count')); ?>
 		<?php if ($recent_posts->have_posts()):?>
 			<ul>
 				<?php while ($recent_posts->have_posts()) : $recent_posts->the_post(); $cat =  get_single_top_category(get_the_ID());?>
