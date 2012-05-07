@@ -224,11 +224,12 @@ function ecs_get_menu_item_from_object($menu_id, $obj) {
 				{
 					$cat = get_category($menu_item->object_id);
 					foreach ($post_categories as $key => $post_cat) {
-						if ($post_cat->term_id == $cat->term_id && $menu_item->menu_item_parent>0) {
+						if ($post_cat->term_id == $cat->term_id ) {
+							if($menu_item->menu_item_parent>0)
+								return $menu_item;
+							else
 								$temp_item = $menu_item;
-								if($menu_item->menu_item_parent>0)
-									return $menu_item;
-							}
+						}
 
 					}
 				} 

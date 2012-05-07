@@ -2,7 +2,7 @@
 Theme Name: EcoRes
 Theme URI: http://github.com/enetter/ecores/
 Description: <a href="http://github.com/enetter/ecores/">EcoRes</a> est un thème Wordpress basé sur Twitter Bootstrap. 
-Version: 0.7.3b Beta
+Version: 0.7.3c Beta
 Author: Emmanuel Netter
 Author URI: http://cplusn.com/
 
@@ -13,6 +13,24 @@ http://www.opensource.org/licenses/gpl-license.php
 @import url('bootstrap/css/bootstrap.css');
 /*@import url('bootstrap/css/bootstrap-responsive.css'); */
 @import url('bootstrap/css/bootstrap-subnav.css');
+
+/* Wordpress Alignment */
+.alignleft {
+	display: inline;
+	float: left;
+	margin-right: 1.625em;
+}
+.alignright {
+	display: inline;
+	float: right;
+	margin-left: 1.625em;
+}
+.aligncenter {
+	clear: both;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
 
 body, p {
 	/* font-size: 14px; */
@@ -128,6 +146,7 @@ blockquote p {
 
 .subnav-fixed .nav {
 	margin: 0 auto auto 0;
+	width: 100%;
 }
 
 .subnav {

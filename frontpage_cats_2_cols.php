@@ -11,7 +11,7 @@
 				<div class="row alaffiche">
 			<?php endif; ?>
 				<div class="span4 frontpage-cat" >
-					<h3 <?php if ($cat->description) : ?>style="border-top: 10px solid <?php echo $cat->description ?>; color:<?php echo $cat->description ?>;" <?php endif; ?>><?php echo $cat->name ?></h3>
+					<a href="<?php echo get_category_link( $cat->cat_ID ); ?>"><h3 <?php if ($cat->description) : ?>style="border-top: 10px solid <?php echo $cat->description ?>; color:<?php echo $cat->description ?>;" <?php endif; ?>><?php echo $cat->name ?></h3></a>
 					<?php 
 						query_posts("cat=".$cat_id.",-".get_option('ecs_cat_a_la_une')."&posts_per_page=<?php echo get_option('ecs_nb_a_l_affiche'); ?>"); 
 						$nbposts = 0;
