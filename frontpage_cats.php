@@ -1,10 +1,8 @@
 <?php	 
-$nbcats = 0;
 $maxposts=get_option('ecs_nb_a_l_affiche');
-for ($i=0; $i <1000 ; $i++) { 
-	$cat_id = get_option('ecs_cats_a_l_affiche_'.$i);
+for ($i=1; $i <5 ; $i++) { 
+	$cat_id = get_option('ecs_cats_col_'.$i);
 	if ($cat_id) {
-		$nbcats += 1;
 		$cat = get_category($cat_id); ?>
 			<div class="span2 frontpage-cat" >
 				<a href="<?php echo get_category_link( $cat->cat_ID ); ?>"><h3 <?php if ($cat->description) : ?>style="border-top: 10px solid <?php echo $cat->description ?>; color:<?php echo $cat->description ?>;" <?php endif; ?>><?php echo $cat->name ?></h3></a>
@@ -28,25 +26,12 @@ for ($i=0; $i <1000 ; $i++) {
 								<!-- Span2 li -->
 							</li>
 						<?php } else { ?>
-							<li><a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a>
-									<?php if (get_comments_number()) : ?>
-										&nbsp;<span class="badge" title="Nb de commentaires"><?php echo get_comments_number(); ?></span></a>
-									<?php endif; ?>
-								<p>
-								<?php 
-									echo ecs_short_excerpt(20);
-								?>
-								<br/>
-								<span class="post-info">Publié le <?php the_time('j/m/Y') ?></span>
-								</p>
-								<!-- <hr> -->
-							</li>
+							<? echo ecs_widget_post_display(20, '', true, true); ?>
 						<?php } ?>
 						<?php if ($nbposts == $maxposts) { break; }?>
 					<?php endwhile; ?>
 				</ul>
 			</div>
 	<?php }
-		if ($nbcats == 4) { break; }
 }  ?>
 			

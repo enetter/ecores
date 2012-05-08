@@ -40,11 +40,39 @@ $options[] = array(	"name" => "Articles à l'affiche",
 					"type" => "select",
 					"options" => $alt_categories);
 
-$options[] = array(	"name" => "Catégories à l'affiche",
-					"desc" => "Si vous avez choisi d'afficher les Catégories par 4, ce sont les 4 premières sélectionnées ci-dessous qui seront affichées dans la page d'accueil.",
+$options[] = array(	"name" => "Catégories 2 colonnes",
+					"desc" => "Si vous avez choisi d'afficher les Catégories par 2, ce sont les catégories sélectionnées ci-dessous qui seront affichées dans la page d'accueil.",
 					"id" => $shortname."_cats_a_l_affiche",
 					"std" => "-1",
 					"type" => "multicheck",
+					"options" => $alt_categories);
+
+$options[] = array(	"name" => "Catégories 4 colonnes - Col 1",
+					"desc" => "Si vous avez choisi d'afficher les Catégories par 4, La catégorie choisie sera affichée dans la première colonne de la page d'accueil.",
+					"id" => $shortname."_cats_col_1",
+					"std" => "",
+					"type" => "select",
+					"options" => $alt_categories);
+
+$options[] = array(	"name" => "Catégories 4 colonnes - Col 2",
+					"desc" => "Si vous avez choisi d'afficher les Catégories par 4, La catégorie choisie sera affichée dans la deuxième colonne de la page d'accueil.",
+					"id" => $shortname."_cats_col_2",
+					"std" => "",
+					"type" => "select",
+					"options" => $alt_categories);
+
+$options[] = array(	"name" => "Catégories 4 colonnes - Col 3",
+					"desc" => "Si vous avez choisi d'afficher les Catégories par 4, La catégorie choisie sera affichée dans la troisième colonne de la page d'accueil.",
+					"id" => $shortname."_cats_col_3",
+					"std" => "",
+					"type" => "select",
+					"options" => $alt_categories);
+
+$options[] = array(	"name" => "Catégories 4 colonnes - Col 4",
+					"desc" => "Si vous avez choisi d'afficher les Catégories par 4, La catégorie choisie sera affichée dans la quatrième colonne de la page d'accueil.",
+					"id" => $shortname."_cats_col_4",
+					"std" => "",
+					"type" => "select",
 					"options" => $alt_categories);
 
 $options[] = array(	"name" => "Nombre d'articles à l'affiche",

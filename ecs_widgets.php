@@ -1,5 +1,39 @@
 <?php 
 
+function checkbox_checked($value) {
+	print_r($value);
+	if ($value)
+		echo 'checked';
+}
+
+function ecs_widget_post_display($excerpt_length = 20, $cat = '', $has_comments = false ,$has_date = false) {
+
+	// $excerpt_length = empty($instance['excerpt_length']) ? $excerpt_length : $instance['excerpt_length'];
+
+	?>
+	<li>
+		<?php if (!empty($cat)) : ?>
+		<span style="color:<?php echo $cat->description ?>"><span style="background-color:<?php echo $cat->description ?>"><i class="icon-chevron-right icon-white"></i></span><?php echo $cat->name ?></span><br/>
+		<? endif; ?>
+		<a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a>
+		<?php 
+		$comments_number = get_comments_number();;
+		if ($has_comments && $comments_number > 0) : ?>
+		&nbsp;<span class="badge" title="Nb de commentaires"><?php echo get_comments_number(); ?></span>
+		<? endif; ?>
+		<p>
+			<?php 
+				echo ecs_short_excerpt($excerpt_length);
+			?>
+			<?php if ($has_date) : ?>
+			<br/>
+			<span class="post-info">Publié le <?php the_time('j/m/Y') ?></span>
+			<? endif; ?>
+		</p>
+	</li>
+<?php
+}
+
 // RSS Feeds
 class Ecs_RSS_Widget extends WP_Widget {
 	function widget($args, $instance) {
@@ -66,17 +100,8 @@ class Ecs_Most_Viewed_Widget extends WP_Widget {
 		// print_r($most_viewed);
 		if ($most_viewed->have_posts()): ?>
 			<ul>
-				<?php while ($most_viewed->have_posts()) : $most_viewed->the_post(); $cat =  get_single_top_category(get_the_ID()); ?>
-				<li>
-					<span style="color:<?php echo $cat->description ?>"><span style="background-color:<?php echo $cat->description ?>"><i class="icon-chevron-right icon-white"></i></span><?php echo $cat->name ?></span><br/>
-					<a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a>
-					<p>
-					<?php 
-						// the_meta();
-						echo ecs_short_excerpt(20);
-					?>
-				</p>
-				</li>
+				<?php while ($most_viewed->have_posts()) : $most_viewed->the_post(); if($instance['show_category']) {$cat =  get_single_top_category(get_the_ID());} ?>
+					<? echo ecs_widget_post_display($instance['excerpt_length'], $cat, $instance['show_comments'], $instance['show_date']); ?>
 				<?php endwhile; ?>
 			</ul>
 		<?php else: ?>
@@ -100,22 +125,44 @@ class Ecs_Most_Viewed_Widget extends WP_Widget {
 		// for example we want title always have capitalized first letter
 		$instance['title'] = strip_tags($new_instance['title']);
 		$instance['nbposts'] = strip_tags($new_instance['nbposts']);
+		$instance['excerpt_length'] = strip_tags($new_instance['excerpt_length']);
+		$instance['show_category'] = strip_tags($new_instance['show_category']);
+		$instance['show_comments'] = strip_tags($new_instance['show_comments']);
+		$instance['show_date'] = strip_tags($new_instance['show_date']);
 		// and now we return new values and wordpress do all work for you
 		return $instance;
 	}
  
 	/** @see WP_Widget::form */
 	function form($instance) {
-	$default = 	array( 'title' => __('Articles les plus lus'), 'nbposts' => 5 );
+		$default = 	array( 'title' => __('Articles les plus lus'), 'nbposts' => 5, 'show_category' => true, 'show_comments' => false, 'show_date' => false, 'excerpt_length' => 20 );
 		$instance = wp_parse_args( (array) $instance, $default );
- 
+
 		$field_id = $this->get_field_id('title');
 		$field_name = $this->get_field_name('title');
 		echo "\r\n".'<p><label for="'.$field_id.'">'.__('Title').': <input type="text" class="widefat" id="'.$field_id.'" name="'.$field_name.'" value="'.attribute_escape( $instance['title'] ).'" /><label></p>';
 
 		$field_id = $this->get_field_id('nbposts');
 		$field_name = $this->get_field_name('nbposts');
-		echo "\r\n".'<p><label for="'.$field_id.'">'.__('Nb Articles').': <input type="text" class="widefat" id="'.$field_id.'" name="'.$field_name.'" value="'.attribute_escape( $instance['nbposts'] ).'" /><label></p>';	}
+		echo "\r\n".'<p><label for="'.$field_id.'">'.__('Nb Articles').': <input type="text" class="widefat" id="'.$field_id.'" name="'.$field_name.'" value="'.attribute_escape( $instance['nbposts'] ).'" /><label></p>';	
+
+		$field_id = $this->get_field_id('excerpt_length');
+		$field_name = $this->get_field_name('excerpt_length');
+		echo "\r\n".'<p><label for="'.$field_id.'">'.__('Longueur extrait').': <input type="text" class="widefat" id="'.$field_id.'" name="'.$field_name.'" value="'.attribute_escape( $instance['excerpt_length'] ).'" /><label></p>';	
+
+		$field_id = $this->get_field_id('show_category');
+		$field_name = $this->get_field_name('show_category');
+		echo "\r\n".'<p><label for="'.$field_id.'"><input type="checkbox"  id="'.$field_id.'" name="'.$field_name.'" value="1"'.checked($instance['show_category'], true, false ).' /> '.__('Afficher la catégorie').'<label></p>';	
+
+		$field_id = $this->get_field_id('show_comments');
+		$field_name = $this->get_field_name('show_comments');
+		echo "\r\n".'<p><label for="'.$field_id.'"><input type="checkbox"  id="'.$field_id.'" name="'.$field_name.'" value="1"'.checked($instance['show_comments'], true, false ).' /> '.__('Afficher nb de commentaires').'<label></p>';	
+
+		$field_id = $this->get_field_id('show_date');
+		$field_name = $this->get_field_name('show_date');
+		echo "\r\n".'<p><label for="'.$field_id.'"><input type="checkbox"  id="'.$field_id.'" name="'.$field_name.'" value="1"'.checked($instance['show_date'], true, false ).' /> '.__('Afficher date de publication').'<label></p>';	
+	}	
+
 }
 
 // Related Posts Widget
@@ -139,23 +186,43 @@ class Ecs_Related_Posts_Widget extends WP_Widget {
 		$instance = $old_instance;
 		// for example we want title always have capitalized first letter
 		$instance['title'] = strip_tags($new_instance['title']);
-		$instance['nbposts'] = strip_tags($new_instance['nbposts']);
+		// $instance['nbposts'] = strip_tags($new_instance['nbposts']);
+		// $instance['excerpt_length'] = strip_tags($new_instance['excerpt_length']);
+		// $instance['show_category'] = strip_tags($new_instance['show_category']);
+		// $instance['show_comments'] = strip_tags($new_instance['show_comments']);
+		// $instance['show_date'] = strip_tags($new_instance['show_date']);
 		// and now we return new values and wordpress do all work for you
 		return $instance;
 	}
  
 	/** @see WP_Widget::form */
 	function form($instance) {
-		$default = 	array( 'title' => __('Articles similaires'), 'nbposts' => 5 );
+		$default = 	array( 'title' => __('Articles similaires') /*, 'nbposts' => 5, 'show_category' => true, 'show_comments' => false, 'show_date' => false, 'excerpt_length' => 20 */ );
 		$instance = wp_parse_args( (array) $instance, $default );
  
 		$field_id = $this->get_field_id('title');
 		$field_name = $this->get_field_name('title');
 		echo "\r\n".'<p><label for="'.$field_id.'">'.__('Title').': <input type="text" class="widefat" id="'.$field_id.'" name="'.$field_name.'" value="'.attribute_escape( $instance['title'] ).'" /><label></p>';
 
-		$field_id = $this->get_field_id('nbposts');
-		$field_name = $this->get_field_name('nbposts');
-		echo "\r\n".'<p><label for="'.$field_id.'">'.__('Nb Articles').': <input type="text" class="widefat" id="'.$field_id.'" name="'.$field_name.'" value="'.attribute_escape( $instance['nbposts'] ).'" /><label></p>';
+		// $field_id = $this->get_field_id('nbposts');
+		// $field_name = $this->get_field_name('nbposts');
+		// echo "\r\n".'<p><label for="'.$field_id.'">'.__('Nb Articles').': <input type="text" class="widefat" id="'.$field_id.'" name="'.$field_name.'" value="'.attribute_escape( $instance['nbposts'] ).'" /><label></p>';
+
+		// $field_id = $this->get_field_id('excerpt_length');
+		// $field_name = $this->get_field_name('excerpt_length');
+		// echo "\r\n".'<p><label for="'.$field_id.'">'.__('Longueur extrait').': <input type="text" class="widefat" id="'.$field_id.'" name="'.$field_name.'" value="'.attribute_escape( $instance['excerpt_length'] ).'" /><label></p>';	
+
+		// $field_id = $this->get_field_id('show_category');
+		// $field_name = $this->get_field_name('show_category');
+		// echo "\r\n".'<p><label for="'.$field_id.'"><input type="checkbox"  id="'.$field_id.'" name="'.$field_name.'" value="1"'.checked($instance['show_category'], true, false ).' /> '.__('Afficher la catégorie').'<label></p>';	
+
+		// $field_id = $this->get_field_id('show_comments');
+		// $field_name = $this->get_field_name('show_comments');
+		// echo "\r\n".'<p><label for="'.$field_id.'"><input type="checkbox"  id="'.$field_id.'" name="'.$field_name.'" value="1"'.checked($instance['show_comments'], true, false ).' /> '.__('Afficher nb de commentaires').'<label></p>';	
+
+		// $field_id = $this->get_field_id('show_date');
+		// $field_name = $this->get_field_name('show_date');
+		// echo "\r\n".'<p><label for="'.$field_id.'"><input type="checkbox"  id="'.$field_id.'" name="'.$field_name.'" value="1"'.checked($instance['show_date'], true, false ).' /> '.__('Afficher date de publication').'<label></p>';	
 
 	}
 }
@@ -171,16 +238,8 @@ class Ecs_Recent_Posts_Widget extends WP_Widget {
 	  $recent_posts = new WP_Query(array('post_type'=>'post','posts_per_page'=>$nbposts)); ?>
 		<?php if ($recent_posts->have_posts()):?>
 			<ul>
-				<?php while ($recent_posts->have_posts()) : $recent_posts->the_post(); $cat =  get_single_top_category(get_the_ID()); ?>
-				<li>
-					<span style="color:<?php echo $cat->description ?>"><span style="background-color:<?php echo $cat->description ?>"><i class="icon-chevron-right icon-white"></i></span><?php echo $cat->name ?></span><br/>
-					<a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a>
-					<p>
-					<?php 
-						echo ecs_short_excerpt(20);
-					?>
-				</p>
-				</li>
+				<?php while ($recent_posts->have_posts()) : $recent_posts->the_post(); if($instance['show_category']) {$cat =  get_single_top_category(get_the_ID());} ?>
+					<? echo ecs_widget_post_display($instance['excerpt_length'], $cat, $instance['show_comments'], $instance['show_date']); ?>
 				<?php endwhile; ?>
 			</ul>
 		<?php else: ?>
@@ -204,13 +263,17 @@ class Ecs_Recent_Posts_Widget extends WP_Widget {
 		// for example we want title always have capitalized first letter
 		$instance['title'] = strip_tags($new_instance['title']);
 		$instance['nbposts'] = strip_tags($new_instance['nbposts']);
+		$instance['excerpt_length'] = strip_tags($new_instance['excerpt_length']);
+		$instance['show_category'] = strip_tags($new_instance['show_category']);
+		$instance['show_comments'] = strip_tags($new_instance['show_comments']);
+		$instance['show_date'] = strip_tags($new_instance['show_date']);
 		// and now we return new values and wordpress do all work for you
 		return $instance;
 	}
  
 	/** @see WP_Widget::form */
 	function form($instance) {
-		$default = 	array( 'title' => __('Articles récents'), 'nbposts' => 5 );
+		$default = 	array( 'title' => __('Articles récents'), 'nbposts' => 5, 'show_category' => true, 'show_comments' => false, 'show_date' => false, 'excerpt_length' => 20 );
 		$instance = wp_parse_args( (array) $instance, $default );
  
 		$field_id = $this->get_field_id('title');
@@ -220,6 +283,22 @@ class Ecs_Recent_Posts_Widget extends WP_Widget {
 		$field_id = $this->get_field_id('nbposts');
 		$field_name = $this->get_field_name('nbposts');
 		echo "\r\n".'<p><label for="'.$field_id.'">'.__('Nb Articles').': <input type="text" class="widefat" id="'.$field_id.'" name="'.$field_name.'" value="'.attribute_escape( $instance['nbposts'] ).'" /><label></p>';
+
+		$field_id = $this->get_field_id('excerpt_length');
+		$field_name = $this->get_field_name('excerpt_length');
+		echo "\r\n".'<p><label for="'.$field_id.'">'.__('Longueur extrait').': <input type="text" class="widefat" id="'.$field_id.'" name="'.$field_name.'" value="'.attribute_escape( $instance['excerpt_length'] ).'" /><label></p>';	
+
+		$field_id = $this->get_field_id('show_category');
+		$field_name = $this->get_field_name('show_category');
+		echo "\r\n".'<p><label for="'.$field_id.'"><input type="checkbox"  id="'.$field_id.'" name="'.$field_name.'" value="1"'.checked($instance['show_category'], true, false ).' /> '.__('Afficher la catégorie').'<label></p>';	
+
+		$field_id = $this->get_field_id('show_comments');
+		$field_name = $this->get_field_name('show_comments');
+		echo "\r\n".'<p><label for="'.$field_id.'"><input type="checkbox"  id="'.$field_id.'" name="'.$field_name.'" value="1"'.checked($instance['show_comments'], true, false ).' /> '.__('Afficher nb de commentaires').'<label></p>';	
+
+		$field_id = $this->get_field_id('show_date');
+		$field_name = $this->get_field_name('show_date');
+		echo "\r\n".'<p><label for="'.$field_id.'"><input type="checkbox"  id="'.$field_id.'" name="'.$field_name.'" value="1"'.checked($instance['show_date'], true, false ).' /> '.__('Afficher date de publication').'<label></p>';	
 
 	}
 }
@@ -235,16 +314,8 @@ class Ecs_Commented_Posts_Widget extends WP_Widget {
 	  $recent_posts = new WP_Query(array('post_type'=>'post','posts_per_page'=>$nbposts, 'orderby' => 'comment_count')); ?>
 		<?php if ($recent_posts->have_posts()):?>
 			<ul>
-				<?php while ($recent_posts->have_posts()) : $recent_posts->the_post(); $cat =  get_single_top_category(get_the_ID());?>
-				<li>
-					<span style="color:<?php echo $cat->description ?>"><span style="background-color:<?php echo $cat->description ?>"><i class="icon-chevron-right icon-white"></i></span><?php echo $cat->name ?></span><br/>
-					<a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a>&nbsp;<span class="badge" title="Nb de commentaires"><?php echo get_comments_number(); ?></span>
-					<p>
-					<?php 
-						echo ecs_short_excerpt(20);
-					?>
-				</p>
-				</li>
+				<?php while ($recent_posts->have_posts()) : $recent_posts->the_post(); if($instance['show_category']) {$cat =  get_single_top_category(get_the_ID());} ?>
+					<? echo ecs_widget_post_display($instance['excerpt_length'], $cat, $instance['show_comments'], $instance['show_date']); ?>
 				<?php endwhile; ?>
 			</ul>
 		<?php else: ?>
@@ -268,13 +339,17 @@ class Ecs_Commented_Posts_Widget extends WP_Widget {
 		// for example we want title always have capitalized first letter
 		$instance['title'] = strip_tags($new_instance['title']);
 		$instance['nbposts'] = strip_tags($new_instance['nbposts']);
+		$instance['excerpt_length'] = strip_tags($new_instance['excerpt_length']);
+		$instance['show_category'] = strip_tags($new_instance['show_category']);
+		$instance['show_comments'] = strip_tags($new_instance['show_comments']);
+		$instance['show_date'] = strip_tags($new_instance['show_date']);
 		// and now we return new values and wordpress do all work for you
 		return $instance;
 	}
  
 	/** @see WP_Widget::form */
 	function form($instance) {
-		$default = 	array( 'title' => __('Articles commentés'), 'nbposts' => 5 );
+		$default = 	array( 'title' => __('Articles commentés'), 'nbposts' => 5, 'show_category' => true, 'show_comments' => false, 'show_date' => false, 'excerpt_length' => 20 );
 		$instance = wp_parse_args( (array) $instance, $default );
  
 		$field_id = $this->get_field_id('title');
@@ -284,6 +359,22 @@ class Ecs_Commented_Posts_Widget extends WP_Widget {
 		$field_id = $this->get_field_id('nbposts');
 		$field_name = $this->get_field_name('nbposts');
 		echo "\r\n".'<p><label for="'.$field_id.'">'.__('Nb Articles').': <input type="text" class="widefat" id="'.$field_id.'" name="'.$field_name.'" value="'.attribute_escape( $instance['nbposts'] ).'" /><label></p>';
+
+		$field_id = $this->get_field_id('excerpt_length');
+		$field_name = $this->get_field_name('excerpt_length');
+		echo "\r\n".'<p><label for="'.$field_id.'">'.__('Longueur extrait').': <input type="text" class="widefat" id="'.$field_id.'" name="'.$field_name.'" value="'.attribute_escape( $instance['excerpt_length'] ).'" /><label></p>';	
+
+		$field_id = $this->get_field_id('show_category');
+		$field_name = $this->get_field_name('show_category');
+		echo "\r\n".'<p><label for="'.$field_id.'"><input type="checkbox"  id="'.$field_id.'" name="'.$field_name.'" value="1"'.checked($instance['show_category'], true, false ).' /> '.__('Afficher la catégorie').'<label></p>';	
+
+		$field_id = $this->get_field_id('show_comments');
+		$field_name = $this->get_field_name('show_comments');
+		echo "\r\n".'<p><label for="'.$field_id.'"><input type="checkbox"  id="'.$field_id.'" name="'.$field_name.'" value="1"'.checked($instance['show_comments'], true, false ).' /> '.__('Afficher nb de commentaires').'<label></p>';	
+
+		$field_id = $this->get_field_id('show_date');
+		$field_name = $this->get_field_name('show_date');
+		echo "\r\n".'<p><label for="'.$field_id.'"><input type="checkbox"  id="'.$field_id.'" name="'.$field_name.'" value="1"'.checked($instance['show_date'], true, false ).' /> '.__('Afficher date de publication').'<label></p>';	
 
 	}
 }
