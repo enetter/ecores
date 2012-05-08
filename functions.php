@@ -56,6 +56,7 @@ function register_ecs_menus() {
 }
 
 include (TEMPLATEPATH . '/ecs_widgets.php');
+include (TEMPLATEPATH . '/carousel.php');
 
 
 	remove_filter('get_the_excerpt', 'wp_trim_excerpt');
@@ -121,8 +122,7 @@ function get_custom_thumbnail($post) {
 		$image_url = home_url('/').$values[0];
 	} else
 	{
-		$image_url = bloginfo('template_directory').'/images/placeholder.png';
-		$image_url = "http://placehold.it/870x4500";
+		$image_url = bloginfo('template_directory').'/images/blank.png';
 	}
 	if (is_array($image_url)) {
 		$image_url = $image_url[0];

@@ -2,7 +2,7 @@
 <div id="page" class="container">
 	<div class="row">
 		<div class="span8">
-				<?php include (TEMPLATEPATH . '/carousel.php'); ?>
+				<?php ecs_carousel("cat='".get_option('ecs_cat_a_la_une')."'"); ?>
 		</div>
 			<div class="span4">
 				<div class="sidebar">

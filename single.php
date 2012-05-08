@@ -13,7 +13,6 @@
 						<h1 class="title" style="color:<?php echo $current_cat_color; ?>"><?php the_title(); ?></h1>
 						<p>Publié le <?php the_time('j F Y') ?></p>
 					</div>
-						
 					
 					<p>
 						<?php the_content('Lire la suite &raquo;'); ?>
