@@ -17,7 +17,7 @@
 	</div>
 	<div class="span6">
 		<span style="color:<?php echo $parent->description ?>"><span style="background-color:<?php echo $parent->description ?>"><i class="icon-chevron-right icon-white"></i></span><?php echo $cat->name ?></span>
-		 / Publié le <?php the_time('j F Y') ?>  par <?php the_author(); ?>&nbsp;
+		 / Publié le <?php the_time('j F Y') ?>&nbsp;
 		<?php if (get_comments_number()>0) : ?>
 			<span class="badge" title="Nb de commentaires"><?php echo get_comments_number(); ?></span>
 		<?php endif; ?>
