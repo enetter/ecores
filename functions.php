@@ -202,6 +202,21 @@ function get_single_top_category($the_post_id){
 	}
 }
 
+function get_post_child_category($the_post_id) {
+	$post_categories = get_the_category($the_post_id);
+	foreach ($post_categories as $key => $post_cat) {
+			if ($post_cat->parent != 0) {
+					return $post_cat;		
+			}
+			else
+			{
+				$tmp_cat = $post_cat;
+			}
+		}
+		return $tmp_cat;
+}
+
+
 function ecs_get_menu_item_from_object($menu_id, $obj) {
 	
 	$menu_items = wp_get_nav_menu_items($menu_id);

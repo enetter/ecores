@@ -1,19 +1,19 @@
 <?php 
 
-function checkbox_checked($value) {
-	print_r($value);
-	if ($value)
-		echo 'checked';
-}
-
 function ecs_widget_post_display($excerpt_length = 20, $cat = '', $has_comments = false ,$has_date = false) {
 
 	// $excerpt_length = empty($instance['excerpt_length']) ? $excerpt_length : $instance['excerpt_length'];
 
 	?>
 	<li>
-		<?php if (!empty($cat)) : ?>
-		<span style="color:<?php echo $cat->description ?>"><span style="background-color:<?php echo $cat->description ?>"><i class="icon-chevron-right icon-white"></i></span><?php echo $cat->name ?></span><br/>
+		<?php if (!empty($cat)) : 
+			if ($cat->parent == 0) 
+				$parent = $cat;
+			else
+				$parent = get_category($cat->parent); 
+		?>
+
+		<span style="color:<?php echo $parent->description ?>"><span style="background-color:<?php echo $parent->description ?>"><i class="icon-chevron-right icon-white"></i></span><?php echo $cat->name ?></span><br/>
 		<? endif; ?>
 		<a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a>
 		<?php 
@@ -23,7 +23,8 @@ function ecs_widget_post_display($excerpt_length = 20, $cat = '', $has_comments 
 		<? endif; ?>
 		<p>
 			<?php 
-				echo ecs_short_excerpt($excerpt_length);
+				if ($excerpt_length>0)
+					echo ecs_short_excerpt($excerpt_length);
 			?>
 			<?php if ($has_date) : ?>
 			<br/>
@@ -100,7 +101,7 @@ class Ecs_Most_Viewed_Widget extends WP_Widget {
 		// print_r($most_viewed);
 		if ($most_viewed->have_posts()): ?>
 			<ul>
-				<?php while ($most_viewed->have_posts()) : $most_viewed->the_post(); if($instance['show_category']) {$cat =  get_single_top_category(get_the_ID());} ?>
+				<?php while ($most_viewed->have_posts()) : $most_viewed->the_post(); if($instance['show_category']) {$cat =  get_post_child_category(get_the_ID());} ?>
 					<? echo ecs_widget_post_display($instance['excerpt_length'], $cat, $instance['show_comments'], $instance['show_date']); ?>
 				<?php endwhile; ?>
 			</ul>
@@ -238,7 +239,7 @@ class Ecs_Recent_Posts_Widget extends WP_Widget {
 	  $recent_posts = new WP_Query(array('post_type'=>'post','posts_per_page'=>$nbposts)); ?>
 		<?php if ($recent_posts->have_posts()):?>
 			<ul>
-				<?php while ($recent_posts->have_posts()) : $recent_posts->the_post(); if($instance['show_category']) {$cat =  get_single_top_category(get_the_ID());} ?>
+				<?php while ($recent_posts->have_posts()) : $recent_posts->the_post(); if($instance['show_category']) {$cat =  get_post_child_category(get_the_ID());} ?>
 					<? echo ecs_widget_post_display($instance['excerpt_length'], $cat, $instance['show_comments'], $instance['show_date']); ?>
 				<?php endwhile; ?>
 			</ul>
@@ -314,7 +315,7 @@ class Ecs_Commented_Posts_Widget extends WP_Widget {
 	  $recent_posts = new WP_Query(array('post_type'=>'post','posts_per_page'=>$nbposts, 'orderby' => 'comment_count')); ?>
 		<?php if ($recent_posts->have_posts()):?>
 			<ul>
-				<?php while ($recent_posts->have_posts()) : $recent_posts->the_post(); if($instance['show_category']) {$cat =  get_single_top_category(get_the_ID());} ?>
+				<?php while ($recent_posts->have_posts()) : $recent_posts->the_post(); if($instance['show_category']) {$cat =  get_post_child_category(get_the_ID());} ?>
 					<? echo ecs_widget_post_display($instance['excerpt_length'], $cat, $instance['show_comments'], $instance['show_date']); ?>
 				<?php endwhile; ?>
 			</ul>

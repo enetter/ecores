@@ -1,4 +1,10 @@
-<?php $cat = get_single_top_category($post->ID); ?>
+<?php 
+	$cat = get_post_child_category($post->ID);
+	if ($cat->parent == 0)
+		$parent = $cat;
+	else
+		$parent = get_category($cat->parent); 
+?>
 <div class="row">
 	<div class="span2">
 		<ul class="thumbnails">
@@ -10,7 +16,7 @@
 		</ul>
 	</div>
 	<div class="span6">
-		<span style="color:<?php echo $cat->description ?>"><span style="background-color:<?php echo $cat->description ?>"><i class="icon-chevron-right icon-white"></i></span><?php echo $cat->name ?></span>
+		<span style="color:<?php echo $parent->description ?>"><span style="background-color:<?php echo $parent->description ?>"><i class="icon-chevron-right icon-white"></i></span><?php echo $cat->name ?></span>
 		 / Publié le <?php the_time('j F Y') ?>  par <?php the_author(); ?>&nbsp;
 		<?php if (get_comments_number()>0) : ?>
 			<span class="badge" title="Nb de commentaires"><?php echo get_comments_number(); ?></span>
