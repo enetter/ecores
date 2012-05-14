@@ -3,9 +3,11 @@
 function ecs_widget_post_display($excerpt_length = 20, $cat = '', $has_comments = false ,$has_date = false) {
 
 	// $excerpt_length = empty($instance['excerpt_length']) ? $excerpt_length : $instance['excerpt_length'];
-
+	if (empty($cat) && $excerpt_length==0)
+		echo '<li class="sidebar-link">';
+	else
+		echo '<li>';
 	?>
-	<li>
 		<?php if (!empty($cat)) : 
 			if ($cat->parent == 0) 
 				$parent = $cat;
