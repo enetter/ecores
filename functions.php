@@ -362,28 +362,30 @@ global $current_top_menu_item;
 			if ($nav_submenu_items) :
 			?>
 				<div class="subnav subnav-fixed" >
-					<div class="container">
-						<ul class="nav nav-pills">
-				    <?php
-				    	$post_categories = get_the_category();
-				    	//print_r($post_categories_id);
-							foreach ($nav_submenu_items as $key => $item) { 
+					<div class="subnav-inner">
+						<div class="container">
+							<ul class="nav nav-pills">
+					    <?php
+					    	$post_categories = get_the_category();
+					    	//print_r($post_categories_id);
+								foreach ($nav_submenu_items as $key => $item) { 
 
-									foreach ($post_categories as $key => $post_cat) {
-										if ($item->object == 'category' && $item->object_id == $post_cat->term_id) {
-											$selected = true;
-											break;
+										foreach ($post_categories as $key => $post_cat) {
+											if ($item->object == 'category' && $item->object_id == $post_cat->term_id) {
+												$selected = true;
+												break;
+											}
 										}
-									}
-								$selected = ($item->object_id==$current_object_id || $current_menu_item->ID == $item->ID);
-								$menu_class = 'class="menu'.$top_menu_item_id;
-								$menu_class .= ($selected) ? ' active"' : '"';
-								?>
-								<li <?php echo $menu_class; ?>>
-							  		<a href="<?php echo $item->url; ?>"><?php echo $item->title; ?></a>
-							  </li>
-							<?php } ?>
-						</ul>
+									$selected = ($item->object_id==$current_object_id || $current_menu_item->ID == $item->ID);
+									$menu_class = 'class="menu'.$top_menu_item_id;
+									$menu_class .= ($selected) ? ' active"' : '"';
+									?>
+									<li <?php echo $menu_class; ?>>
+								  		<a href="<?php echo $item->url; ?>"><?php echo $item->title; ?></a>
+								  </li>
+								<?php } ?>
+							</ul>
+						</div>
 					</div>
 			  </div>
 		<?php endif; ?>
