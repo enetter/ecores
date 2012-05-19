@@ -2,7 +2,7 @@
 Theme Name: EcoRes
 Theme URI: http://github.com/enetter/ecores/
 Description: <a href="http://github.com/enetter/ecores/">EcoRes</a> est un thème Wordpress basé sur Twitter Bootstrap. 
-Version: 0.7.6 Beta
+Version: 0.7.7 Beta
 Author: Emmanuel Netter
 Author URI: http://cplusn.com/
 
@@ -37,12 +37,12 @@ body, p {
 	font-weight: 300;
 }
 a {
-	color: #222;
+	color: #333;
 	font-weight: bold;
 }
 
 a:hover {
-	color: #222;
+	color: #333;
 }
 
 blockquote p {
@@ -215,6 +215,8 @@ blockquote p {
 	margin-bottom:0px;
 }
 
+/* SIDEBARS */
+
 .sidebar h3, .frontpage-cat h3 {
 	padding:8px 2px 0px 2px;
 	border-top: 10px solid grey;	
@@ -256,8 +258,8 @@ blockquote p {
 
 #sidebar-block > div > ul > li > span, div.row div.span6 span  {
 	font-weight: 500;
-
 }
+
 #sidebar-block > div > ul > li > span span, div.row div.span6 span span {
 	padding-left: 3px;
 	padding-right: 3px;
@@ -265,6 +267,19 @@ blockquote p {
 	margin-right: 3px;
 	background-color: #555;
 }
+
+.menu-reverse {
+	padding: 8px 10px 4px 10px;
+	margin-bottom: 9px;
+}
+
+.menu-reverse h3, .menu-reverse a {
+	color: white;
+	border: 0px;
+}
+
+/* A L'AFFICHE, FRONTPAGE */
+
 .frontpage {
 	background-color: rgba(0,0,0,0.75);
 	position: relative;
@@ -272,7 +287,6 @@ blockquote p {
 	margin-top: -54px;
 	color: white;
 }
-
 
 
 .row.alaffiche {
@@ -365,6 +379,8 @@ blockquote p {
 	font-size: 90%;
 }
 
+/* FOOTER */
+
 .footer {
 	background-color: whiteSmoke;
 	border-top:	1px lightgrey solid;
@@ -378,16 +394,6 @@ blockquote p {
 
 .footer h3, .footer p {
 	margin: 5px 0 3px;
-}
-
-/* NEWSLETTER */ 
-
-.newsletter input {
-	width:90%;
-}
-
-.newsletter input[type=submit] {
-	width:75px;
 }
 
 /* THUMBNAIL */
@@ -422,6 +428,39 @@ a.thumbnail:hover {
 
 .pager .current {
 	background-color: whiteSmoke;
+}
+
+/* MULTI PAGE POST */
+
+select.multi-page-post {
+	width:100%;
+}
+
+/* NEWSLETTER */ 
+
+.sidebar > ul > div > div.wysija-msg {
+	margin-bottom:0px;
+	padding: 0px;
+}
+
+input.wysija-email {
+	width:95%;
+}
+
+p.wysija-instruct {
+	margin-bottom: 6px;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+input[type=submit].wysija-submit {
+	width:100%;
+	position: relative;
+	top: -20px;
+	margin-bottom:0px;
+}
+form#form-wysija-3 {
+	margin: 0;
 }
 
 /* Wide layout */

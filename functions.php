@@ -409,7 +409,19 @@ global $current_top_menu_item;
 	}
 }
 
-
+function ecs_multi_page_post($current_post_id, $posts_array) {
+	if(!empty($posts_array)) {
+		$count = 1;
+		$output = '<select id="multi-page-post" class="multi-page-post">';
+		foreach ($posts_array as $post_id) {
+			$post = get_post($post_id);
+			$output .= '<option '.selected( $post_id, $current_post_id, false).' value="'.get_permalink($post->ID).'">'.$count.' - '.$post->post_title.'</option>';
+			$count += 1;
+		}
+		$output .= '</select>';
+		echo $output;
+	}
+}
 
 /////////////////////////////////
 

@@ -17,6 +17,12 @@
 						<p>
 							<?php the_content('Lire la suite &raquo;'); ?>
 						</p>
+							<?php
+					$multi_page_post = get_post_custom_values('multi-page-post');
+					if (!empty($multi_page_post)) {
+					$posts_array = explode(",", $multi_page_post[0]); 
+					ecs_multi_page_post(get_the_ID(),$posts_array);
+					} ?>
 						<p>
 							<br/>
 						<span class="label">Tags</span>

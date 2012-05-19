@@ -76,6 +76,82 @@ class Ecs_RSS_Widget extends WP_Widget {
 	}
 }
 
+// White on color Menu
+class Ecs_Menu_Widget extends WP_Widget {
+	function widget($args, $instance) {
+		extract($args, EXTR_SKIP);
+		$title = empty($instance['title']) ? '&nbsp;ECS Menu Widget' : apply_filters('widget_title', $instance['title']);
+		$nav_menu = ! empty( $instance['nav_menu'] ) ? wp_get_nav_menu_object( $instance['nav_menu'] ) : false;
+		$color = $instance['color'];
+		echo '<div class="menu-reverse" style="background-color:'.$color.'">';
+		echo $before_widget;
+		if ( !empty( $title ) ) { echo $before_title . $title . $after_title; };
+		$args = array(
+			'menu' => $nav_menu,
+			);
+		
+		wp_nav_menu($args);
+		echo $after_widget;
+		echo '</div>';
+	}
+
+	function Ecs_Menu_Widget() {
+		// use parent constructor to re-write standard class properties
+		parent::WP_Widget('ecs_menu', 'EcoRes Menu Widget', array('description' => 'Affiche le menu dont le nom est saisi ci-dessous', 'class' => 'ecores'));	
+	}
+
+	function update($new_instance, $old_instance) {
+		// fill current state with old data to be sure we not loose anything
+		$instance = $old_instance;
+		// for example we want title always have capitalized first letter
+		$instance['title'] = strip_tags($new_instance['title']);
+		$instance['color'] = strip_tags($new_instance['color']);
+		$instance['nav_menu'] = strip_tags($new_instance['nav_menu']);
+		// and now we return new values and wordpress do all work for you
+		return $instance;
+	}
+ 
+	/** @see WP_Widget::form */
+	function form($instance) {
+		$default = 	array( 'title' => __('EcoRes Menu'),'color' => '', 'nav_menu' => '' );
+		$instance = wp_parse_args( (array) $instance, $default );
+ 		$title = isset( $instance['title'] ) ? $instance['title'] : '';
+ 		$color = isset( $instance['color'] ) ? $instance['color'] : '';
+		$nav_menu = isset( $instance['nav_menu'] ) ? $instance['nav_menu'] : '';
+
+
+		// Get menus
+		$menus = get_terms( 'nav_menu', array( 'hide_empty' => false ) );
+
+		// If no menus exists, direct the user to go and create some.
+		if ( !$menus ) {
+			echo '<p>'. sprintf( __('No menus have been created yet. <a href="%s">Create some</a>.'), admin_url('nav-menus.php') ) .'</p>';
+			return;
+		}
+		?>
+		<p>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:') ?></label>
+			<input type="text" class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo $title; ?>" />
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id('nav_menu'); ?>"><?php _e('Select Menu:'); ?></label>
+			<select id="<?php echo $this->get_field_id('nav_menu'); ?>" name="<?php echo $this->get_field_name('nav_menu'); ?>">
+		<?php
+			foreach ( $menus as $menu ) {
+				$selected = $nav_menu == $menu->term_id ? ' selected="selected"' : '';
+				echo '<option'. $selected .' value="'. $menu->term_id .'">'. $menu->name .'</option>';
+			}
+		?>
+			</select>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id('color'); ?>"><?php _e('Color:') ?></label>
+			<input type="text" class="widefat" id="<?php echo $this->get_field_id('color'); ?>" name="<?php echo $this->get_field_name('color'); ?>" value="<?php echo $color; ?>" />
+		</p>
+		<?php 
+	}
+}
+
 // Most viewed
 class Ecs_Most_Viewed_Widget extends WP_Widget {
 	function widget($args, $instance) {
@@ -384,6 +460,7 @@ class Ecs_Commented_Posts_Widget extends WP_Widget {
 
 
 register_widget('Ecs_RSS_Widget');
+register_widget('Ecs_Menu_Widget');
 register_widget('Ecs_Most_Viewed_Widget');
 register_widget('Ecs_Related_Posts_Widget');
 register_widget('Ecs_Recent_Posts_Widget');

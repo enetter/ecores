@@ -17,7 +17,6 @@
 
 	<link rel="icon" href="<?php bloginfo('template_directory'); ?>/images/favicon.ico" />
 	<link rel="shortcut icon" href="<?php bloginfo('template_directory'); ?>/images/favicon.ico" />
-	<link rel="stylesheet" type="text/css" href="<?php bloginfo('stylesheet_url'); ?>">
 	<?php wp_head(); ?>
 	<style><?php  if (get_option('ecs_menu_or_cats_nav')==0) {
 									echo menu_color_css('main'); 
