@@ -9,7 +9,6 @@
 				<div class="row" id="post-<?php the_ID(); ?>">
 					<div class="span8">
 						<div class="page-header">
-							<?php edit_post_link('Modifier', '<span class="btn pull-right">', '</span>'); ?>
 							<h1 class="title" style="color:<?php echo $current_cat_color; ?>"><?php the_title(); ?></h1>
 							<p>Publié le <?php the_time('j F Y') ?></p>
 						</div>

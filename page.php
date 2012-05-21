@@ -12,19 +12,18 @@
 						$hide_title = get_post_custom_values('hide_title');
 						if ($hide_title[0]!=1) : ?>
 						<div class="page-header">
-							<?php edit_post_link('Modifier', '<span class="btn pull-right">', '</span>'); ?>
 							<h1 class="title"><?php the_title(); ?></h1>
 						</div>
 						<?php 
 							endif;
 							$carousel_pages = get_post_custom_values('carousel_pages');
 							$pages_array = explode(",", $carousel_pages[0]);
-							if(!empty($pages_array)) : ?>
-								<?php ecs_carousel(array('post_type' => 'page', 'post__in' => $pages_array)); ?>
-							<?php endif; ?>
-							<p>
+							if(!empty($carousel_pages)) {
+								ecs_carousel(array('post__in' => $pages_array));
+							} ?>
+							
 							<?php the_content('Lire la suite &raquo;'); ?>
-						</p>
+						
 						<p>
 							<br/>
 						<p>

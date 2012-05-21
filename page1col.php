@@ -22,13 +22,13 @@ get_header(); ?>
 							endif;
 							$carousel_pages = get_post_custom_values('carousel_pages');
 							$pages_array = explode(",", $carousel_pages[0]);
-							if(!empty($pages_array)) : ?>
+							if(!empty($carousel_pages)) : ?>
 								<?php ecs_carousel(array('post__in' => $pages_array), 12); ?>
 							<?php endif; ?>
-							<p>
+							
 							<?php the_content('Lire la suite &raquo;'); ?>
-						</p>
-						<p>
+						
+						
 							<br/>
 						<p>
 							<?php wp_link_pages(array('before' => '<p><strong>Pages:</strong> ', 'after' => '</p>', 'next_or_number' => 'number')); ?>
