@@ -27,6 +27,12 @@
 						<p>
 							<br/>
 						<p>
+							<?php
+								$multi_page_post = get_post_custom_values('multi-page-post');
+								if (!empty($multi_page_post)) {
+								$posts_array = explode(",", $multi_page_post[0]); 
+								ecs_multi_page_post(get_the_ID(),$posts_array);
+							} ?>
 							<?php wp_link_pages(array('before' => '<p><strong>Pages:</strong> ', 'after' => '</p>', 'next_or_number' => 'number')); ?>
 						</p>
 					</div>

@@ -409,7 +409,7 @@ global $current_top_menu_item;
 	}
 }
 
-function ecs_multi_page_post($current_post_id, $posts_array) {
+function ecs_multi_page_post($current_post_id, $posts_array, $echo = true) {
 	if(!empty($posts_array)) {
 		$count = 1;
 		$output = '<select id="multi-page-post" class="multi-page-post">';
@@ -419,7 +419,13 @@ function ecs_multi_page_post($current_post_id, $posts_array) {
 			$count += 1;
 		}
 		$output .= '</select>';
-		echo $output;
+		if ($echo) {
+			echo $output;
+		}
+		else
+		{
+			return $output;
+		}
 	}
 }
 
