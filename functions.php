@@ -157,10 +157,10 @@ function category_color_css() {
 function menu_color_css($menu_name) {
 	if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) ) {
 		$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
-	  $menu_items = ecs_get_nav_menu_items($menu->term_id, 0);
+	  $menu_items = ecs_get_nav_menu_items($menu->term_id, -1); // Get all menu items
 		foreach ($menu_items as $key => $item) {
 			$menu_class = 'menu'.$item->ID;
-			if ($item->attr_title) {
+			if ($item->attr_title) {  // if menu item has associated color
 				$output .= '.navbar .nav > li.'.$menu_class.'.active > a, .navbar .nav > li.'.$menu_class.' > a:hover, .subnav .nav > li.'.$menu_class.'.active > a, .subnav .nav > li.'.$menu_class.' > a:hover { background-color:'.$item->attr_title.'; }  ';
 
 			}		
@@ -253,9 +253,15 @@ function ecs_get_menu_item_from_object($menu_id, $obj) {
 	}
 	elseif ($object_type=='page') {
 		foreach ( (array)$menu_items as $key => $menu_item ) {
-			if ($menu_item->object=='page' && $menu_item->object_id==$obj->ID)
-				return $menu_item;
+			// If menu item is a page and associated page id is equal to object or parent 
+			if ($menu_item->object=='page' && ($menu_item->object_id==$obj->ID || $menu_item->object_id==$obj->post_parent)) {
+				if($menu_item->menu_item_parent>0)
+								return $menu_item;
+							else
+								$temp_item = $menu_item;
+			}
 		}
+		return $temp_item;
 	}
 	elseif ($object_type=='forum') {
 		foreach ( (array)$menu_items as $key => $menu_item ) {
@@ -274,7 +280,7 @@ function ecs_get_nav_menu_items($menu_id, $parent_id) {
 	$menu_items = wp_get_nav_menu_items($menu_id);
 	$menu_items_final = array();
 	foreach ( (array)$menu_items as $key => $menu_item ) {
-		if ($menu_item->menu_item_parent==$parent_id)
+		if ($parent_id == -1 || $menu_item->menu_item_parent==$parent_id)
 			$menu_items_final[] = $menu_item;
 		}
 	return $menu_items_final;
@@ -282,7 +288,6 @@ function ecs_get_nav_menu_items($menu_id, $parent_id) {
 
 function ecs_get_top_menu_item_id($menu_item) {
 
-	error_log($menu_item->term_id);
 	if ($menu_item->menu_item_parent == 0)
 		{
 			return $menu_item->ID;
@@ -338,7 +343,7 @@ global $current_top_menu_item;
 												|| in_array($current_menu_item, ecs_get_nav_menu_items($menu->term_id, $item->ID)) 
 												|| $current_menu_item == $item
 												);
-							if ($selected) {}
+							if ($selected)
 								$current_top_menu_item = $item;
 							$menu_class = 'class="menu'.$item->ID;
 							$menu_class .= ($selected) ? ' active"' : '"';
@@ -377,7 +382,10 @@ global $current_top_menu_item;
 											}
 										}
 									$selected = ($item->object_id==$current_object_id || $current_menu_item->ID == $item->ID);
-									$menu_class = 'class="menu'.$top_menu_item_id;
+									if ($item->attr_title)
+										$menu_class = 'class="menu'.$item->ID;
+									else
+										$menu_class = 'class="menu'.$top_menu_item_id;
 									$menu_class .= ($selected) ? ' active"' : '"';
 									?>
 									<li <?php echo $menu_class; ?>>
