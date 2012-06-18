@@ -3,7 +3,7 @@
 
 <head profile="http://gmpg.org/xfn/11">
 	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
-
+  <meta name="viewport" content="width=1170, maximum-scale=1.0" />
 	<title><?php bloginfo('name'); ?> <?php if ( is_single() ) { ?> &raquo; Blog Archive <?php } ?> <?php wp_title(); ?></title>
 
 	<meta name="generator" content="WordPress <?php bloginfo('version'); ?>" /> <!-- leave this for stats -->
@@ -27,13 +27,13 @@
 	?></style>
 </head>
 <body>
-	<div class="hero-unit header" style="background-image:url('<?php
+	<div class="hero-unit header" style="background:url('<?php
 		if (get_option('ecs_logo')=='') {
 			echo bloginfo('template_directory').'/images/logo.png';
 		} else {
 			echo bloginfo('wpurl').get_option('ecs_logo');
 		}
-	?>')">
+	?>') repeat-x left top">
 		<div class="container">
 		<h1><?php bloginfo('title'); ?></h1>
 		<p ><?php bloginfo('description'); ?></p>
