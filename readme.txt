@@ -1,7 +1,7 @@
 EcoRes par Emmanuel Netter
 basé sur Twitter Bootstrap
 (c) 2012 Emmanuel NETTER pour cplusn.com
-Version 0.7
+Version 0.8.5
 Distribué sous licence GPL v3 (voir le fichier gpl-3.0.txt présent dans le 
 répertoire d'installation du programme).
 
