@@ -24,13 +24,16 @@
 				} else {
 					include (TEMPLATEPATH . '/frontpage_cats.php');
 				}
-				
+				$option = get_option('ecs_col_centre_or_right');
 			?>	
+			<?php 
+  			$option = get_option('ecs_col_centre_or_right');
+			?>  
 			<div class="span2">
-				<?php  get_sidebar('middle-index'); ?>
+				<?php  if ($option==0) { get_sidebar('middle-index');} else {get_sidebar('right');} ?>
 			</div>
 			<div class="span2">
-				<?php  get_sidebar('right'); ?>
+				<?php  if ($option==0) { get_sidebar('right');} else {get_sidebar('middle-index');} ?>
 			</div>
 		<!-- Outer row -->
 		</div>
