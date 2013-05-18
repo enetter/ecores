@@ -64,3 +64,8 @@ image à la une" dans l'interface de saisie d'un article.
 Support
 Le dépôt de code d’EcoRes se trouve sur github.com/enetter/ecores. Les 
 incidents sont à remonter à github.com/enetter/ecores/issues.
+
+Versions
+0.8.5 :   Correction du défaut d'alignement de la barre de menu principale
+          Ajout de la possibilité de positionner la colonne commune au centre plutôt
+          qu'à droite

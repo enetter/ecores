@@ -17,11 +17,18 @@ $options[] = array(	"name" => "Carousel",
 					"options" => $alt_categories);
 
 $options[] = array(	"name" => "Navigation par menu ou catégories",
-					"desc" => "Souahitez-vous que la navigation soit gérée par un menu Wordpress ou par la liste des catégories ?",
+					"desc" => "Souhaitez-vous que la navigation soit gérée par un menu Wordpress ou par la liste des catégories ?",
 					"id" => $shortname."_menu_or_cats_nav",
 					"std" => "0",
 					"type" => "radio",
 					"options" => array('Menu', 'Catégories'));
+
+$options[] = array(	"name" => "Position de la colonne commune",
+					"desc" => "Souhaitez-vous que la colonne commune soit au centre ou à droite ?",
+					"id" => $shortname."_col_centre_or_right",
+					"std" => "0",
+					"type" => "radio",
+					"options" => array('A droite', 'Au centre'));
 
 $options[] = array(	"name" => "A l'affiche",
 					"type" => "heading");

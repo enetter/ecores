@@ -31,12 +31,15 @@
 	</div>
 
 
-<div class="span2">
-	<?php get_sidebar('middle-archive'); ?>
-</div>
-<div class="span2">
-  <?php get_sidebar('right'); ?>
-</div>
+		<?php 
+  		$option = get_option('ecs_col_centre_or_right');
+		?>  
+		<div class="span2">
+		  <?php  if ($option==0) { get_sidebar('middle-archive');} else {get_sidebar('right');} ?>
+		</div>
+		<div class="span2">
+		  <?php  if ($option==0) { get_sidebar('right');} else {get_sidebar('middle-archive');} ?>
+		</div>
 
 </div>
 </div>
