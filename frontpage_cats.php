@@ -8,9 +8,11 @@ for ($i=1; $i <5 ; $i++) {
 				<a href="<?php echo get_category_link( $cat->cat_ID ); ?>"><h3 <?php if ($cat->description) : ?>style="border-top: 10px solid <?php echo $cat->description ?>; color:<?php echo $cat->description ?>;" <?php endif; ?>><?php echo $cat->name ?></h3></a>
 					<ul>
 				<?php 
-					query_posts("cat=".$cat_id.",-".get_option('ecs_cat_a_la_une')."&posts_per_page=<?php echo get_option('ecs_nb_a_l_affiche'); ?>"); 
+					$args = array( 'posts_per_page' => get_option('ecs_nb_a_l_affiche'), 'category' => $cat_id.",-".get_option('ecs_cat_a_la_une') );
+
+					$myposts = get_posts( $args );
 					$nbposts = 0;
-					while (have_posts()) : the_post(); $nbposts += 1;?>
+					foreach ( $myposts as $post ) : setup_postdata( $post ); $nbposts += 1; ?>
 						<?php if ($nbposts == 1) { ?>
 							<li class="frontpage-cat-first">
 								<div class="thumbnail">
@@ -29,7 +31,8 @@ for ($i=1; $i <5 ; $i++) {
 							<? echo ecs_widget_post_display(20, '', true, true); ?>
 						<?php } ?>
 						<?php if ($nbposts == $maxposts) { break; }?>
-					<?php endwhile; ?>
+					<?php endforeach; 
+						wp_reset_postdata();?>
 				</ul>
 			</div>
 	<?php }

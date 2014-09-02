@@ -4,9 +4,10 @@
 			</div>
 			<div class="span8" >
 					<?php	$page = (get_query_var('paged')) ? get_query_var('paged') : 1;
-								query_posts("cat=".get_option('ecs_cat_a_l_affiche')."&paged=$page&posts_per_page=.get_option('posts_per_page')"); 
-							  $nbposts=0; $maxposts=get_option('ecs_nb_a_l_affiche'); ?>
-					<?php while (have_posts()) : the_post(); $cat =  get_single_top_category(get_the_ID()); ?>
+								$args = array( 'paged' => $page, 'posts_per_page' => get_option('posts_per_page'), 'category' => get_option('ecs_cat_a_l_affiche') );
+
+								$myposts = new WP_Query( $args );  ?>
+					<?php while ($myposts->have_posts()) : $myposts->the_post(); $cat =  get_single_top_category(get_the_ID()); ?>
 						<?php $nbposts=$nbposts+1 ?>
 						<?php if ($nbposts % 2 == 1) { ?>
 							<div class="row">
